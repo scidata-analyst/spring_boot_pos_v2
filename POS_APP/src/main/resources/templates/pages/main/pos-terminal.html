@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POS Terminal — VANTA POS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../pos-styles.css" />
+</head>
+<body>
+    <nav th:replace="~{fragments/sidebar :: sidebar(activePage='pos-terminal', activeGroup='null')}"></nav>
+  <header id="header">
+    <button class="header-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    <div class="header-breadcrumb">
+      <i class="bi bi-shop" style="color:var(--amber)"></i>
+      <span class="hb-sep">/</span>
+      <span class="hb-current">POS Terminal</span>
+    </div>
+    <div class="header-search">
+      <span class="hs-icon"><i class="bi bi-search"></i></span>
+      <input type="text" placeholder="Search products, orders…" />
+    </div>
+    <div class="header-actions">
+      <div class="h-btn" title="Notifications"><i class="bi bi-bell"></i><span class="h-badge">3</span></div>
+      <div class="h-btn" title="Low Stock Alerts" th:onclick="|location.href='@{/restock-alerts}'|" style="cursor:pointer">
+        <i class="bi bi-exclamation-triangle"></i><span class="h-badge" style="background:var(--amber)">5</span>
+      </div>
+      <button class="h-pos-btn" th:onclick="|location.href='@{/pos-terminal}'|">
+        <i class="bi bi-display"></i> Open POS
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-section active">
+      <div class="pos-terminal">
+        <div class="terminal-products">
+          <div class="tp-header">
+            <div class="tp-search"><span class="si"><i class="bi bi-upc-scan"></i></span><input type="text" placeholder="Scan barcode or search product…" id="pos-search" oninput="filterPosProducts(this.value)" /></div>
+            <button class="btn-pos btn-outline-dark btn-sm" style="white-space:nowrap"><i class="bi bi-camera"></i> Scan</button>
+          </div>
+          <div class="tp-cats">
+            <button class="cat-btn active" onclick="filterCat(this,'all')">All</button>
+            <button class="cat-btn" onclick="filterCat(this,'food')">🍔 Food &amp; Bev</button>
+            <button class="cat-btn" onclick="filterCat(this,'electronics')">🔌 Electronics</button>
+            <button class="cat-btn" onclick="filterCat(this,'apparel')">👕 Apparel</button>
+            <button class="cat-btn" onclick="filterCat(this,'care')">🧴 Personal Care</button>
+            <button class="cat-btn" onclick="filterCat(this,'home')">🏠 Home</button>
+          </div>
+          <div class="tp-grid" id="product-grid"></div>
+        </div>
+        <div class="terminal-cart">
+          <div class="cart-header">
+            <div class="cart-title">🛒 Cart</div>
+            <div class="d-flex gap-2 align-items-center">
+              <select class="pos-input" style="width:130px;font-size:12px" id="cart-customer">
+                <option value="">Walk-in Customer</option><option>Rina Ahmed (Gold)</option><option>Karim Hossain (Silver)</option><option>Farida B. (VIP)</option>
+              </select>
+              <button class="btn-pos btn-outline-dark btn-sm btn-icon-sq" onclick="clearCart()" title="Clear cart"><i class="bi bi-trash3"></i></button>
+            </div>
+          </div>
+          <div class="cart-items" id="cart-list">
+            <div class="cart-empty" id="cart-empty"><div class="ce-icon">🛒</div><div>Cart is empty</div><div style="font-size:11px;color:var(--text-muted)">Click a product or scan barcode</div></div>
+          </div>
+          <div class="cart-summary">
+            <div class="cs-row"><span>Subtotal</span><span id="cs-sub">$0.00</span></div>
+            <div class="cs-row"><span>Discount <button onclick="openModal('modal-discount')" style="background:none;border:none;color:var(--amber);font-size:11px;cursor:pointer;padding:0 0 0 4px"><i class="bi bi-pencil-fill"></i></button></span><span id="cs-disc" style="color:var(--rose)">-$0.00</span></div>
+            <div class="cs-row"><span>Tax (15%)</span><span id="cs-tax">$0.00</span></div>
+            <div class="cs-row total"><span>Total</span><span id="cs-total">$0.00</span></div>
+          </div>
+          <div class="cart-actions">
+            <button class="hold-btn" onclick="holdOrder()" title="Hold order"><i class="bi bi-pause-circle"></i></button>
+            <button class="pay-btn" onclick="openModal('modal-payment')" id="pay-now-btn"><i class="bi bi-check2-circle"></i> Pay Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Delete Confirm -->
+  <div id="modal-delete" class="pos-modal-bg">
+    <div class="pos-modal" style="max-width:380px">
+      <div class="modal-hd">
+        <div class="modal-hd-title" style="color:var(--rose)"><i class="bi bi-trash3 me-2"></i>Confirm Delete</div>
+        <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+      </div>
+      <div class="modal-ft">
+        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
+        <button class="btn-pos btn-rose" onclick="deleteConfirmed()"><i class="bi bi-trash3"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast-wrap" id="toast-container"></div>
+
+  <!-- Discount Modal -->
+  <div id="modal-discount" class="pos-modal-bg">
+    <div class="pos-modal" style="max-width:360px">
+      <div class="modal-hd"><div class="modal-hd-title">Apply Discount</div><div class="modal-x" onclick="closeModal('modal-discount')">×</div></div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12"><label class="pos-label">Discount Type</label><div class="d-flex gap-2"><button class="btn-pos btn-outline-dark btn-sm" id="disc-pct" onclick="setDiscType('pct')">%</button><button class="btn-pos btn-amber btn-sm" id="disc-fixed" onclick="setDiscType('fixed')">Fixed $</button></div></div>
+          <div class="col-12"><label class="pos-label">Amount</label><input class="pos-input" type="number" id="disc-val" placeholder="0" /></div>
+          <div class="col-12"><label class="pos-label">Coupon Code (optional)</label><input class="pos-input" placeholder="SAVE20" /></div>
+        </div>
+      </div>
+      <div class="modal-ft"><button class="btn-pos btn-outline-dark" onclick="closeModal('modal-discount')">Cancel</button><button class="btn-pos btn-amber" onclick="applyDiscount()">Apply</button></div>
+    </div>
+  </div>
+  <!-- Payment Modal -->
+  <div id="modal-payment" class="pos-modal-bg">
+    <div class="pos-modal" style="max-width:440px">
+      <div class="modal-hd"><div class="modal-hd-title">💳 Process Payment</div><div class="modal-x" onclick="closeModal('modal-payment')">×</div></div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between mb-3" style="font-size:22px;font-weight:700"><span>Total Due</span><span style="color:var(--amber)" id="pay-total-display">$0.00</span></div>
+        <div class="pay-mode-grid mb-3">
+          <button class="pay-mode-btn selected" onclick="selectPayMode(this)"><div class="pmb-icon">💵</div><div class="pmb-label">Cash</div></button>
+          <button class="pay-mode-btn" onclick="selectPayMode(this)"><div class="pmb-icon">💳</div><div class="pmb-label">Card</div></button>
+          <button class="pay-mode-btn" onclick="selectPayMode(this)"><div class="pmb-icon">📱</div><div class="pmb-label">bKash</div></button>
+          <button class="pay-mode-btn" onclick="selectPayMode(this)"><div class="pmb-icon">🏦</div><div class="pmb-label">Nagad</div></button>
+        </div>
+        <div class="mb-3"><label class="pos-label">Amount Tendered</label><input class="pos-input" type="number" id="pay-tendered" placeholder="0.00" style="font-size:18px" oninput="calcChange()" /></div>
+        <div class="d-flex justify-content-between p-3 rounded" style="background:var(--bg-elevated);border:1.5px solid var(--border)"><span style="font-size:14px;font-weight:700">Change</span><span style="font-size:18px;font-weight:700;color:var(--teal)" id="pay-change">$0.00</span></div>
+      </div>
+      <div class="modal-ft"><button class="btn-pos btn-outline-dark" onclick="closeModal('modal-payment')">Cancel</button><button class="btn-pos btn-amber" onclick="completeSale()"><i class="bi bi-check2-circle"></i> Complete Sale</button></div>
+    </div>
+  </div>
+  <!-- Receipt Modal -->
+  <div id="modal-receipt" class="pos-modal-bg">
+    <div class="pos-modal" style="max-width:360px">
+      <div class="modal-hd"><div class="modal-hd-title">🧾 Receipt Preview</div><div class="modal-x" onclick="closeModal('modal-receipt')">×</div></div>
+      <div class="modal-body">
+        <div class="receipt-preview">
+          <div class="rp-header"><div class="rp-store">VANTA RETAIL</div><div style="font-size:10px">Main Branch · 123 Market Street</div><div style="font-size:10px">Tel: +880-2-1234567</div></div>
+          <div class="rp-divider"></div>
+          <div style="font-size:10px;margin-bottom:6px">TXN: #TXN-8841 · Jan 12, 2025 14:32<br>Cashier: Sara · Counter 1</div>
+          <div class="rp-divider"></div>
+          <div class="rp-row"><span>Cold Brew Coffee x2</span><span>$8.00</span></div>
+          <div class="rp-row"><span>Cadbury Chocolate x3</span><span>$4.50</span></div>
+          <div class="rp-row"><span>Dove Lotion 400ml x1</span><span>$9.00</span></div>
+          <div class="rp-divider"></div>
+          <div class="rp-row"><span>Subtotal</span><span>$21.50</span></div>
+          <div class="rp-row"><span>Discount (SAVE20)</span><span>-$4.30</span></div>
+          <div class="rp-row"><span>Tax (15%)</span><span>$2.58</span></div>
+          <div class="rp-divider"></div>
+          <div class="rp-row rp-total"><span>TOTAL</span><span>$19.78</span></div>
+          <div class="rp-footer">Thank you for shopping at Vanta!<br>Loyalty Points Earned: +20 pts</div>
+        </div>
+      </div>
+      <div class="modal-ft"><button class="btn-pos btn-outline-dark" onclick="closeModal('modal-receipt')">Close</button><button class="btn-pos btn-outline-dark" onclick="showToast('SMS sent','success')"><i class="bi bi-phone"></i> SMS</button><button class="btn-pos btn-amber" onclick="showToast('Printing receipt…','info')"><i class="bi bi-printer"></i> Print</button></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+    function toggleMenu(btn) {
+      const sub = btn.nextElementSibling;
+      const open = sub.classList.contains('open');
+      document.querySelectorAll('.nav-submenu.open').forEach(m => {
+        m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
+      });
+      if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
+    }
+    function openModal(id) { document.getElementById(id)?.classList.add('show'); }
+    function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
+    document.querySelectorAll('.pos-modal-bg').forEach(m =>
+      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
+    });
+    let delTarget = '';
+    function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
+    function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
+    function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
+    function showToast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = 'pos-toast ' + type;
+      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+      t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
+      document.getElementById('toast-container').appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
+      setTimeout(() => t.remove(), 2900);
+    }
+    function filterTable(input, tableId) {
+      const q = input.value.toLowerCase();
+      document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+    document.querySelectorAll('.pos-pagination').forEach(pg => {
+      pg.addEventListener('click', e => {
+        const btn = e.target.closest('.pg-n');
+        if (btn && !btn.querySelector('.bi-chevron-right')) {
+          pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const POS_PRODUCTS = [
+      {id:1,name:"Cold Brew Coffee",price:4.00,category:"food",emoji:"☕",stock:12},
+      {id:2,name:"Cadbury Chocolate 45g",price:1.50,category:"food",emoji:"🍫",stock:210},
+      {id:3,name:"Orange Juice 330ml",price:2.50,category:"food",emoji:"🍊",stock:44},
+      {id:4,name:"Energy Bar",price:3.00,category:"food",emoji:"🍫",stock:30},
+      {id:5,name:"JBL Earbuds",price:49.00,category:"electronics",emoji:"🎧",stock:3},
+      {id:6,name:"USB-C Cable 1m",price:8.00,category:"electronics",emoji:"🔌",stock:22},
+      {id:7,name:"Phone Holder",price:12.00,category:"electronics",emoji:"📱",stock:15},
+      {id:8,name:"Power Bank 10K",price:25.00,category:"electronics",emoji:"🔋",stock:8},
+      {id:9,name:"Polo T-Shirt (M)",price:20.00,category:"apparel",emoji:"👕",stock:36},
+      {id:10,name:"Polo T-Shirt (L)",price:20.00,category:"apparel",emoji:"👕",stock:28},
+      {id:11,name:"Sports Socks Pack",price:6.00,category:"apparel",emoji:"🧦",stock:50},
+      {id:12,name:"Dove Lotion 400ml",price:9.00,category:"care",emoji:"🧴",stock:8},
+      {id:13,name:"Shampoo 250ml",price:5.50,category:"care",emoji:"🧴",stock:22},
+      {id:14,name:"Toothpaste 100g",price:2.80,category:"care",emoji:"🦷",stock:60},
+      {id:15,name:"Notebook A5",price:4.50,category:"home",emoji:"📓",stock:40},
+      {id:16,name:"Ballpoint Pen Pack",price:2.00,category:"home",emoji:"✏️",stock:80},
+    ];
+    let cart={},cartDiscount=0;const TAX_RATE=0.15;
+    function renderProducts(filter='all',search=''){
+      const grid=document.getElementById('product-grid');if(!grid)return;
+      const filtered=POS_PRODUCTS.filter(p=>(filter==='all'||p.category===filter)&&p.name.toLowerCase().includes(search.toLowerCase()));
+      grid.innerHTML=filtered.map(p=>`<div class="prod-tile ${p.stock===0?'out-of-stock':''}" onclick="addToCart(${p.id})" title="${p.stock===0?'Out of stock':'Click to add'}"><div class="pt-emoji">${p.emoji}</div><div class="pt-name">${p.name}</div><div class="pt-price">$${p.price.toFixed(2)}</div><div class="pt-stock">${p.stock===0?'Out of stock':p.stock+' in stock'}</div></div>`).join('')||'<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:24px;font-size:13px">No products found</div>';
+    }
+    function filterCat(btn,cat){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderProducts(cat,document.getElementById('pos-search')?.value||'');}
+    function filterPosProducts(val){const activeCat=document.querySelector('.cat-btn.active')?.dataset?.cat||'all';renderProducts(activeCat,val);}
+    function addToCart(id){const p=POS_PRODUCTS.find(x=>x.id===id);if(!p||p.stock===0)return;if(cart[id]){cart[id].qty++;}else{cart[id]={...p,qty:1};}renderCart();showToast(p.name+' added','success');}
+    function changeQty(id,delta){if(!cart[id])return;cart[id].qty+=delta;if(cart[id].qty<=0)delete cart[id];renderCart();}
+    function removeFromCart(id){delete cart[id];renderCart();}
+    function clearCart(){cart={};cartDiscount=0;renderCart();}
+    function renderCart(){
+      const list=document.getElementById('cart-list');if(!list)return;
+      const items=Object.values(cart);
+      if(items.length===0){list.innerHTML='<div class="cart-empty" id="cart-empty"><div class="ce-icon">🛒</div><div>Cart is empty</div><div style="font-size:11px;color:var(--text-muted)">Click a product or scan barcode</div></div>';updateTotals(0);return;}
+      list.innerHTML=items.map(item=>`<div class="cart-item"><div style="font-size:18px">${item.emoji}</div><div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">$${item.price.toFixed(2)} each</div></div><div class="ci-qty"><button class="ci-qty-btn" onclick="changeQty(${item.id},-1)">−</button><span class="ci-qty-num">${item.qty}</span><button class="ci-qty-btn" onclick="changeQty(${item.id},1)">+</button></div><div class="ci-total">$${(item.price*item.qty).toFixed(2)}</div><button class="ci-remove" onclick="removeFromCart(${item.id})"><i class="bi bi-x"></i></button></div>`).join('');
+      const sub=items.reduce((acc,i)=>acc+i.price*i.qty,0);updateTotals(sub);
+    }
+    function updateTotals(sub){const disc=cartDiscount,tax=(sub-disc)*TAX_RATE,total=sub-disc+tax,s=v=>'$'+Math.max(0,v).toFixed(2),el=id=>document.getElementById(id);if(el('cs-sub'))el('cs-sub').textContent=s(sub);if(el('cs-disc'))el('cs-disc').textContent='-'+s(disc);if(el('cs-tax'))el('cs-tax').textContent=s(Math.max(0,tax));if(el('cs-total'))el('cs-total').textContent=s(Math.max(0,total));if(el('pay-total-display'))el('pay-total-display').textContent=s(Math.max(0,total));}
+    function holdOrder(){showToast('Order held — Counter 1','info');}
+    function selectPayMode(btn){document.querySelectorAll('.pay-mode-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');}
+    function calcChange(){const total=parseFloat(document.getElementById('cs-total')?.textContent?.replace('$','')||0),tendered=parseFloat(document.getElementById('pay-tendered')?.value||0);document.getElementById('pay-change').textContent='$'+Math.max(0,tendered-total).toFixed(2);}
+    function completeSale(){closeModal('modal-payment');clearCart();showToast('Sale completed! Receipt printed 🧾','success');}
+    function setDiscType(t){}
+    function applyDiscount(){const v=parseFloat(document.getElementById('disc-val')?.value||0);cartDiscount=v;const sub=Object.values(cart).reduce((a,i)=>a+i.price*i.qty,0);updateTotals(sub);closeModal('modal-discount');showToast('Discount applied','success');}
+    renderProducts();
+  </script>
+</body>
+</html>
+
+
+
