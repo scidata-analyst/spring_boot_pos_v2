@@ -1,0 +1,657 @@
+{
+  "groups": [
+    {
+      "name": "UsersRoles",
+      "entities": [
+        {
+          "name": "RolesPermissions",
+          "tableName": "roles_permissions",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "roleName", "type": "String"},
+            {"name": "permissions", "type": "String"},
+            {"name": "description", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "CashierAccounts",
+          "tableName": "cashier_accounts",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "username", "type": "String"},
+            {"name": "password", "type": "String"},
+            {"name": "employeeName", "type": "String"},
+            {"name": "email", "type": "String"},
+            {"name": "phoneNumber", "type": "Integer"},
+            {"name": "roleId", "type": "Long"},
+            {"name": "status", "type": "String"},
+            {"name": "lastLogin", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "ActivityLog",
+          "tableName": "activity_log",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "userId", "type": "Long"},
+            {"name": "action", "type": "String"},
+            {"name": "module", "type": "String"},
+            {"name": "description", "type": "String"},
+            {"name": "ipAddress", "type": "String"},
+            {"name": "timestamp", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "entities": [
+        {
+          "name": "ProductCatalog",
+          "tableName": "product_catalog",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "sku", "type": "String"},
+            {"name": "barcodeId", "type": "Long"},
+            {"name": "categoryId", "type": "String"},
+            {"name": "price", "type": "Double"},
+            {"name": "cost", "type": "Double"},
+            {"name": "stock", "type": "Integer"},
+            {"name": "status", "type": "String"},
+            {"name": "unit", "type": "String"},
+            {"name": "salePrice", "type": "Double"},
+            {"name": "costPrice", "type": "Double"},
+            {"name": "stockQty", "type": "Integer"},
+            {"name": "reorderLevel", "type": "Integer"},
+            {"name": "taxRate", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "Categories",
+          "tableName": "categories",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "icon", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "description", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "BarcodeSKU",
+          "tableName": "barcode_sku",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "barcode", "type": "String"},
+            {"name": "sku", "type": "String"},
+            {"name": "productId", "type": "Long"},
+            {"name": "variant", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "BatchExpiry",
+          "tableName": "batch_expiry",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "productId", "type": "Long"},
+            {"name": "batchNumber", "type": "String"},
+            {"name": "expiryDate", "type": "LocalDate"},
+            {"name": "manufacturingDate", "type": "LocalDate"},
+            {"name": "quantity", "type": "Integer"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "StockMovement",
+          "tableName": "stock_movement",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "productId", "type": "Long"},
+            {"name": "type", "type": "String"},
+            {"name": "quantity", "type": "Integer"},
+            {"name": "referenceId", "type": "Long"},
+            {"name": "reason", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "entities": [
+        {
+          "name": "SupplierDirectory",
+          "tableName": "supplier_directory",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "contactPerson", "type": "String"},
+            {"name": "email", "type": "String"},
+            {"name": "phone", "type": "String"},
+            {"name": "address", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "SupplierPayments",
+          "tableName": "supplier_payments",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "supplierId", "type": "Long"},
+            {"name": "amount", "type": "Double"},
+            {"name": "paymentMethod", "type": "String"},
+            {"name": "referenceNumber", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "paymentDate", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "PurchaseOrders",
+          "tableName": "purchase_orders",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "supplierId", "type": "Long"},
+            {"name": "orderNumber", "type": "String"},
+            {"name": "totalAmount", "type": "Double"},
+            {"name": "status", "type": "String"},
+            {"name": "orderDate", "type": "LocalDateTime"},
+            {"name": "expectedDelivery", "type": "LocalDate"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "RestockAlerts",
+          "tableName": "restock_alerts",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "productId", "type": "Long"},
+            {"name": "currentStock", "type": "Integer"},
+            {"name": "reorderLevel", "type": "Integer"},
+            {"name": "status", "type": "String"},
+            {"name": "alertDate", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SalesBilling",
+      "entities": [
+        {
+          "name": "Transactions",
+          "tableName": "transactions",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "invoiceNumber", "type": "String"},
+            {"name": "customerId", "type": "Long"},
+            {"name": "subtotal", "type": "Double"},
+            {"name": "tax", "type": "Double"},
+            {"name": "discount", "type": "Double"},
+            {"name": "totalAmount", "type": "Double"},
+            {"name": "paymentMethod", "type": "String"},
+            {"name": "cashierId", "type": "Long"},
+            {"name": "status", "type": "String"},
+            {"name": "transactionDate", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "Invoices",
+          "tableName": "invoices",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "invoiceNumber", "type": "String"},
+            {"name": "transactionId", "type": "Long"},
+            {"name": "customerId", "type": "Long"},
+            {"name": "totalAmount", "type": "Double"},
+            {"name": "amountPaid", "type": "Double"},
+            {"name": "balanceDue", "type": "Double"},
+            {"name": "status", "type": "String"},
+            {"name": "dueDate", "type": "LocalDate"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "HeldOrders",
+          "tableName": "held_orders",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "orderNumber", "type": "String"},
+            {"name": "cartData", "type": "String", "annotations": ["@Lob"]},
+            {"name": "cashierId", "type": "Long"},
+            {"name": "totalAmount", "type": "Double"},
+            {"name": "holdDate", "type": "LocalDateTime"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "ReturnsRefunds",
+          "tableName": "returns_refunds",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "transactionId", "type": "Long"},
+            {"name": "productId", "type": "Long"},
+            {"name": "quantity", "type": "Integer"},
+            {"name": "refundAmount", "type": "Double"},
+            {"name": "reason", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "returnDate", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PaymentAccounting",
+      "entities": [
+        {
+          "name": "APAR",
+          "tableName": "apar",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "type", "type": "String"},
+            {"name": "referenceId", "type": "Long"},
+            {"name": "customerId", "type": "Long"},
+            {"name": "supplierId", "type": "Long"},
+            {"name": "amount", "type": "Double"},
+            {"name": "dueDate", "type": "LocalDate"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "CashRegister",
+          "tableName": "cash_register",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "registerName", "type": "String"},
+            {"name": "openingBalance", "type": "Double"},
+            {"name": "closingBalance", "type": "Double"},
+            {"name": "cashIn", "type": "Double"},
+            {"name": "cashOut", "type": "Double"},
+            {"name": "status", "type": "String"},
+            {"name": "openedAt", "type": "LocalDateTime"},
+            {"name": "closedAt", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "Reconciliation",
+          "tableName": "reconciliation",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "registerId", "type": "Long"},
+            {"name": "expectedAmount", "type": "Double"},
+            {"name": "actualAmount", "type": "Double"},
+            {"name": "variance", "type": "Double"},
+            {"name": "notes", "type": "String", "annotations": ["@Lob"]},
+            {"name": "status", "type": "String"},
+            {"name": "reconciledAt", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "TaxReports",
+          "tableName": "tax_reports",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "taxType", "type": "String"},
+            {"name": "taxRate", "type": "Double"},
+            {"name": "taxableAmount", "type": "Double"},
+            {"name": "taxAmount", "type": "Double"},
+            {"name": "period", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LoyaltyMembership",
+      "entities": [
+        {
+          "name": "PointsConfig",
+          "tableName": "points_config",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "pointsPerDollar", "type": "Double"},
+            {"name": "redemptionRate", "type": "Double"},
+            {"name": "minimumRedemption", "type": "Integer"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "TierManagement",
+          "tableName": "tier_management",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "tierName", "type": "String"},
+            {"name": "minPoints", "type": "Integer"},
+            {"name": "maxPoints", "type": "Integer"},
+            {"name": "discountPercentage", "type": "Double"},
+            {"name": "benefits", "type": "String", "annotations": ["@Lob"]},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "RetentionTracking",
+          "tableName": "retention_tracking",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "customerId", "type": "Long"},
+            {"name": "lastPurchaseDate", "type": "LocalDate"},
+            {"name": "daysSinceLastPurchase", "type": "Integer"},
+            {"name": "churnRisk", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hardware",
+      "entities": [
+        {
+          "name": "CashDrawer",
+          "tableName": "cash_drawer",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "drawerNumber", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "connectedDevice", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "DevicesPrinters",
+          "tableName": "devices_printers",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "deviceName", "type": "String"},
+            {"name": "deviceType", "type": "String"},
+            {"name": "connectionType", "type": "String"},
+            {"name": "ipAddress", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "QRMobilePay",
+          "tableName": "qr_mobile_pay",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "paymentMethod", "type": "String"},
+            {"name": "qrCode", "type": "String"},
+            {"name": "merchantId", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CustomersCRM",
+      "entities": [
+        {
+          "name": "CustomerDirectory",
+          "tableName": "customer_directory",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "email", "type": "String"},
+            {"name": "phoneNumber", "type": "Integer"},
+            {"name": "loyaltyTier", "type": "String"},
+            {"name": "points", "type": "Float"},
+            {"name": "totalSpent", "type": "Double"},
+            {"name": "visits", "type": "String"},
+            {"name": "lastVisitDate", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "dateOfBirth", "type": "LocalDate"},
+            {"name": "notes", "type": "String", "annotations": ["@Lob"]},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "LoyaltyPoints",
+          "tableName": "loyalty_points",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "customerId", "type": "Long"},
+            {"name": "points", "type": "Integer"},
+            {"name": "transactionId", "type": "Long"},
+            {"name": "type", "type": "String"},
+            {"name": "expiryDate", "type": "LocalDate"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "MembershipsVIP",
+          "tableName": "memberships_vip",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "customerId", "type": "Long"},
+            {"name": "membershipType", "type": "String"},
+            {"name": "startDate", "type": "LocalDate"},
+            {"name": "endDate", "type": "LocalDate"},
+            {"name": "benefits", "type": "String", "annotations": ["@Lob"]},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "PurchaseHistory",
+          "tableName": "purchase_history",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "customerId", "type": "Long"},
+            {"name": "transactionId", "type": "Long"},
+            {"name": "totalAmount", "type": "Double"},
+            {"name": "items", "type": "String", "annotations": ["@Lob"]},
+            {"name": "purchaseDate", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Promotions",
+      "entities": [
+        {
+          "name": "OffersCombos",
+          "tableName": "offers_combos",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "type", "type": "String"},
+            {"name": "discount", "type": "Float"},
+            {"name": "productId", "type": "Long"},
+            {"name": "appliesTo", "type": "String"},
+            {"name": "status", "type": "String"},
+            {"name": "minQuantity", "type": "Integer"},
+            {"name": "validPeriod", "type": "String"},
+            {"name": "used", "type": "Integer"},
+            {"name": "usageLimit", "type": "Integer"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "HappyHour",
+          "tableName": "happy_hour",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "name", "type": "String"},
+            {"name": "startTime", "type": "LocalTime"},
+            {"name": "endTime", "type": "LocalTime"},
+            {"name": "daysOfWeek", "type": "String"},
+            {"name": "discountPercentage", "type": "Double"},
+            {"name": "applicableProducts", "type": "String", "annotations": ["@Lob"]},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "CouponCodes",
+          "tableName": "coupon_codes",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "code", "type": "String"},
+            {"name": "discountType", "type": "String"},
+            {"name": "discountValue", "type": "Double"},
+            {"name": "minOrderAmount", "type": "Double"},
+            {"name": "maxUses", "type": "Integer"},
+            {"name": "usedCount", "type": "Integer"},
+            {"name": "validFrom", "type": "LocalDateTime"},
+            {"name": "validUntil", "type": "LocalDateTime"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ReportsAnalytics",
+      "entities": [
+        {
+          "name": "SalesReports",
+          "tableName": "sales_reports",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "reportType", "type": "String"},
+            {"name": "period", "type": "String"},
+            {"name": "totalSales", "type": "Double"},
+            {"name": "totalTransactions", "type": "Integer"},
+            {"name": "averageOrderValue", "type": "Double"},
+            {"name": "reportData", "type": "String", "annotations": ["@Lob"]},
+            {"name": "generatedAt", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "StockReports",
+          "tableName": "stock_reports",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "reportType", "type": "String"},
+            {"name": "totalProducts", "type": "Integer"},
+            {"name": "lowStockItems", "type": "Integer"},
+            {"name": "outOfStockItems", "type": "Integer"},
+            {"name": "reportData", "type": "String", "annotations": ["@Lob"]},
+            {"name": "generatedAt", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "PLReport",
+          "tableName": "pl_report",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "reportType", "type": "String"},
+            {"name": "period", "type": "String"},
+            {"name": "revenue", "type": "Double"},
+            {"name": "costOfGoods", "type": "Double"},
+            {"name": "grossProfit", "type": "Double"},
+            {"name": "expenses", "type": "Double"},
+            {"name": "netProfit", "type": "Double"},
+            {"name": "reportData", "type": "String", "annotations": ["@Lob"]},
+            {"name": "generatedAt", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"}
+          ]
+        },
+        {
+          "name": "CustomBuilder",
+          "tableName": "custom_builder",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "reportName", "type": "String"},
+            {"name": "queryConfig", "type": "String", "annotations": ["@Lob"]},
+            {"name": "chartType", "type": "String"},
+            {"name": "filters", "type": "String", "annotations": ["@Lob"]},
+            {"name": "createdBy", "type": "Long"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "entities": [
+        {
+          "name": "Dashboard",
+          "tableName": "dashboard",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "widgetType", "type": "String"},
+            {"name": "title", "type": "String"},
+            {"name": "dataSource", "type": "String"},
+            {"name": "configuration", "type": "String", "annotations": ["@Lob"]},
+            {"name": "position", "type": "Integer"},
+            {"name": "status", "type": "String"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "POSTerminal",
+      "entities": [
+        {
+          "name": "POSTerminal",
+          "tableName": "pos_terminal",
+          "fields": [
+            {"name": "id", "type": "Long", "annotations": ["@Id", "@GeneratedValue(strategy = GenerationType.IDENTITY)"]},
+            {"name": "terminalName", "type": "String"},
+            {"name": "terminalCode", "type": "String"},
+            {"name": "storeId", "type": "Long"},
+            {"name": "status", "type": "String"},
+            {"name": "lastSync", "type": "LocalDateTime"},
+            {"name": "createdAt", "type": "LocalDateTime"},
+            {"name": "updatedAt", "type": "LocalDateTime"}
+          ]
+        }
+      ]
+    }
+  ]
+}
