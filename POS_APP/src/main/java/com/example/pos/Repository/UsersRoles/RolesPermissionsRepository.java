@@ -1,0 +1,9 @@
+package com.example.pos.Repository.UsersRoles;
+
+import com.example.pos.Entity.UsersRoles.RolesPermissions;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RolesPermissionsRepository extends JpaRepository<RolesPermissions, Long> {
+}
