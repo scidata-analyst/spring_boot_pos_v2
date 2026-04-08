@@ -1,5 +1,0 @@
-package com.example.pos.Service.Products;
-
-public class BarcodeSKU {
-}
-
