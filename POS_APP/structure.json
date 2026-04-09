@@ -1,5 +1,5 @@
 {
-  "D:\OWN\spring_boot_pos_v2\POS_APP_02\src\main\java\com\example\pos": {
+  "D:\OWN\spring_boot_pos_v2\POS_APP\src\main\java\com\example\pos": {
     "Accounting": ["ApAr", "CashRegister", "Reconciliation", "TaxReports"],
     "Core": ["Dashboard", "PosTerminal"],
     "Customers": ["Customers", "LoyaltyPoints", "Memberships", "PurchaseHistory"],

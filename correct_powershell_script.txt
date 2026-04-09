@@ -1,136 +1,71 @@
-# Base path
-$basePath = "F:\DASHBOARD_APP\GIT_VERSION\ERP\ERP_APP\app\Constants"
+# ==============================
+# Helper function to ensure folder exists
+# ==============================
+function Ensure-Folder($path){
+    if (!(Test-Path $path)) { New-Item -Path $path -ItemType Directory | Out-Null }
+}
 
-# Schema
+# Base path for jobs
+$jobsBasePath = "D:\OWN\spring_boot_pos_v2\POS_APP\src\main\java\com\example\pos\jobs"
+
+# Ensure base jobs folder exists
+Ensure-Folder $jobsBasePath
+
+# Schema (modules and entities)
 $schema = @{
-    "Accounting" = @("ApAr", "Tax", "Gl", "FinReports")
-    "Core" = @("Dashboard", "Settings")
-    "CRM" = @("Support", "Leads", "Interactions")
-    "Documents" = @("DocVersions", "DocLibrary")
-    "Ecommerce" = @("Pos", "OnlineChannels", "InvSync")
-    "HR" = @("Employees", "Performance", "Payroll", "Attendance")
-    "Inventory" = @("StockValuation", "StockMovements", "ProductCatalog", "BatchTracking")
-    "Logistics" = @("Warehouses", "Shipments", "Routes")
-    "Projects" = @("Tasks", "Resources", "ProjectCost")
-    "Production" = @("WorkOrders", "MachineLabor", "Bom")
-    "Purchase" = @("SupplierPayments", "Grn", "PurchaseOrders", "Suppliers")
-    "QualityControl" = @("QcChecklists", "Defects", "Compliance")
-    "Reports" = @("Forecasting", "CustomReports", "BiDashboards")
-    "Sales" = @("Promotions", "Invoices", "SalesOrders", "Customers")
-    "UsersRoles" = @("User", "Roles")
+    "Accounting" = @("ApAr", "CashRegister", "Reconciliation", "TaxReports")
+    "Core" = @("Dashboard", "PosTerminal")
+    "Customers" = @("Customers", "LoyaltyPoints", "Memberships", "PurchaseHistory")
+    "Hardware" = @("CashDrawer", "Devices", "QrMobile")
+    "Loyalty" = @("PointsConfig", "Retention", "TierManagement")
+    "Payment" = @("ApAr", "CashRegister", "Reconciliation", "TaxReports")
+    "Products" = @("Barcodes", "BatchExpiry", "Catalog", "Categories", "StockMovement")
+    "Promos" = @("Coupons", "HappyHour", "Offers")
+    "Reports" = @("CustomReport", "PlReport", "SalesReport", "StockReport")
+    "Sales" = @("HeldOrders", "Invoices", "Returns", "Transactions")
+    "Suppliers" = @("PurchaseOrders", "RestockAlerts", "SupplierPayments", "Suppliers")
+    "Users" = @("ActivityLog", "Cashiers", "Roles")
 }
 
 foreach ($module in $schema.Keys) {
     $entities = $schema[$module]
-    $moduleDir = Join-Path $basePath $module
-    if (!(Test-Path $moduleDir)) { New-Item -Path $moduleDir -ItemType Directory | Out-Null }
+
+    # Create module folder under jobs
+    $moduleJobDir = Join-Path $jobsBasePath $module
+    Ensure-Folder $moduleJobDir
 
     foreach ($entity in $entities) {
-        $ConstantFile = Join-Path $moduleDir "$entity`Constant.php"
-        $varName = ($entity.Substring(0,1).ToLower() + $entity.Substring(1)) + "Constant"
+        $jobFile = Join-Path $moduleJobDir "$entity`Job.java"
 
-        $content = @'
-<?php
+        $jobContent = @"
+package com.example.pos.jobs.$module;
 
-namespace App\Constants\MODULE;
-
-use App\Models\Module\ENTITY;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 /**
- * Class ENTITYConstant
- *
- * Constant for managing ENTITY resources.
- * Provides CRUD operations with JSON responses.
+ * Scheduled job class for $entity.
+ * <p>
+ * This class is responsible for executing recurring tasks related to $entity.
+ * Define job logic inside the execute() method.
  */
-class ENTITYConstant
-{
-    /**
-     * @var ENTITYConstant
-     */
-    protected $VARNAME;
+@Component
+public class ${entity}Job {
 
     /**
-     * ENTITYConstant constructor.
-     *
+     * Executes the scheduled job for $entity.
+     * Runs every hour (customize cron expression as needed).
      */
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * Display all ENTITY records without pagination.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function all()
-    {
-        $data = $this->VARNAME->all();
-    }
-
-    /**
-     * Display a paginated listing of ENTITY resources.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-        
-    }
-
-    /**
-     * Store a newly created ENTITY resource in storage.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(array $data)
-    {
-        
-    }
-
-    /**
-     * Display the specified ENTITY resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-        
-    }
-
-    /**
-     * Update the specified ENTITY resource in storage.
-     *
-     * @param ENTITYRequest $request
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update($id, array $data)
-    {
-        
-    }
-
-    /**
-     * Remove the specified ENTITY resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        
+    @Scheduled(cron = ""0 0 * * * ?"")
+    public void execute() {
+        // TODO: Implement the job logic for $entity
+        System.out.println(""Executing job for $entity..."");
     }
 }
-'@
+"@
 
-        # Replace placeholders
-        $content = $content -replace "MODULE", $module
-        $content = $content -replace "ENTITY", $entity
-        $content = $content -replace "VARNAME", $varName
-
-        # Write to file
-        $content | Out-File -FilePath $ConstantFile -Encoding UTF8
-        Write-Host "Constant created/refactored with comments: $module\$entity`Constant.php"
+        # Write Job file
+        $jobContent | Out-File -FilePath $jobFile -Encoding UTF8
+        Write-Host "Job created: $module\$entity`Job.java"
     }
 }
