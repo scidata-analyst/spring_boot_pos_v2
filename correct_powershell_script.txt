@@ -1,17 +1,23 @@
 # ==============================
 # Helper function to ensure folder exists
 # ==============================
-function Ensure-Folder($path){
-    if (!(Test-Path $path)) { New-Item -Path $path -ItemType Directory | Out-Null }
+function Ensure-Folder($path) {
+    if (!(Test-Path $path)) {
+        New-Item -Path $path -ItemType Directory | Out-Null
+    }
 }
 
-# Base path for jobs
-$jobsBasePath = "D:\OWN\spring_boot_pos_v2\POS_APP\src\main\java\com\example\pos\jobs"
+# ==============================
+# Base path for constants
+# ==============================
+$basePath = "F:\DASHBOARD_APP\GIT_VERSION\POS\POS_APP\src\main\java\com\example\pos\constants"
 
-# Ensure base jobs folder exists
-Ensure-Folder $jobsBasePath
+# Ensure base constants folder exists
+Ensure-Folder $basePath
 
+# ==============================
 # Schema (modules and entities)
+# ==============================
 $schema = @{
     "Accounting" = @("ApAr", "CashRegister", "Reconciliation", "TaxReports")
     "Core" = @("Dashboard", "PosTerminal")
@@ -28,44 +34,83 @@ $schema = @{
 }
 
 foreach ($module in $schema.Keys) {
+
     $entities = $schema[$module]
 
-    # Create module folder under jobs
-    $moduleJobDir = Join-Path $jobsBasePath $module
-    Ensure-Folder $moduleJobDir
+    # Create module folder under constants
+    $moduleDir = Join-Path $basePath $module
+    Ensure-Folder $moduleDir
 
     foreach ($entity in $entities) {
-        $jobFile = Join-Path $moduleJobDir "$entity`Job.java"
 
-        $jobContent = @"
-package com.example.pos.jobs.$module;
+        $filePath = Join-Path $moduleDir "$entity`Constants.java"
 
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+        $content = @"
+package com.example.pos.constants.$module;
 
 /**
- * Scheduled job class for $entity.
+ * =====================================================
+ * Constants class for $entity module.
+ * =====================================================
+ *
  * <p>
- * This class is responsible for executing recurring tasks related to $entity.
- * Define job logic inside the execute() method.
+ * This class holds all constant values related to $entity.
+ * It is designed as a utility class and should not be instantiated.
+ * </p>
+ *
+ * <p>
+ * Naming Convention:
+ * - Constant names are in UPPER_CASE with underscores.
+ * - Group related constants logically.
+ * </p>
+ *
+ * <p>
+ * Usage Example:
+ * <pre>
+ *     String status = ${entity}Constants.STATUS_ACTIVE;
+ * </pre>
+ * </p>
  */
-@Component
-public class ${entity}Job {
+public final class ${entity}Constants {
 
     /**
-     * Executes the scheduled job for $entity.
-     * Runs every hour (customize cron expression as needed).
+     * Private constructor to prevent instantiation.
      */
-    @Scheduled(cron = ""0 0 * * * ?"")
-    public void execute() {
-        // TODO: Implement the job logic for $entity
-        System.out.println(""Executing job for $entity..."");
+    private ${entity}Constants() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
+
+    // ==========================================
+    // Status Constants
+    // ==========================================
+    public static final String STATUS_ACTIVE = "ACTIVE";
+    public static final String STATUS_INACTIVE = "INACTIVE";
+
+    // ==========================================
+    // Default Values
+    // ==========================================
+    public static final int DEFAULT_PAGE_SIZE = 20;
+    public static final int MAX_PAGE_SIZE = 100;
+
+    // ==========================================
+    // Messages
+    // ==========================================
+    public static final String MSG_CREATED_SUCCESS = "$entity created successfully";
+    public static final String MSG_UPDATED_SUCCESS = "$entity updated successfully";
+    public static final String MSG_DELETED_SUCCESS = "$entity deleted successfully";
+
+    // ==========================================
+    // Error Messages
+    // ==========================================
+    public static final String ERR_NOT_FOUND = "$entity not found";
+    public static final String ERR_INVALID_REQUEST = "Invalid request for $entity";
+
 }
 "@
 
-        # Write Job file
-        $jobContent | Out-File -FilePath $jobFile -Encoding UTF8
-        Write-Host "Job created: $module\$entity`Job.java"
+        # Write file
+        $content | Out-File -FilePath $filePath -Encoding UTF8
+
+        Write-Host "Constants created: $module\$entity`Constants.java"
     }
 }
