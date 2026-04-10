@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class RolesInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for Roles: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for Roles: " + request.getRequestURI());
         return true;
     }
 }

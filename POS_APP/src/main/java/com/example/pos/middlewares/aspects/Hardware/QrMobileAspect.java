@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class QrMobileAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Hardware..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Hardware..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (QrMobile): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (QrMobile): " + joinPoint.getSignature());
     }
 }

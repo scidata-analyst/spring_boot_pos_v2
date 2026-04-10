@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using SupplierPaymentsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Suppliers/SupplierPayments"")
+@RequestMapping("/api/Suppliers/SupplierPayments")
 public class SupplierPaymentsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class SupplierPaymentsController {
 
     /**
      * Retrieve all SupplierPayments records.
+     * 
      * @return List of SupplierPaymentsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class SupplierPaymentsController {
 
     /**
      * Retrieve a single SupplierPayments by its ID.
+     * 
      * @param id ID of the SupplierPayments
      * @return SupplierPaymentsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public SupplierPaymentsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new SupplierPayments record.
+     * 
      * @param request DTO containing the SupplierPayments data
      * @return Created SupplierPaymentsResponse
      */
@@ -51,23 +54,25 @@ public class SupplierPaymentsController {
 
     /**
      * Update an existing SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments to update
+     * 
+     * @param id      ID of the SupplierPayments to update
      * @param request DTO containing updated data
      * @return Updated SupplierPaymentsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public SupplierPaymentsResponse update(@PathVariable Long id, @RequestBody @Valid SupplierPaymentsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a SupplierPayments by its ID.
+     * 
      * @param id ID of the SupplierPayments to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

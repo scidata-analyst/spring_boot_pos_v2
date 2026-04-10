@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using DashboardResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Core/Dashboard"")
+@RequestMapping("/api/Core/Dashboard")
 public class DashboardController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class DashboardController {
 
     /**
      * Retrieve all Dashboard records.
+     * 
      * @return List of DashboardResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class DashboardController {
 
     /**
      * Retrieve a single Dashboard by its ID.
+     * 
      * @param id ID of the Dashboard
      * @return DashboardResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public DashboardResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Dashboard record.
+     * 
      * @param request DTO containing the Dashboard data
      * @return Created DashboardResponse
      */
@@ -51,23 +54,25 @@ public class DashboardController {
 
     /**
      * Update an existing Dashboard by its ID.
-     * @param id ID of the Dashboard to update
+     * 
+     * @param id      ID of the Dashboard to update
      * @param request DTO containing updated data
      * @return Updated DashboardResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public DashboardResponse update(@PathVariable Long id, @RequestBody @Valid DashboardRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Dashboard by its ID.
+     * 
      * @param id ID of the Dashboard to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

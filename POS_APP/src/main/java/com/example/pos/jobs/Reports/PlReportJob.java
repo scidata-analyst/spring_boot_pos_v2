@@ -16,9 +16,9 @@ public class PlReportJob {
      * Executes the scheduled job for PlReport.
      * Runs every hour (customize cron expression as needed).
      */
-    @Scheduled(cron = ""0 0 * * * ?"")
+    @Scheduled(cron = "0 0 * * * ?")
     public void execute() {
         // TODO: Implement the job logic for PlReport
-        System.out.println(""Executing job for PlReport..."");
+        System.out.println("Executing job for PlReport...");
     }
 }

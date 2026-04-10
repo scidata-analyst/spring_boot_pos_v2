@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PosTerminalAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Core..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Core..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (PosTerminal): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (PosTerminal): " + joinPoint.getSignature());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CustomReportResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Reports/CustomReport"")
+@RequestMapping("/api/Reports/CustomReport")
 public class CustomReportController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CustomReportController {
 
     /**
      * Retrieve all CustomReport records.
+     * 
      * @return List of CustomReportResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CustomReportController {
 
     /**
      * Retrieve a single CustomReport by its ID.
+     * 
      * @param id ID of the CustomReport
      * @return CustomReportResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CustomReportResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new CustomReport record.
+     * 
      * @param request DTO containing the CustomReport data
      * @return Created CustomReportResponse
      */
@@ -51,23 +54,25 @@ public class CustomReportController {
 
     /**
      * Update an existing CustomReport by its ID.
-     * @param id ID of the CustomReport to update
+     * 
+     * @param id      ID of the CustomReport to update
      * @param request DTO containing updated data
      * @return Updated CustomReportResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CustomReportResponse update(@PathVariable Long id, @RequestBody @Valid CustomReportRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a CustomReport by its ID.
+     * 
      * @param id ID of the CustomReport to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

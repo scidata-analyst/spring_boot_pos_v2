@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CatalogResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Products/Catalog"")
+@RequestMapping("/api/Products/Catalog")
 public class CatalogController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CatalogController {
 
     /**
      * Retrieve all Catalog records.
+     * 
      * @return List of CatalogResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CatalogController {
 
     /**
      * Retrieve a single Catalog by its ID.
+     * 
      * @param id ID of the Catalog
      * @return CatalogResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CatalogResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Catalog record.
+     * 
      * @param request DTO containing the Catalog data
      * @return Created CatalogResponse
      */
@@ -51,23 +54,25 @@ public class CatalogController {
 
     /**
      * Update an existing Catalog by its ID.
-     * @param id ID of the Catalog to update
+     * 
+     * @param id      ID of the Catalog to update
      * @param request DTO containing updated data
      * @return Updated CatalogResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CatalogResponse update(@PathVariable Long id, @RequestBody @Valid CatalogRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Catalog by its ID.
+     * 
      * @param id ID of the Catalog to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

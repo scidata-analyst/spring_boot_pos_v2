@@ -18,7 +18,7 @@ public class ApArFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for ApAr: "" + request.getRequestURI());
+        System.out.println("Filter applied for ApAr: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

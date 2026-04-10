@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CategoriesResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Products/Categories"")
+@RequestMapping("/api/Products/Categories")
 public class CategoriesController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CategoriesController {
 
     /**
      * Retrieve all Categories records.
+     * 
      * @return List of CategoriesResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CategoriesController {
 
     /**
      * Retrieve a single Categories by its ID.
+     * 
      * @param id ID of the Categories
      * @return CategoriesResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CategoriesResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Categories record.
+     * 
      * @param request DTO containing the Categories data
      * @return Created CategoriesResponse
      */
@@ -51,23 +54,25 @@ public class CategoriesController {
 
     /**
      * Update an existing Categories by its ID.
-     * @param id ID of the Categories to update
+     * 
+     * @param id      ID of the Categories to update
      * @param request DTO containing updated data
      * @return Updated CategoriesResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CategoriesResponse update(@PathVariable Long id, @RequestBody @Valid CategoriesRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Categories by its ID.
+     * 
      * @param id ID of the Categories to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CentralAspect {
 
-    @Before(""execution(* com.example.pos.controllers..*(..))"")
+    @Before("execution(* com.example.pos.controllers..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""Central AOP Before Controller: "" + joinPoint.getSignature());
+        System.out.println("Central AOP Before Controller: " + joinPoint.getSignature());
     }
 }

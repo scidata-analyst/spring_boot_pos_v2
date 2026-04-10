@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using TransactionsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Sales/Transactions"")
+@RequestMapping("/api/Sales/Transactions")
 public class TransactionsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class TransactionsController {
 
     /**
      * Retrieve all Transactions records.
+     * 
      * @return List of TransactionsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class TransactionsController {
 
     /**
      * Retrieve a single Transactions by its ID.
+     * 
      * @param id ID of the Transactions
      * @return TransactionsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public TransactionsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Transactions record.
+     * 
      * @param request DTO containing the Transactions data
      * @return Created TransactionsResponse
      */
@@ -51,23 +54,25 @@ public class TransactionsController {
 
     /**
      * Update an existing Transactions by its ID.
-     * @param id ID of the Transactions to update
+     * 
+     * @param id      ID of the Transactions to update
      * @param request DTO containing updated data
      * @return Updated TransactionsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public TransactionsResponse update(@PathVariable Long id, @RequestBody @Valid TransactionsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Transactions by its ID.
+     * 
      * @param id ID of the Transactions to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

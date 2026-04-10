@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using ActivityLogResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Users/ActivityLog"")
+@RequestMapping("/api/Users/ActivityLog")
 public class ActivityLogController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class ActivityLogController {
 
     /**
      * Retrieve all ActivityLog records.
+     * 
      * @return List of ActivityLogResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class ActivityLogController {
 
     /**
      * Retrieve a single ActivityLog by its ID.
+     * 
      * @param id ID of the ActivityLog
      * @return ActivityLogResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public ActivityLogResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new ActivityLog record.
+     * 
      * @param request DTO containing the ActivityLog data
      * @return Created ActivityLogResponse
      */
@@ -51,23 +54,25 @@ public class ActivityLogController {
 
     /**
      * Update an existing ActivityLog by its ID.
-     * @param id ID of the ActivityLog to update
+     * 
+     * @param id      ID of the ActivityLog to update
      * @param request DTO containing updated data
      * @return Updated ActivityLogResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public ActivityLogResponse update(@PathVariable Long id, @RequestBody @Valid ActivityLogRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a ActivityLog by its ID.
+     * 
      * @param id ID of the ActivityLog to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

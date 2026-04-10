@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using PlReportResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Reports/PlReport"")
+@RequestMapping("/api/Reports/PlReport")
 public class PlReportController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class PlReportController {
 
     /**
      * Retrieve all PlReport records.
+     * 
      * @return List of PlReportResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class PlReportController {
 
     /**
      * Retrieve a single PlReport by its ID.
+     * 
      * @param id ID of the PlReport
      * @return PlReportResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public PlReportResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new PlReport record.
+     * 
      * @param request DTO containing the PlReport data
      * @return Created PlReportResponse
      */
@@ -51,23 +54,25 @@ public class PlReportController {
 
     /**
      * Update an existing PlReport by its ID.
-     * @param id ID of the PlReport to update
+     * 
+     * @param id      ID of the PlReport to update
      * @param request DTO containing updated data
      * @return Updated PlReportResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public PlReportResponse update(@PathVariable Long id, @RequestBody @Valid PlReportRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a PlReport by its ID.
+     * 
      * @param id ID of the PlReport to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

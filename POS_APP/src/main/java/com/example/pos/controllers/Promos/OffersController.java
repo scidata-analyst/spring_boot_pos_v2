@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using OffersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Promos/Offers"")
+@RequestMapping("/api/Promos/Offers")
 public class OffersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class OffersController {
 
     /**
      * Retrieve all Offers records.
+     * 
      * @return List of OffersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class OffersController {
 
     /**
      * Retrieve a single Offers by its ID.
+     * 
      * @param id ID of the Offers
      * @return OffersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public OffersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Offers record.
+     * 
      * @param request DTO containing the Offers data
      * @return Created OffersResponse
      */
@@ -51,23 +54,25 @@ public class OffersController {
 
     /**
      * Update an existing Offers by its ID.
-     * @param id ID of the Offers to update
+     * 
+     * @param id      ID of the Offers to update
      * @param request DTO containing updated data
      * @return Updated OffersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public OffersResponse update(@PathVariable Long id, @RequestBody @Valid OffersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Offers by its ID.
+     * 
      * @param id ID of the Offers to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

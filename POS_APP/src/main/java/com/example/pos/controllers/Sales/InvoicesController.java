@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using InvoicesResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Sales/Invoices"")
+@RequestMapping("/api/Sales/Invoices")
 public class InvoicesController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class InvoicesController {
 
     /**
      * Retrieve all Invoices records.
+     * 
      * @return List of InvoicesResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class InvoicesController {
 
     /**
      * Retrieve a single Invoices by its ID.
+     * 
      * @param id ID of the Invoices
      * @return InvoicesResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public InvoicesResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Invoices record.
+     * 
      * @param request DTO containing the Invoices data
      * @return Created InvoicesResponse
      */
@@ -51,23 +54,25 @@ public class InvoicesController {
 
     /**
      * Update an existing Invoices by its ID.
-     * @param id ID of the Invoices to update
+     * 
+     * @param id      ID of the Invoices to update
      * @param request DTO containing updated data
      * @return Updated InvoicesResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public InvoicesResponse update(@PathVariable Long id, @RequestBody @Valid InvoicesRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Invoices by its ID.
+     * 
      * @param id ID of the Invoices to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

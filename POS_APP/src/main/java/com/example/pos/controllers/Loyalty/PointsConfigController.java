@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using PointsConfigResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Loyalty/PointsConfig"")
+@RequestMapping("/api/Loyalty/PointsConfig")
 public class PointsConfigController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class PointsConfigController {
 
     /**
      * Retrieve all PointsConfig records.
+     * 
      * @return List of PointsConfigResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class PointsConfigController {
 
     /**
      * Retrieve a single PointsConfig by its ID.
+     * 
      * @param id ID of the PointsConfig
      * @return PointsConfigResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public PointsConfigResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new PointsConfig record.
+     * 
      * @param request DTO containing the PointsConfig data
      * @return Created PointsConfigResponse
      */
@@ -51,23 +54,25 @@ public class PointsConfigController {
 
     /**
      * Update an existing PointsConfig by its ID.
-     * @param id ID of the PointsConfig to update
+     * 
+     * @param id      ID of the PointsConfig to update
      * @param request DTO containing updated data
      * @return Updated PointsConfigResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public PointsConfigResponse update(@PathVariable Long id, @RequestBody @Valid PointsConfigRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a PointsConfig by its ID.
+     * 
      * @param id ID of the PointsConfig to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

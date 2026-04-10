@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class CentralInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Central Interceptor preHandle: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Central Interceptor preHandle: " + request.getRequestURI());
         return true;
     }
 }

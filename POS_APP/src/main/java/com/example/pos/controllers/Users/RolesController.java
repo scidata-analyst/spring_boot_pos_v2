@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using RolesResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Users/Roles"")
+@RequestMapping("/api/Users/Roles")
 public class RolesController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class RolesController {
 
     /**
      * Retrieve all Roles records.
+     * 
      * @return List of RolesResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class RolesController {
 
     /**
      * Retrieve a single Roles by its ID.
+     * 
      * @param id ID of the Roles
      * @return RolesResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public RolesResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Roles record.
+     * 
      * @param request DTO containing the Roles data
      * @return Created RolesResponse
      */
@@ -51,23 +54,25 @@ public class RolesController {
 
     /**
      * Update an existing Roles by its ID.
-     * @param id ID of the Roles to update
+     * 
+     * @param id      ID of the Roles to update
      * @param request DTO containing updated data
      * @return Updated RolesResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public RolesResponse update(@PathVariable Long id, @RequestBody @Valid RolesRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Roles by its ID.
+     * 
      * @param id ID of the Roles to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

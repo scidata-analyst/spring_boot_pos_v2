@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CouponsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Promos/Coupons"")
+@RequestMapping("/api/Promos/Coupons")
 public class CouponsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CouponsController {
 
     /**
      * Retrieve all Coupons records.
+     * 
      * @return List of CouponsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CouponsController {
 
     /**
      * Retrieve a single Coupons by its ID.
+     * 
      * @param id ID of the Coupons
      * @return CouponsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CouponsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Coupons record.
+     * 
      * @param request DTO containing the Coupons data
      * @return Created CouponsResponse
      */
@@ -51,23 +54,25 @@ public class CouponsController {
 
     /**
      * Update an existing Coupons by its ID.
-     * @param id ID of the Coupons to update
+     * 
+     * @param id      ID of the Coupons to update
      * @param request DTO containing updated data
      * @return Updated CouponsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CouponsResponse update(@PathVariable Long id, @RequestBody @Valid CouponsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Coupons by its ID.
+     * 
      * @param id ID of the Coupons to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

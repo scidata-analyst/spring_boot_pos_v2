@@ -18,7 +18,7 @@ public class LoyaltyPointsFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for LoyaltyPoints: "" + request.getRequestURI());
+        System.out.println("Filter applied for LoyaltyPoints: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

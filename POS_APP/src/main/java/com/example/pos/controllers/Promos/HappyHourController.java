@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using HappyHourResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Promos/HappyHour"")
+@RequestMapping("/api/Promos/HappyHour")
 public class HappyHourController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class HappyHourController {
 
     /**
      * Retrieve all HappyHour records.
+     * 
      * @return List of HappyHourResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class HappyHourController {
 
     /**
      * Retrieve a single HappyHour by its ID.
+     * 
      * @param id ID of the HappyHour
      * @return HappyHourResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public HappyHourResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new HappyHour record.
+     * 
      * @param request DTO containing the HappyHour data
      * @return Created HappyHourResponse
      */
@@ -51,23 +54,25 @@ public class HappyHourController {
 
     /**
      * Update an existing HappyHour by its ID.
-     * @param id ID of the HappyHour to update
+     * 
+     * @param id      ID of the HappyHour to update
      * @param request DTO containing updated data
      * @return Updated HappyHourResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public HappyHourResponse update(@PathVariable Long id, @RequestBody @Valid HappyHourRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a HappyHour by its ID.
+     * 
      * @param id ID of the HappyHour to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

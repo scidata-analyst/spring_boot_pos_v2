@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RetentionAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Loyalty..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Loyalty..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (Retention): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (Retention): " + joinPoint.getSignature());
     }
 }

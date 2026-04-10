@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../pos-styles.css" />
 </head>
+
 <body>
   <nav id="sidebar">
     <div class="sidebar-logo">
@@ -80,7 +82,8 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu open">
-          <a class="page-active" onclick="location.href='../pages/customers.html'" style="cursor:pointer">Customer Directory</a>
+          <a class="page-active" onclick="location.href='../pages/customers.html'" style="cursor:pointer">Customer
+            Directory</a>
           <a onclick="location.href='../pages/purchase-history.html'" style="cursor:pointer">Purchase History</a>
           <a onclick="location.href='../pages/loyalty-points.html'" style="cursor:pointer">Loyalty Points</a>
           <a onclick="location.href='../pages/memberships.html'" style="cursor:pointer">Memberships / VIP</a>
@@ -175,7 +178,8 @@
         <div class="sf-name">Adam Khan</div>
         <div class="sf-role">Store Manager</div>
       </div>
-      <button style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;" title="Logout"><i class="bi bi-box-arrow-right"></i></button>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;"
+        title="Logout"><i class="bi bi-box-arrow-right"></i></button>
     </div>
   </nav>
   <header id="header">
@@ -191,7 +195,8 @@
     </div>
     <div class="header-actions">
       <div class="h-btn" title="Notifications"><i class="bi bi-bell"></i><span class="h-badge">3</span></div>
-      <div class="h-btn" title="Low Stock Alerts" onclick="location.href='../pages/restock-alerts.html'" style="cursor:pointer">
+      <div class="h-btn" title="Low Stock Alerts" onclick="location.href='../pages/restock-alerts.html'"
+        style="cursor:pointer">
         <i class="bi bi-exclamation-triangle"></i><span class="h-badge" style="background:var(--amber)">5</span>
       </div>
       <button class="h-pos-btn" onclick="location.href='../pages/pos-terminal.html'">
@@ -207,20 +212,110 @@
           <div class="page-subtitle">Manage customer profiles, loyalty points and purchase history</div>
         </div>
         <div class="d-flex gap-2">
-          
-          <button class="btn-pos btn-amber" onclick="openModal('modal-customer')"><i class="bi bi-plus-lg"></i> Add Customer</button>
+
+          <button class="btn-pos btn-amber" onclick="openModal('modal-customer')"><i class="bi bi-plus-lg"></i> Add
+            Customer</button>
         </div>
-      </div>      <div class="pos-card">
+      </div>
+      <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text" placeholder="Search customers…" oninput="filterTable(this,'tbl-cust')" /></div>
-          <select class="pos-input" style="width:120px"><option>All Tiers</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>VIP</option></select>
-        </div><div class="pos-table-wrap">
-      <table class="pos-table" id="tbl-cust">
-        <thead><tr><th>Customer</th><th>Phone</th><th>Loyalty Tier</th><th>Points</th><th>Total Spent</th><th>Visits</th><th>Last Visit</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody><tr><td>Rina Ahmed</td><td>017XX-001122</td><td><span class="pos-badge pb-amber">Gold</span></td><td>4,820 pts</td><td>$1,840</td><td>42</td><td>Today</td><td><span class="pos-badge pb-green">Active</span></td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i class="bi bi-trash3"></i></button></div></td></tr><tr><td>Karim Hossain</td><td>018XX-334455</td><td><span class="pos-badge pb-gray">Silver</span></td><td>1,200 pts</td><td>$620</td><td>18</td><td>2 days ago</td><td><span class="pos-badge pb-green">Active</span></td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i class="bi bi-trash3"></i></button></div></td></tr><tr><td>Farida Begum</td><td>019XX-667788</td><td><span class="pos-badge pb-violet">VIP</span></td><td>12,400 pts</td><td>$6,200</td><td>120</td><td>Today</td><td><span class="pos-badge pb-green">Active</span></td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i class="bi bi-trash3"></i></button></div></td></tr><tr><td>Nabil Rahman</td><td>013XX-998877</td><td><span class="pos-badge pb-teal">Bronze</span></td><td>380 pts</td><td>$148</td><td>4</td><td>1 week ago</td><td><span class="pos-badge pb-green">Active</span></td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i class="bi bi-trash3"></i></button></div></td></tr></tbody>
-      </table>
-    </div>
-    <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button class="pg-n"><i class="bi bi-chevron-right"></i></button></div></div></section>
+          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
+              placeholder="Search customers…" oninput="filterTable(this,'tbl-cust')" /></div>
+          <select class="pos-input" style="width:120px">
+            <option>All Tiers</option>
+            <option>Bronze</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>VIP</option>
+          </select>
+        </div>
+        <div class="pos-table-wrap">
+          <table class="pos-table" id="tbl-cust">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Loyalty Tier</th>
+                <th>Points</th>
+                <th>Total Spent</th>
+                <th>Visits</th>
+                <th>Last Visit</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rina Ahmed</td>
+                <td>017XX-001122</td>
+                <td><span class="pos-badge pb-amber">Gold</span></td>
+                <td>4,820 pts</td>
+                <td>$1,840</td>
+                <td>42</td>
+                <td>Today</td>
+                <td><span class="pos-badge pb-green">Active</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Karim Hossain</td>
+                <td>018XX-334455</td>
+                <td><span class="pos-badge pb-gray">Silver</span></td>
+                <td>1,200 pts</td>
+                <td>$620</td>
+                <td>18</td>
+                <td>2 days ago</td>
+                <td><span class="pos-badge pb-green">Active</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Farida Begum</td>
+                <td>019XX-667788</td>
+                <td><span class="pos-badge pb-violet">VIP</span></td>
+                <td>12,400 pts</td>
+                <td>$6,200</td>
+                <td>120</td>
+                <td>Today</td>
+                <td><span class="pos-badge pb-green">Active</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Nabil Rahman</td>
+                <td>013XX-998877</td>
+                <td><span class="pos-badge pb-teal">Bronze</span></td>
+                <td>380 pts</td>
+                <td>$148</td>
+                <td>4</td>
+                <td>1 week ago</td>
+                <td><span class="pos-badge pb-green">Active</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-customer')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Customer')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
+            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+      </div>
+    </section>
   </main>
 
   <!-- Delete Confirm -->
@@ -231,7 +326,8 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
@@ -243,63 +339,82 @@
 
   <div id="modal-customer" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
-      <div class="modal-hd"><div class="modal-hd-title">Add / Edit Customer</div><div class="modal-x" onclick="closeModal('modal-customer')">×</div></div>
-      <div class="modal-body"><div class="row g-3"><div class="col-md-6"><label class="pos-label">Full Name</label><input class="pos-input" type="text" placeholder="" /></div><div class="col-md-6"><label class="pos-label">Phone</label><input class="pos-input" type="tel" placeholder="" /></div><div class="col-md-6"><label class="pos-label">Email</label><input class="pos-input" type="email" placeholder="" /></div><div class="col-md-6"><label class="pos-label">Date of Birth</label><input class="pos-input" type="date" placeholder="" /></div><div class="col-md-4"><label class="pos-label">Loyalty Tier</label><select class="pos-input"><option>Bronze</option><option>Silver</option><option>Gold</option><option>VIP</option></select></div><div class="col-md-8"><label class="pos-label">Notes</label><input class="pos-input" type="text" placeholder="" /></div></div></div>
-      <div class="modal-ft">
-        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-customer')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-customer')"><i class="bi bi-check2"></i> Save</button>
+      <div class="modal-hd">
+        <div class="modal-hd-title">Add / Edit Customer</div>
+        <div class="modal-x" onclick="closeModal('modal-customer')">×</div>
       </div>
-    </div>
-  </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6"><label class="pos-label">Full Name</label><input class="pos-input" type="text"
+              placeholder=" /></div><div class=" col-md-6"><label class="pos-label">Phone</label><input
+              class="pos-input" type="tel" placeholder=" /></div><div class=" col-md-6"><label
+              class="pos-label">Email</label><input class="pos-input" type="email" placeholder=" /></div><div class="
+              col-md-6"><label class="pos-label">Date of Birth</label><input class="pos-input" type="date"
+              placeholder=" /></div><div class=" col-md-4"><label class="pos-label">Loyalty Tier</label><select
+              class="pos-input">
+              <option>Bronze</option>
+              <option>Silver</option>
+              <option>Gold</option>
+              <option>VIP</option>
+            </select></div>
+          <div class="col-md-8"><label class="pos-label">Notes</label><input class="pos-input" type="text" placeholder=" /></div></div></div>
+      <div class=" modal-ft">
+            <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-customer')">Cancel</button>
+            <button class="btn-pos btn-amber" onclick="saveForm('modal-customer')"><i class="bi bi-check2"></i>
+              Save</button>
+          </div>
+        </div>
+      </div>
 
-  <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
-    function toggleMenu(btn) {
-      const sub = btn.nextElementSibling;
-      const open = sub.classList.contains('open');
-      document.querySelectorAll('.nav-submenu.open').forEach(m => {
-        m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
-      });
-      if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
-    }
-    function openModal(id) { document.getElementById(id)?.classList.add('show'); }
-    function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
-    document.querySelectorAll('.pos-modal-bg').forEach(m =>
-      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
-    );
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
-    });
-    let delTarget = '';
-    function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
-    function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
-    function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
-    function showToast(msg, type = 'info') {
-      const t = document.createElement('div');
-      t.className = 'pos-toast ' + type;
-      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
-      t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
-      document.getElementById('toast-container').appendChild(t);
-      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
-      setTimeout(() => t.remove(), 2900);
-    }
-    function filterTable(input, tableId) {
-      const q = input.value.toLowerCase();
-      document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
-        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
-      });
-    }
-    document.querySelectorAll('.pos-pagination').forEach(pg => {
-      pg.addEventListener('click', e => {
-        const btn = e.target.closest('.pg-n');
-        if (btn && !btn.querySelector('.bi-chevron-right')) {
-          pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
+      <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+        function toggleMenu(btn) {
+          const sub = btn.nextElementSibling;
+          const open = sub.classList.contains('open');
+          document.querySelectorAll('.nav-submenu.open').forEach(m => {
+            m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
+          });
+          if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
         }
-      });
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        function openModal(id) { document.getElementById(id)?.classList.add('show'); }
+        function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
+        document.querySelectorAll('.pos-modal-bg').forEach(m =>
+          m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
+        );
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
+        });
+        let delTarget = '';
+        function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
+        function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
+        function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
+        function showToast(msg, type = 'info') {
+          const t = document.createElement('div');
+          t.className = 'pos-toast ' + type;
+          const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+          t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
+          document.getElementById('toast-container').appendChild(t);
+          setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
+          setTimeout(() => t.remove(), 2900);
+        }
+        function filterTable(input, tableId) {
+          const q = input.value.toLowerCase();
+          document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
+            r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+          });
+        }
+        document.querySelectorAll('.pos-pagination').forEach(pg => {
+          pg.addEventListener('click', e => {
+            const btn = e.target.closest('.pg-n');
+            if (btn && !btn.querySelector('.bi-chevron-right')) {
+              pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+            }
+          });
+        });
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

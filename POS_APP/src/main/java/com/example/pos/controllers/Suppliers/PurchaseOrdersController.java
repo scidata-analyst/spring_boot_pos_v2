@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using PurchaseOrdersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Suppliers/PurchaseOrders"")
+@RequestMapping("/api/Suppliers/PurchaseOrders")
 public class PurchaseOrdersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class PurchaseOrdersController {
 
     /**
      * Retrieve all PurchaseOrders records.
+     * 
      * @return List of PurchaseOrdersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class PurchaseOrdersController {
 
     /**
      * Retrieve a single PurchaseOrders by its ID.
+     * 
      * @param id ID of the PurchaseOrders
      * @return PurchaseOrdersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public PurchaseOrdersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new PurchaseOrders record.
+     * 
      * @param request DTO containing the PurchaseOrders data
      * @return Created PurchaseOrdersResponse
      */
@@ -51,23 +54,25 @@ public class PurchaseOrdersController {
 
     /**
      * Update an existing PurchaseOrders by its ID.
-     * @param id ID of the PurchaseOrders to update
+     * 
+     * @param id      ID of the PurchaseOrders to update
      * @param request DTO containing updated data
      * @return Updated PurchaseOrdersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public PurchaseOrdersResponse update(@PathVariable Long id, @RequestBody @Valid PurchaseOrdersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a PurchaseOrders by its ID.
+     * 
      * @param id ID of the PurchaseOrders to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using TaxReportsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Payment/TaxReports"")
+@RequestMapping("/api/Payment/TaxReports")
 public class TaxReportsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class TaxReportsController {
 
     /**
      * Retrieve all TaxReports records.
+     * 
      * @return List of TaxReportsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class TaxReportsController {
 
     /**
      * Retrieve a single TaxReports by its ID.
+     * 
      * @param id ID of the TaxReports
      * @return TaxReportsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public TaxReportsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new TaxReports record.
+     * 
      * @param request DTO containing the TaxReports data
      * @return Created TaxReportsResponse
      */
@@ -51,23 +54,25 @@ public class TaxReportsController {
 
     /**
      * Update an existing TaxReports by its ID.
-     * @param id ID of the TaxReports to update
+     * 
+     * @param id      ID of the TaxReports to update
      * @param request DTO containing updated data
      * @return Updated TaxReportsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public TaxReportsResponse update(@PathVariable Long id, @RequestBody @Valid TaxReportsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a TaxReports by its ID.
+     * 
      * @param id ID of the TaxReports to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class InvoicesInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for Invoices: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for Invoices: " + request.getRequestURI());
         return true;
     }
 }

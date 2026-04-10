@@ -16,9 +16,9 @@ public class OffersJob {
      * Executes the scheduled job for Offers.
      * Runs every hour (customize cron expression as needed).
      */
-    @Scheduled(cron = ""0 0 * * * ?"")
+    @Scheduled(cron = "0 0 * * * ?")
     public void execute() {
         // TODO: Implement the job logic for Offers
-        System.out.println(""Executing job for Offers..."");
+        System.out.println("Executing job for Offers...");
     }
 }

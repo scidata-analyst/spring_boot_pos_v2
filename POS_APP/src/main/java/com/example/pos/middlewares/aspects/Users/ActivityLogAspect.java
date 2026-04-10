@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActivityLogAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Users..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Users..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (ActivityLog): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (ActivityLog): " + joinPoint.getSignature());
     }
 }

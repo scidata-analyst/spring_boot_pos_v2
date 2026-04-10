@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CatalogAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Products..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Products..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (Catalog): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (Catalog): " + joinPoint.getSignature());
     }
 }

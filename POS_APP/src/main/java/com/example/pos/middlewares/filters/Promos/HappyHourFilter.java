@@ -18,7 +18,7 @@ public class HappyHourFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for HappyHour: "" + request.getRequestURI());
+        System.out.println("Filter applied for HappyHour: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

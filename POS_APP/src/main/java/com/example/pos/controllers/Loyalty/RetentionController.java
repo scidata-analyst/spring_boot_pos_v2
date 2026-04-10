@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using RetentionResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Loyalty/Retention"")
+@RequestMapping("/api/Loyalty/Retention")
 public class RetentionController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class RetentionController {
 
     /**
      * Retrieve all Retention records.
+     * 
      * @return List of RetentionResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class RetentionController {
 
     /**
      * Retrieve a single Retention by its ID.
+     * 
      * @param id ID of the Retention
      * @return RetentionResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public RetentionResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Retention record.
+     * 
      * @param request DTO containing the Retention data
      * @return Created RetentionResponse
      */
@@ -51,23 +54,25 @@ public class RetentionController {
 
     /**
      * Update an existing Retention by its ID.
-     * @param id ID of the Retention to update
+     * 
+     * @param id      ID of the Retention to update
      * @param request DTO containing updated data
      * @return Updated RetentionResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public RetentionResponse update(@PathVariable Long id, @RequestBody @Valid RetentionRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Retention by its ID.
+     * 
      * @param id ID of the Retention to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

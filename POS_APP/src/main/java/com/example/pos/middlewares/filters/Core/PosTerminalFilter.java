@@ -18,7 +18,7 @@ public class PosTerminalFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for PosTerminal: "" + request.getRequestURI());
+        System.out.println("Filter applied for PosTerminal: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using SalesReportResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Reports/SalesReport"")
+@RequestMapping("/api/Reports/SalesReport")
 public class SalesReportController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class SalesReportController {
 
     /**
      * Retrieve all SalesReport records.
+     * 
      * @return List of SalesReportResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class SalesReportController {
 
     /**
      * Retrieve a single SalesReport by its ID.
+     * 
      * @param id ID of the SalesReport
      * @return SalesReportResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public SalesReportResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new SalesReport record.
+     * 
      * @param request DTO containing the SalesReport data
      * @return Created SalesReportResponse
      */
@@ -51,23 +54,25 @@ public class SalesReportController {
 
     /**
      * Update an existing SalesReport by its ID.
-     * @param id ID of the SalesReport to update
+     * 
+     * @param id      ID of the SalesReport to update
      * @param request DTO containing updated data
      * @return Updated SalesReportResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public SalesReportResponse update(@PathVariable Long id, @RequestBody @Valid SalesReportRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a SalesReport by its ID.
+     * 
      * @param id ID of the SalesReport to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

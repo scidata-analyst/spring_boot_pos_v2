@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using PosTerminalResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Core/PosTerminal"")
+@RequestMapping("/api/Core/PosTerminal")
 public class PosTerminalController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class PosTerminalController {
 
     /**
      * Retrieve all PosTerminal records.
+     * 
      * @return List of PosTerminalResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class PosTerminalController {
 
     /**
      * Retrieve a single PosTerminal by its ID.
+     * 
      * @param id ID of the PosTerminal
      * @return PosTerminalResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public PosTerminalResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new PosTerminal record.
+     * 
      * @param request DTO containing the PosTerminal data
      * @return Created PosTerminalResponse
      */
@@ -51,23 +54,25 @@ public class PosTerminalController {
 
     /**
      * Update an existing PosTerminal by its ID.
-     * @param id ID of the PosTerminal to update
+     * 
+     * @param id      ID of the PosTerminal to update
      * @param request DTO containing updated data
      * @return Updated PosTerminalResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public PosTerminalResponse update(@PathVariable Long id, @RequestBody @Valid PosTerminalRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a PosTerminal by its ID.
+     * 
      * @param id ID of the PosTerminal to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

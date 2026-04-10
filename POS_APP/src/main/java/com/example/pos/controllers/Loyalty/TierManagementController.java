@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using TierManagementResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Loyalty/TierManagement"")
+@RequestMapping("/api/Loyalty/TierManagement")
 public class TierManagementController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class TierManagementController {
 
     /**
      * Retrieve all TierManagement records.
+     * 
      * @return List of TierManagementResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class TierManagementController {
 
     /**
      * Retrieve a single TierManagement by its ID.
+     * 
      * @param id ID of the TierManagement
      * @return TierManagementResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public TierManagementResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new TierManagement record.
+     * 
      * @param request DTO containing the TierManagement data
      * @return Created TierManagementResponse
      */
@@ -51,23 +54,25 @@ public class TierManagementController {
 
     /**
      * Update an existing TierManagement by its ID.
-     * @param id ID of the TierManagement to update
+     * 
+     * @param id      ID of the TierManagement to update
      * @param request DTO containing updated data
      * @return Updated TierManagementResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public TierManagementResponse update(@PathVariable Long id, @RequestBody @Valid TierManagementRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a TierManagement by its ID.
+     * 
      * @param id ID of the TierManagement to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

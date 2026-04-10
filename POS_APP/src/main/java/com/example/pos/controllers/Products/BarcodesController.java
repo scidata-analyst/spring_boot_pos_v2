@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using BarcodesResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Products/Barcodes"")
+@RequestMapping("/api/Products/Barcodes")
 public class BarcodesController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class BarcodesController {
 
     /**
      * Retrieve all Barcodes records.
+     * 
      * @return List of BarcodesResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class BarcodesController {
 
     /**
      * Retrieve a single Barcodes by its ID.
+     * 
      * @param id ID of the Barcodes
      * @return BarcodesResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public BarcodesResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Barcodes record.
+     * 
      * @param request DTO containing the Barcodes data
      * @return Created BarcodesResponse
      */
@@ -51,23 +54,25 @@ public class BarcodesController {
 
     /**
      * Update an existing Barcodes by its ID.
-     * @param id ID of the Barcodes to update
+     * 
+     * @param id      ID of the Barcodes to update
      * @param request DTO containing updated data
      * @return Updated BarcodesResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public BarcodesResponse update(@PathVariable Long id, @RequestBody @Valid BarcodesRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Barcodes by its ID.
+     * 
      * @param id ID of the Barcodes to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

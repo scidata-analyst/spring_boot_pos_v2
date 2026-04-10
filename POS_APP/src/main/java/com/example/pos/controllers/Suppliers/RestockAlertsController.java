@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using RestockAlertsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Suppliers/RestockAlerts"")
+@RequestMapping("/api/Suppliers/RestockAlerts")
 public class RestockAlertsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class RestockAlertsController {
 
     /**
      * Retrieve all RestockAlerts records.
+     * 
      * @return List of RestockAlertsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class RestockAlertsController {
 
     /**
      * Retrieve a single RestockAlerts by its ID.
+     * 
      * @param id ID of the RestockAlerts
      * @return RestockAlertsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public RestockAlertsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new RestockAlerts record.
+     * 
      * @param request DTO containing the RestockAlerts data
      * @return Created RestockAlertsResponse
      */
@@ -51,23 +54,25 @@ public class RestockAlertsController {
 
     /**
      * Update an existing RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts to update
+     * 
+     * @param id      ID of the RestockAlerts to update
      * @param request DTO containing updated data
      * @return Updated RestockAlertsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public RestockAlertsResponse update(@PathVariable Long id, @RequestBody @Valid RestockAlertsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a RestockAlerts by its ID.
+     * 
      * @param id ID of the RestockAlerts to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

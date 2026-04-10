@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CashDrawerResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Hardware/CashDrawer"")
+@RequestMapping("/api/Hardware/CashDrawer")
 public class CashDrawerController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CashDrawerController {
 
     /**
      * Retrieve all CashDrawer records.
+     * 
      * @return List of CashDrawerResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CashDrawerController {
 
     /**
      * Retrieve a single CashDrawer by its ID.
+     * 
      * @param id ID of the CashDrawer
      * @return CashDrawerResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CashDrawerResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new CashDrawer record.
+     * 
      * @param request DTO containing the CashDrawer data
      * @return Created CashDrawerResponse
      */
@@ -51,23 +54,25 @@ public class CashDrawerController {
 
     /**
      * Update an existing CashDrawer by its ID.
-     * @param id ID of the CashDrawer to update
+     * 
+     * @param id      ID of the CashDrawer to update
      * @param request DTO containing updated data
      * @return Updated CashDrawerResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CashDrawerResponse update(@PathVariable Long id, @RequestBody @Valid CashDrawerRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a CashDrawer by its ID.
+     * 
      * @param id ID of the CashDrawer to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

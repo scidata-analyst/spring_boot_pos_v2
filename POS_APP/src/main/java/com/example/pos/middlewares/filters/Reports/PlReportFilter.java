@@ -18,7 +18,7 @@ public class PlReportFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for PlReport: "" + request.getRequestURI());
+        System.out.println("Filter applied for PlReport: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

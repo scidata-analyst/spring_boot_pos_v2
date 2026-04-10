@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using HeldOrdersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Sales/HeldOrders"")
+@RequestMapping("/api/Sales/HeldOrders")
 public class HeldOrdersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class HeldOrdersController {
 
     /**
      * Retrieve all HeldOrders records.
+     * 
      * @return List of HeldOrdersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class HeldOrdersController {
 
     /**
      * Retrieve a single HeldOrders by its ID.
+     * 
      * @param id ID of the HeldOrders
      * @return HeldOrdersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public HeldOrdersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new HeldOrders record.
+     * 
      * @param request DTO containing the HeldOrders data
      * @return Created HeldOrdersResponse
      */
@@ -51,23 +54,25 @@ public class HeldOrdersController {
 
     /**
      * Update an existing HeldOrders by its ID.
-     * @param id ID of the HeldOrders to update
+     * 
+     * @param id      ID of the HeldOrders to update
      * @param request DTO containing updated data
      * @return Updated HeldOrdersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public HeldOrdersResponse update(@PathVariable Long id, @RequestBody @Valid HeldOrdersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a HeldOrders by its ID.
+     * 
      * @param id ID of the HeldOrders to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

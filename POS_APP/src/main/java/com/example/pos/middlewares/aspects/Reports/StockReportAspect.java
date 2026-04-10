@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class StockReportAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Reports..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Reports..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (StockReport): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (StockReport): " + joinPoint.getSignature());
     }
 }

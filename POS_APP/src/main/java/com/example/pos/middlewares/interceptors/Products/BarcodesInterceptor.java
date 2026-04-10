@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class BarcodesInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for Barcodes: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for Barcodes: " + request.getRequestURI());
         return true;
     }
 }

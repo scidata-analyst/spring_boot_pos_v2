@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PurchaseHistoryAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Customers..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Customers..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (PurchaseHistory): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (PurchaseHistory): " + joinPoint.getSignature());
     }
 }

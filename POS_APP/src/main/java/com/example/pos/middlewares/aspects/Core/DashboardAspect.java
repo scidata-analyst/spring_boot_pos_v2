@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DashboardAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Core..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Core..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (Dashboard): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (Dashboard): " + joinPoint.getSignature());
     }
 }

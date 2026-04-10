@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CashDrawerAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Hardware..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Hardware..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (CashDrawer): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (CashDrawer): " + joinPoint.getSignature());
     }
 }

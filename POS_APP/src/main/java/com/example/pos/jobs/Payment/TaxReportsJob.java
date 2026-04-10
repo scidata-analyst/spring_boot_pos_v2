@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 /**
  * Scheduled job class for TaxReports.
  * <p>
- * This class is responsible for executing recurring tasks related to TaxReports.
+ * This class is responsible for executing recurring tasks related to
+ * TaxReports.
  * Define job logic inside the execute() method.
  */
 @Component
@@ -16,9 +17,9 @@ public class TaxReportsJob {
      * Executes the scheduled job for TaxReports.
      * Runs every hour (customize cron expression as needed).
      */
-    @Scheduled(cron = ""0 0 * * * ?"")
+    @Scheduled(cron = "0 0 * * * ?")
     public void execute() {
         // TODO: Implement the job logic for TaxReports
-        System.out.println(""Executing job for TaxReports..."");
+        System.out.println("Executing job for TaxReports...");
     }
 }

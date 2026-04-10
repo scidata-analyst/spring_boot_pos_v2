@@ -18,7 +18,7 @@ public class CentralFilter extends HttpFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Central Filter applied for: "" + request.getRequestURI());
+        System.out.println("Central Filter applied for: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

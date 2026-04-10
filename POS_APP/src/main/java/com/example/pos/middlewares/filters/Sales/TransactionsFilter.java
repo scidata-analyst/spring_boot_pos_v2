@@ -18,7 +18,7 @@ public class TransactionsFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for Transactions: "" + request.getRequestURI());
+        System.out.println("Filter applied for Transactions: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using ReconciliationResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Payment/Reconciliation"")
+@RequestMapping("/api/Payment/Reconciliation")
 public class ReconciliationController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class ReconciliationController {
 
     /**
      * Retrieve all Reconciliation records.
+     * 
      * @return List of ReconciliationResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class ReconciliationController {
 
     /**
      * Retrieve a single Reconciliation by its ID.
+     * 
      * @param id ID of the Reconciliation
      * @return ReconciliationResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public ReconciliationResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Reconciliation record.
+     * 
      * @param request DTO containing the Reconciliation data
      * @return Created ReconciliationResponse
      */
@@ -51,23 +54,25 @@ public class ReconciliationController {
 
     /**
      * Update an existing Reconciliation by its ID.
-     * @param id ID of the Reconciliation to update
+     * 
+     * @param id      ID of the Reconciliation to update
      * @param request DTO containing updated data
      * @return Updated ReconciliationResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public ReconciliationResponse update(@PathVariable Long id, @RequestBody @Valid ReconciliationRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Reconciliation by its ID.
+     * 
      * @param id ID of the Reconciliation to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

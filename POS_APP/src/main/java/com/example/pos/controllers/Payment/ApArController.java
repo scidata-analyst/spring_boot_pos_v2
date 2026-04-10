@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using ApArResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Payment/ApAr"")
+@RequestMapping("/api/Payment/ApAr")
 public class ApArController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class ApArController {
 
     /**
      * Retrieve all ApAr records.
+     * 
      * @return List of ApArResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class ApArController {
 
     /**
      * Retrieve a single ApAr by its ID.
+     * 
      * @param id ID of the ApAr
      * @return ApArResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public ApArResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new ApAr record.
+     * 
      * @param request DTO containing the ApAr data
      * @return Created ApArResponse
      */
@@ -51,23 +54,25 @@ public class ApArController {
 
     /**
      * Update an existing ApAr by its ID.
-     * @param id ID of the ApAr to update
+     * 
+     * @param id      ID of the ApAr to update
      * @param request DTO containing updated data
      * @return Updated ApArResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public ApArResponse update(@PathVariable Long id, @RequestBody @Valid ApArRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a ApAr by its ID.
+     * 
      * @param id ID of the ApAr to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

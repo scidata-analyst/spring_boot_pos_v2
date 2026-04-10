@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using MembershipsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Customers/Memberships"")
+@RequestMapping("/api/Customers/Memberships")
 public class MembershipsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class MembershipsController {
 
     /**
      * Retrieve all Memberships records.
+     * 
      * @return List of MembershipsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class MembershipsController {
 
     /**
      * Retrieve a single Memberships by its ID.
+     * 
      * @param id ID of the Memberships
      * @return MembershipsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public MembershipsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Memberships record.
+     * 
      * @param request DTO containing the Memberships data
      * @return Created MembershipsResponse
      */
@@ -51,23 +54,25 @@ public class MembershipsController {
 
     /**
      * Update an existing Memberships by its ID.
-     * @param id ID of the Memberships to update
+     * 
+     * @param id      ID of the Memberships to update
      * @param request DTO containing updated data
      * @return Updated MembershipsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public MembershipsResponse update(@PathVariable Long id, @RequestBody @Valid MembershipsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Memberships by its ID.
+     * 
      * @param id ID of the Memberships to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

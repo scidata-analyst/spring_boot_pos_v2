@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CustomersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Customers/Customers"")
+@RequestMapping("/api/Customers/Customers")
 public class CustomersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CustomersController {
 
     /**
      * Retrieve all Customers records.
+     * 
      * @return List of CustomersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CustomersController {
 
     /**
      * Retrieve a single Customers by its ID.
+     * 
      * @param id ID of the Customers
      * @return CustomersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CustomersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Customers record.
+     * 
      * @param request DTO containing the Customers data
      * @return Created CustomersResponse
      */
@@ -51,23 +54,25 @@ public class CustomersController {
 
     /**
      * Update an existing Customers by its ID.
-     * @param id ID of the Customers to update
+     * 
+     * @param id      ID of the Customers to update
      * @param request DTO containing updated data
      * @return Updated CustomersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CustomersResponse update(@PathVariable Long id, @RequestBody @Valid CustomersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Customers by its ID.
+     * 
      * @param id ID of the Customers to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SupplierPaymentsAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Suppliers..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Suppliers..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (SupplierPayments): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (SupplierPayments): " + joinPoint.getSignature());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using BatchExpiryResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Products/BatchExpiry"")
+@RequestMapping("/api/Products/BatchExpiry")
 public class BatchExpiryController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class BatchExpiryController {
 
     /**
      * Retrieve all BatchExpiry records.
+     * 
      * @return List of BatchExpiryResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class BatchExpiryController {
 
     /**
      * Retrieve a single BatchExpiry by its ID.
+     * 
      * @param id ID of the BatchExpiry
      * @return BatchExpiryResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public BatchExpiryResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new BatchExpiry record.
+     * 
      * @param request DTO containing the BatchExpiry data
      * @return Created BatchExpiryResponse
      */
@@ -51,23 +54,25 @@ public class BatchExpiryController {
 
     /**
      * Update an existing BatchExpiry by its ID.
-     * @param id ID of the BatchExpiry to update
+     * 
+     * @param id      ID of the BatchExpiry to update
      * @param request DTO containing updated data
      * @return Updated BatchExpiryResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public BatchExpiryResponse update(@PathVariable Long id, @RequestBody @Valid BatchExpiryRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a BatchExpiry by its ID.
+     * 
      * @param id ID of the BatchExpiry to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class ReconciliationInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for Reconciliation: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for Reconciliation: " + request.getRequestURI());
         return true;
     }
 }

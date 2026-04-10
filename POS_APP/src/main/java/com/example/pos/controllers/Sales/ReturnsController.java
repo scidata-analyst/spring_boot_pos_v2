@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using ReturnsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Sales/Returns"")
+@RequestMapping("/api/Sales/Returns")
 public class ReturnsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class ReturnsController {
 
     /**
      * Retrieve all Returns records.
+     * 
      * @return List of ReturnsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class ReturnsController {
 
     /**
      * Retrieve a single Returns by its ID.
+     * 
      * @param id ID of the Returns
      * @return ReturnsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public ReturnsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Returns record.
+     * 
      * @param request DTO containing the Returns data
      * @return Created ReturnsResponse
      */
@@ -51,23 +54,25 @@ public class ReturnsController {
 
     /**
      * Update an existing Returns by its ID.
-     * @param id ID of the Returns to update
+     * 
+     * @param id      ID of the Returns to update
      * @param request DTO containing updated data
      * @return Updated ReturnsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public ReturnsResponse update(@PathVariable Long id, @RequestBody @Valid ReturnsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Returns by its ID.
+     * 
      * @param id ID of the Returns to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

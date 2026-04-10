@@ -16,9 +16,9 @@ public class DashboardJob {
      * Executes the scheduled job for Dashboard.
      * Runs every hour (customize cron expression as needed).
      */
-    @Scheduled(cron = ""0 0 * * * ?"")
+    @Scheduled(cron = "0 0 * * * ?")
     public void execute() {
         // TODO: Implement the job logic for Dashboard
-        System.out.println(""Executing job for Dashboard..."");
+        System.out.println("Executing job for Dashboard...");
     }
 }

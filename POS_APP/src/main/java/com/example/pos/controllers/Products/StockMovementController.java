@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using StockMovementResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Products/StockMovement"")
+@RequestMapping("/api/Products/StockMovement")
 public class StockMovementController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class StockMovementController {
 
     /**
      * Retrieve all StockMovement records.
+     * 
      * @return List of StockMovementResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class StockMovementController {
 
     /**
      * Retrieve a single StockMovement by its ID.
+     * 
      * @param id ID of the StockMovement
      * @return StockMovementResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public StockMovementResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new StockMovement record.
+     * 
      * @param request DTO containing the StockMovement data
      * @return Created StockMovementResponse
      */
@@ -51,23 +54,25 @@ public class StockMovementController {
 
     /**
      * Update an existing StockMovement by its ID.
-     * @param id ID of the StockMovement to update
+     * 
+     * @param id      ID of the StockMovement to update
      * @param request DTO containing updated data
      * @return Updated StockMovementResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public StockMovementResponse update(@PathVariable Long id, @RequestBody @Valid StockMovementRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a StockMovement by its ID.
+     * 
      * @param id ID of the StockMovement to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

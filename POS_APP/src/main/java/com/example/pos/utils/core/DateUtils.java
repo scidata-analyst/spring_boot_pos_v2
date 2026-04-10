@@ -8,10 +8,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 
-    private static final String DEFAULT_DATE_PATTERN = ""yyyy-MM-dd"";
+    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
 
     public static String formatDate(LocalDate date) {
-        if (date == null) return """";
+        if (date == null)
+            return "";
         return date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN));
     }
 

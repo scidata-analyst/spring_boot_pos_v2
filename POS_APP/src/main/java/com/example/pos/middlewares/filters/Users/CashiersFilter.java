@@ -18,7 +18,7 @@ public class CashiersFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(""Filter applied for Cashiers: "" + request.getRequestURI());
+        System.out.println("Filter applied for Cashiers: " + request.getRequestURI());
         chain.doFilter(request, response);
     }
 }

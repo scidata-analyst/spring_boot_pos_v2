@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class PlReportInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for PlReport: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for PlReport: " + request.getRequestURI());
         return true;
     }
 }

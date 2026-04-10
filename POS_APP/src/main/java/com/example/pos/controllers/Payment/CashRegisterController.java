@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CashRegisterResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Payment/CashRegister"")
+@RequestMapping("/api/Payment/CashRegister")
 public class CashRegisterController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CashRegisterController {
 
     /**
      * Retrieve all CashRegister records.
+     * 
      * @return List of CashRegisterResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CashRegisterController {
 
     /**
      * Retrieve a single CashRegister by its ID.
+     * 
      * @param id ID of the CashRegister
      * @return CashRegisterResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CashRegisterResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new CashRegister record.
+     * 
      * @param request DTO containing the CashRegister data
      * @return Created CashRegisterResponse
      */
@@ -51,23 +54,25 @@ public class CashRegisterController {
 
     /**
      * Update an existing CashRegister by its ID.
-     * @param id ID of the CashRegister to update
+     * 
+     * @param id      ID of the CashRegister to update
      * @param request DTO containing updated data
      * @return Updated CashRegisterResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CashRegisterResponse update(@PathVariable Long id, @RequestBody @Valid CashRegisterRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a CashRegister by its ID.
+     * 
      * @param id ID of the CashRegister to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

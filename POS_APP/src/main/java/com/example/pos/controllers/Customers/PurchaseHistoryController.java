@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using PurchaseHistoryResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Customers/PurchaseHistory"")
+@RequestMapping("/api/Customers/PurchaseHistory")
 public class PurchaseHistoryController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class PurchaseHistoryController {
 
     /**
      * Retrieve all PurchaseHistory records.
+     * 
      * @return List of PurchaseHistoryResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class PurchaseHistoryController {
 
     /**
      * Retrieve a single PurchaseHistory by its ID.
+     * 
      * @param id ID of the PurchaseHistory
      * @return PurchaseHistoryResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public PurchaseHistoryResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new PurchaseHistory record.
+     * 
      * @param request DTO containing the PurchaseHistory data
      * @return Created PurchaseHistoryResponse
      */
@@ -51,23 +54,25 @@ public class PurchaseHistoryController {
 
     /**
      * Update an existing PurchaseHistory by its ID.
-     * @param id ID of the PurchaseHistory to update
+     * 
+     * @param id      ID of the PurchaseHistory to update
      * @param request DTO containing updated data
      * @return Updated PurchaseHistoryResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public PurchaseHistoryResponse update(@PathVariable Long id, @RequestBody @Valid PurchaseHistoryRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a PurchaseHistory by its ID.
+     * 
      * @param id ID of the PurchaseHistory to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

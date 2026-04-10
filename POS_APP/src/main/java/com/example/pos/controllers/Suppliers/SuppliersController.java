@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using SuppliersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Suppliers/Suppliers"")
+@RequestMapping("/api/Suppliers/Suppliers")
 public class SuppliersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class SuppliersController {
 
     /**
      * Retrieve all Suppliers records.
+     * 
      * @return List of SuppliersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class SuppliersController {
 
     /**
      * Retrieve a single Suppliers by its ID.
+     * 
      * @param id ID of the Suppliers
      * @return SuppliersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public SuppliersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Suppliers record.
+     * 
      * @param request DTO containing the Suppliers data
      * @return Created SuppliersResponse
      */
@@ -51,23 +54,25 @@ public class SuppliersController {
 
     /**
      * Update an existing Suppliers by its ID.
-     * @param id ID of the Suppliers to update
+     * 
+     * @param id      ID of the Suppliers to update
      * @param request DTO containing updated data
      * @return Updated SuppliersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public SuppliersResponse update(@PathVariable Long id, @RequestBody @Valid SuppliersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Suppliers by its ID.
+     * 
      * @param id ID of the Suppliers to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

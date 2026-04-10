@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using QrMobileResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Hardware/QrMobile"")
+@RequestMapping("/api/Hardware/QrMobile")
 public class QrMobileController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class QrMobileController {
 
     /**
      * Retrieve all QrMobile records.
+     * 
      * @return List of QrMobileResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class QrMobileController {
 
     /**
      * Retrieve a single QrMobile by its ID.
+     * 
      * @param id ID of the QrMobile
      * @return QrMobileResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public QrMobileResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new QrMobile record.
+     * 
      * @param request DTO containing the QrMobile data
      * @return Created QrMobileResponse
      */
@@ -51,23 +54,25 @@ public class QrMobileController {
 
     /**
      * Update an existing QrMobile by its ID.
-     * @param id ID of the QrMobile to update
+     * 
+     * @param id      ID of the QrMobile to update
      * @param request DTO containing updated data
      * @return Updated QrMobileResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public QrMobileResponse update(@PathVariable Long id, @RequestBody @Valid QrMobileRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a QrMobile by its ID.
+     * 
      * @param id ID of the QrMobile to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

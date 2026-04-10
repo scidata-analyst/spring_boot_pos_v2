@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using LoyaltyPointsResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Customers/LoyaltyPoints"")
+@RequestMapping("/api/Customers/LoyaltyPoints")
 public class LoyaltyPointsController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class LoyaltyPointsController {
 
     /**
      * Retrieve all LoyaltyPoints records.
+     * 
      * @return List of LoyaltyPointsResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class LoyaltyPointsController {
 
     /**
      * Retrieve a single LoyaltyPoints by its ID.
+     * 
      * @param id ID of the LoyaltyPoints
      * @return LoyaltyPointsResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public LoyaltyPointsResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new LoyaltyPoints record.
+     * 
      * @param request DTO containing the LoyaltyPoints data
      * @return Created LoyaltyPointsResponse
      */
@@ -51,23 +54,25 @@ public class LoyaltyPointsController {
 
     /**
      * Update an existing LoyaltyPoints by its ID.
-     * @param id ID of the LoyaltyPoints to update
+     * 
+     * @param id      ID of the LoyaltyPoints to update
      * @param request DTO containing updated data
      * @return Updated LoyaltyPointsResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public LoyaltyPointsResponse update(@PathVariable Long id, @RequestBody @Valid LoyaltyPointsRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a LoyaltyPoints by its ID.
+     * 
      * @param id ID of the LoyaltyPoints to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }

@@ -13,8 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class ApArInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(""Interceptor preHandle for ApAr: "" + request.getRequestURI());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        System.out.println("Interceptor preHandle for ApAr: " + request.getRequestURI());
         return true;
     }
 }

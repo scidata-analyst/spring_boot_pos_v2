@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReconciliationAspect {
 
-    @Before(""execution(* com.example.pos.controllers.Accounting..*(..))"")
+    @Before("execution(* com.example.pos.controllers.Accounting..*(..))")
     public void logBeforeController(JoinPoint joinPoint) {
-        System.out.println(""AOP Before Controller (Reconciliation): "" + joinPoint.getSignature());
+        System.out.println("AOP Before Controller (Reconciliation): " + joinPoint.getSignature());
     }
 }

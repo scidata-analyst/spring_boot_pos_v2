@@ -14,7 +14,7 @@ import java.util.List;
  * All responses are returned using CashiersResponse DTO.
  */
 @RestController
-@RequestMapping(""/api/Users/Cashiers"")
+@RequestMapping("/api/Users/Cashiers")
 public class CashiersController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class CashiersController {
 
     /**
      * Retrieve all Cashiers records.
+     * 
      * @return List of CashiersResponse
      */
     @GetMapping
@@ -31,16 +32,18 @@ public class CashiersController {
 
     /**
      * Retrieve a single Cashiers by its ID.
+     * 
      * @param id ID of the Cashiers
      * @return CashiersResponse object
      */
-    @GetMapping(""/{id}"")
+    @GetMapping("/{id}")
     public CashiersResponse get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     /**
      * Create a new Cashiers record.
+     * 
      * @param request DTO containing the Cashiers data
      * @return Created CashiersResponse
      */
@@ -51,23 +54,25 @@ public class CashiersController {
 
     /**
      * Update an existing Cashiers by its ID.
-     * @param id ID of the Cashiers to update
+     * 
+     * @param id      ID of the Cashiers to update
      * @param request DTO containing updated data
      * @return Updated CashiersResponse
      */
-    @PutMapping(""/{id}"")
+    @PutMapping("/{id}")
     public CashiersResponse update(@PathVariable Long id, @RequestBody @Valid CashiersRequest request) {
         return service.update(id, request);
     }
 
     /**
      * Delete a Cashiers by its ID.
+     * 
      * @param id ID of the Cashiers to delete
      * @return Success message
      */
-    @DeleteMapping(""/{id}"")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
-        return ""Deleted successfully"";
+        return "Deleted successfully";
     }
 }
