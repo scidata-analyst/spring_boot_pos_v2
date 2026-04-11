@@ -1,0 +1,71 @@
+{
+  "F:\DASHBOARD_APP\GIT_VERSION\POS\POS_APP\src\main\java\com\example\pos\constants": {
+    "Accounting": [
+      "ApAr",
+      "CashRegister",
+      "Reconciliation",
+      "TaxReports"
+    ],
+    "Core": [
+      "Dashboard",
+      "PosTerminal"
+    ],
+    "Customers": [
+      "Customers",
+      "LoyaltyPoints",
+      "Memberships",
+      "PurchaseHistory"
+    ],
+    "Hardware": [
+      "CashDrawer",
+      "Devices",
+      "QrMobile"
+    ],
+    "Loyalty": [
+      "PointsConfig",
+      "Retention",
+      "TierManagement"
+    ],
+    "Payment": [
+      "ApAr",
+      "CashRegister",
+      "Reconciliation",
+      "TaxReports"
+    ],
+    "Products": [
+      "Barcodes",
+      "BatchExpiry",
+      "Catalog",
+      "Categories",
+      "StockMovement"
+    ],
+    "Promos": [
+      "Coupons",
+      "HappyHour",
+      "Offers"
+    ],
+    "Reports": [
+      "CustomReport",
+      "PlReport",
+      "SalesReport",
+      "StockReport"
+    ],
+    "Sales": [
+      "HeldOrders",
+      "Invoices",
+      "Returns",
+      "Transactions"
+    ],
+    "Suppliers": [
+      "PurchaseOrders",
+      "RestockAlerts",
+      "SupplierPayments",
+      "Suppliers"
+    ],
+    "Users": [
+      "ActivityLog",
+      "Cashiers",
+      "Roles"
+    ]
+  }
+}

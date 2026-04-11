@@ -1,23 +1,137 @@
 ﻿package com.example.pos.dtos.response.Suppliers;
 
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 /**
- * Response DTO for SupplierPayments
+ * =====================================================
+ * Response DTO: SupplierPayments
+ * =====================================================
+ *
+ * Auto-generated from schema.json
+ * Used for API responses only (read-only layer)
  */
 public class SupplierPaymentsResponse {
 
+
+    /**
+     * id
+     */
     private Long id;
 
-    // TODO: Add other fields to return in API response
-    // Example: private String name;
-    // TODO: Add relationship fields as nested DTOs if required
-    // Example: private List<ChildEntityResponse> children;
+    /**
+     * supplierId
+     */
+    private Long supplierId;
 
-    public SupplierPaymentsResponse() { }
+    /**
+     * amount
+     */
+    private Double amount;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    /**
+     * paymentMethod
+     */
+    private String paymentMethod;
 
-    // TODO: Add getters and setters for other fields
+    /**
+     * referenceNumber
+     */
+    private String referenceNumber;
+
+    /**
+     * status
+     */
+    private String status;
+
+    /**
+     * paymentDate
+     */
+    private LocalDateTime paymentDate;
+
+    /**
+     * createdAt
+     */
+    private LocalDateTime createdAt;
+
+    /**
+     * updatedAt
+     */
+    private LocalDateTime updatedAt;
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
 }

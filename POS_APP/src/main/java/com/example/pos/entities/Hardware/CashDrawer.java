@@ -1,38 +1,61 @@
-package com.example.pos.entities.Hardware;
+﻿package com.example.pos.entities.Hardware;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing cash drawer hardware devices.
- * Maps to the cash_drawer table in the database.
+ * =====================================================
+ * Entity: CashDrawer
+ * Table: cash_drawer
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "cash_drawer")
 public class CashDrawer {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "drawer_number", length = 50)
+    /**
+     * drawerNumber
+     */
+
     private String drawerNumber;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "connected_device", length = 100)
+    /**
+     * connectedDevice
+     */
+
     private String connectedDevice;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    /**
+     * updatedAt
+     */
+
     private LocalDateTime updatedAt;
 
-    public CashDrawer() {
-    }
+
 
     public Long getId() {
         return id;
@@ -81,4 +104,6 @@ public class CashDrawer {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

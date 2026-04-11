@@ -1,51 +1,61 @@
 ﻿package com.example.pos.mappers.Hardware;
 
 import com.example.pos.entities.Hardware.CashDrawer;
-import com.example.pos.dtos.Hardware.CashDrawerDto;
+import com.example.pos.dtos.request.Hardware.CashDrawerRequest;
+import com.example.pos.dtos.response.Hardware.CashDrawerResponse;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Mapper class for CashDrawer entity.
- * <p>
- * Responsible for converting between CashDrawer entity and CashDrawerDto.
- */
 @Component
 public class CashDrawerMapper {
 
-    /**
-     * Convert entity to DTO.
-     * @param entity the CashDrawer entity
-     * @return CashDrawerDto representation
-     */
-    public CashDrawerDto toDto(CashDrawer entity) {
+    public CashDrawerResponse toResponse(CashDrawer entity) {
         if (entity == null) return null;
-        CashDrawerDto dto = new CashDrawerDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+
+        CashDrawerResponse response = new CashDrawerResponse();
+
+        response.setId(entity.getId());
+        response.setDrawerNumber(entity.getDrawerNumber());
+        response.setStatus(entity.getStatus());
+        response.setConnectedDevice(entity.getConnectedDevice());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedAt(entity.getUpdatedAt());
+
+        return response;
     }
 
-    /**
-     * Convert DTO to entity.
-     * @param dto the CashDrawerDto
-     * @return CashDrawer entity
-     */
-    public CashDrawer toEntity(CashDrawerDto dto) {
-        if (dto == null) return null;
+    public CashDrawer toEntity(CashDrawerRequest request) {
+        if (request == null) return null;
+
         CashDrawer entity = new CashDrawer();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setDrawerNumber(request.getDrawerNumber());
+        entity.setStatus(request.getStatus());
+        entity.setConnectedDevice(request.getConnectedDevice());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+
         return entity;
     }
 
-    /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of CashDrawer
-     * @return list of CashDrawerDto
-     */
-    public List<CashDrawerDto> toDtoList(List<CashDrawer> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntity(CashDrawerRequest request, CashDrawer entity) {
+        if (request == null || entity == null) return;
+
+
+        entity.setDrawerNumber(request.getDrawerNumber());
+        entity.setStatus(request.getStatus());
+        entity.setConnectedDevice(request.getConnectedDevice());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+    }
+
+    public List<CashDrawerResponse> toResponseList(List<CashDrawer> entities) {
+        if (entities == null) return List.of();
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }

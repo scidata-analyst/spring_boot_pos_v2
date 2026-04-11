@@ -1,51 +1,70 @@
 ﻿package com.example.pos.mappers.Products;
 
 import com.example.pos.entities.Products.BatchExpiry;
-import com.example.pos.dtos.Products.BatchExpiryDto;
+import com.example.pos.dtos.request.Products.BatchExpiryRequest;
+import com.example.pos.dtos.response.Products.BatchExpiryResponse;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Mapper class for BatchExpiry entity.
- * <p>
- * Responsible for converting between BatchExpiry entity and BatchExpiryDto.
- */
 @Component
 public class BatchExpiryMapper {
 
-    /**
-     * Convert entity to DTO.
-     * @param entity the BatchExpiry entity
-     * @return BatchExpiryDto representation
-     */
-    public BatchExpiryDto toDto(BatchExpiry entity) {
+    public BatchExpiryResponse toResponse(BatchExpiry entity) {
         if (entity == null) return null;
-        BatchExpiryDto dto = new BatchExpiryDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+
+        BatchExpiryResponse response = new BatchExpiryResponse();
+
+        response.setId(entity.getId());
+        response.setProductId(entity.getProductId());
+        response.setBatchNumber(entity.getBatchNumber());
+        response.setExpiryDate(entity.getExpiryDate());
+        response.setManufacturingDate(entity.getManufacturingDate());
+        response.setQuantity(entity.getQuantity());
+        response.setStatus(entity.getStatus());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedAt(entity.getUpdatedAt());
+
+        return response;
     }
 
-    /**
-     * Convert DTO to entity.
-     * @param dto the BatchExpiryDto
-     * @return BatchExpiry entity
-     */
-    public BatchExpiry toEntity(BatchExpiryDto dto) {
-        if (dto == null) return null;
+    public BatchExpiry toEntity(BatchExpiryRequest request) {
+        if (request == null) return null;
+
         BatchExpiry entity = new BatchExpiry();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setProductId(request.getProductId());
+        entity.setBatchNumber(request.getBatchNumber());
+        entity.setExpiryDate(request.getExpiryDate());
+        entity.setManufacturingDate(request.getManufacturingDate());
+        entity.setQuantity(request.getQuantity());
+        entity.setStatus(request.getStatus());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+
         return entity;
     }
 
-    /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of BatchExpiry
-     * @return list of BatchExpiryDto
-     */
-    public List<BatchExpiryDto> toDtoList(List<BatchExpiry> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntity(BatchExpiryRequest request, BatchExpiry entity) {
+        if (request == null || entity == null) return;
+
+
+        entity.setProductId(request.getProductId());
+        entity.setBatchNumber(request.getBatchNumber());
+        entity.setExpiryDate(request.getExpiryDate());
+        entity.setManufacturingDate(request.getManufacturingDate());
+        entity.setQuantity(request.getQuantity());
+        entity.setStatus(request.getStatus());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+    }
+
+    public List<BatchExpiryResponse> toResponseList(List<BatchExpiry> entities) {
+        if (entities == null) return List.of();
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }

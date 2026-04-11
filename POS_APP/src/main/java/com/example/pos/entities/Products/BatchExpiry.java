@@ -1,48 +1,80 @@
-package com.example.pos.entities.Products;
+﻿package com.example.pos.entities.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing product batch expiry tracking.
- * Maps to the batch_expiry table in the database.
+ * =====================================================
+ * Entity: BatchExpiry
+ * Table: batch_expiry
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "batch_expiry")
 public class BatchExpiry {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "product_id")
+    /**
+     * productId
+     */
+
     private Long productId;
 
-    @Column(name = "batch_number", length = 100)
+    /**
+     * batchNumber
+     */
+
     private String batchNumber;
 
-    @Column(name = "expiry_date")
+    /**
+     * expiryDate
+     */
+
     private LocalDate expiryDate;
 
-    @Column(name = "manufacturing_date")
+    /**
+     * manufacturingDate
+     */
+
     private LocalDate manufacturingDate;
 
-    @Column(name = "quantity")
+    /**
+     * quantity
+     */
+
     private Integer quantity;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    /**
+     * updatedAt
+     */
+
     private LocalDateTime updatedAt;
 
-    public BatchExpiry() {
-    }
+
 
     public Long getId() {
         return id;
@@ -115,4 +147,6 @@ public class BatchExpiry {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

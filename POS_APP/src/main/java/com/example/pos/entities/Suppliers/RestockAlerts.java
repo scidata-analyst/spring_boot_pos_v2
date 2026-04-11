@@ -1,41 +1,67 @@
-package com.example.pos.entities.Suppliers;
+﻿package com.example.pos.entities.Suppliers;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing restock alerts for low inventory.
- * Maps to the restock_alerts table in the database.
+ * =====================================================
+ * Entity: RestockAlerts
+ * Table: restock_alerts
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "restock_alerts")
 public class RestockAlerts {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "product_id")
+    /**
+     * productId
+     */
+
     private Long productId;
 
-    @Column(name = "current_stock")
+    /**
+     * currentStock
+     */
+
     private Integer currentStock;
 
-    @Column(name = "reorder_level")
+    /**
+     * reorderLevel
+     */
+
     private Integer reorderLevel;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "alert_date")
+    /**
+     * alertDate
+     */
+
     private LocalDateTime alertDate;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    public RestockAlerts() {
-    }
+
 
     public Long getId() {
         return id;
@@ -92,4 +118,6 @@ public class RestockAlerts {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+
 }

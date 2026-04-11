@@ -1,41 +1,67 @@
-package com.example.pos.entities.Products;
+﻿package com.example.pos.entities.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing product categories.
- * Maps to the categories table in the database.
+ * =====================================================
+ * Entity: Categories
+ * Table: categories
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "categories")
 public class Categories {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "name", length = 150, nullable = false)
+    /**
+     * name
+     */
+
     private String name;
 
-    @Column(name = "icon", length = 100)
+    /**
+     * icon
+     */
+
     private String icon;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "description", length = 500)
+    /**
+     * description
+     */
+
     private String description;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    /**
+     * updatedAt
+     */
+
     private LocalDateTime updatedAt;
 
-    public Categories() {
-    }
+
 
     public Long getId() {
         return id;
@@ -92,4 +118,6 @@ public class Categories {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

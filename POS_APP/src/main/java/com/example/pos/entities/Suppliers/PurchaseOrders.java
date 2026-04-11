@@ -1,48 +1,80 @@
-package com.example.pos.entities.Suppliers;
+﻿package com.example.pos.entities.Suppliers;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing purchase orders from suppliers.
- * Maps to the purchase_orders table in the database.
+ * =====================================================
+ * Entity: PurchaseOrders
+ * Table: purchase_orders
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "purchase_orders")
 public class PurchaseOrders {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "supplier_id")
+    /**
+     * supplierId
+     */
+
     private Long supplierId;
 
-    @Column(name = "order_number", length = 100, unique = true)
+    /**
+     * orderNumber
+     */
+
     private String orderNumber;
 
-    @Column(name = "total_amount")
+    /**
+     * totalAmount
+     */
+
     private Double totalAmount;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "order_date")
+    /**
+     * orderDate
+     */
+
     private LocalDateTime orderDate;
 
-    @Column(name = "expected_delivery")
+    /**
+     * expectedDelivery
+     */
+
     private LocalDate expectedDelivery;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    /**
+     * updatedAt
+     */
+
     private LocalDateTime updatedAt;
 
-    public PurchaseOrders() {
-    }
+
 
     public Long getId() {
         return id;
@@ -115,4 +147,6 @@ public class PurchaseOrders {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

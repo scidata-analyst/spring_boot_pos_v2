@@ -1,51 +1,64 @@
 ﻿package com.example.pos.mappers.Products;
 
 import com.example.pos.entities.Products.StockMovement;
-import com.example.pos.dtos.Products.StockMovementDto;
+import com.example.pos.dtos.request.Products.StockMovementRequest;
+import com.example.pos.dtos.response.Products.StockMovementResponse;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Mapper class for StockMovement entity.
- * <p>
- * Responsible for converting between StockMovement entity and StockMovementDto.
- */
 @Component
 public class StockMovementMapper {
 
-    /**
-     * Convert entity to DTO.
-     * @param entity the StockMovement entity
-     * @return StockMovementDto representation
-     */
-    public StockMovementDto toDto(StockMovement entity) {
+    public StockMovementResponse toResponse(StockMovement entity) {
         if (entity == null) return null;
-        StockMovementDto dto = new StockMovementDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+
+        StockMovementResponse response = new StockMovementResponse();
+
+        response.setId(entity.getId());
+        response.setProductId(entity.getProductId());
+        response.setType(entity.getType());
+        response.setQuantity(entity.getQuantity());
+        response.setReferenceId(entity.getReferenceId());
+        response.setReason(entity.getReason());
+        response.setCreatedAt(entity.getCreatedAt());
+
+        return response;
     }
 
-    /**
-     * Convert DTO to entity.
-     * @param dto the StockMovementDto
-     * @return StockMovement entity
-     */
-    public StockMovement toEntity(StockMovementDto dto) {
-        if (dto == null) return null;
+    public StockMovement toEntity(StockMovementRequest request) {
+        if (request == null) return null;
+
         StockMovement entity = new StockMovement();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setProductId(request.getProductId());
+        entity.setType(request.getType());
+        entity.setQuantity(request.getQuantity());
+        entity.setReferenceId(request.getReferenceId());
+        entity.setReason(request.getReason());
+        entity.setCreatedAt(request.getCreatedAt());
+
         return entity;
     }
 
-    /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of StockMovement
-     * @return list of StockMovementDto
-     */
-    public List<StockMovementDto> toDtoList(List<StockMovement> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntity(StockMovementRequest request, StockMovement entity) {
+        if (request == null || entity == null) return;
+
+
+        entity.setProductId(request.getProductId());
+        entity.setType(request.getType());
+        entity.setQuantity(request.getQuantity());
+        entity.setReferenceId(request.getReferenceId());
+        entity.setReason(request.getReason());
+        entity.setCreatedAt(request.getCreatedAt());
+    }
+
+    public List<StockMovementResponse> toResponseList(List<StockMovement> entities) {
+        if (entities == null) return List.of();
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }

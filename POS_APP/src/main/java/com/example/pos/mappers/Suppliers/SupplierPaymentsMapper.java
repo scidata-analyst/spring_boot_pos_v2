@@ -1,51 +1,70 @@
 ﻿package com.example.pos.mappers.Suppliers;
 
 import com.example.pos.entities.Suppliers.SupplierPayments;
-import com.example.pos.dtos.Suppliers.SupplierPaymentsDto;
+import com.example.pos.dtos.request.Suppliers.SupplierPaymentsRequest;
+import com.example.pos.dtos.response.Suppliers.SupplierPaymentsResponse;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Mapper class for SupplierPayments entity.
- * <p>
- * Responsible for converting between SupplierPayments entity and SupplierPaymentsDto.
- */
 @Component
 public class SupplierPaymentsMapper {
 
-    /**
-     * Convert entity to DTO.
-     * @param entity the SupplierPayments entity
-     * @return SupplierPaymentsDto representation
-     */
-    public SupplierPaymentsDto toDto(SupplierPayments entity) {
+    public SupplierPaymentsResponse toResponse(SupplierPayments entity) {
         if (entity == null) return null;
-        SupplierPaymentsDto dto = new SupplierPaymentsDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+
+        SupplierPaymentsResponse response = new SupplierPaymentsResponse();
+
+        response.setId(entity.getId());
+        response.setSupplierId(entity.getSupplierId());
+        response.setAmount(entity.getAmount());
+        response.setPaymentMethod(entity.getPaymentMethod());
+        response.setReferenceNumber(entity.getReferenceNumber());
+        response.setStatus(entity.getStatus());
+        response.setPaymentDate(entity.getPaymentDate());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedAt(entity.getUpdatedAt());
+
+        return response;
     }
 
-    /**
-     * Convert DTO to entity.
-     * @param dto the SupplierPaymentsDto
-     * @return SupplierPayments entity
-     */
-    public SupplierPayments toEntity(SupplierPaymentsDto dto) {
-        if (dto == null) return null;
+    public SupplierPayments toEntity(SupplierPaymentsRequest request) {
+        if (request == null) return null;
+
         SupplierPayments entity = new SupplierPayments();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setSupplierId(request.getSupplierId());
+        entity.setAmount(request.getAmount());
+        entity.setPaymentMethod(request.getPaymentMethod());
+        entity.setReferenceNumber(request.getReferenceNumber());
+        entity.setStatus(request.getStatus());
+        entity.setPaymentDate(request.getPaymentDate());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+
         return entity;
     }
 
-    /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of SupplierPayments
-     * @return list of SupplierPaymentsDto
-     */
-    public List<SupplierPaymentsDto> toDtoList(List<SupplierPayments> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntity(SupplierPaymentsRequest request, SupplierPayments entity) {
+        if (request == null || entity == null) return;
+
+
+        entity.setSupplierId(request.getSupplierId());
+        entity.setAmount(request.getAmount());
+        entity.setPaymentMethod(request.getPaymentMethod());
+        entity.setReferenceNumber(request.getReferenceNumber());
+        entity.setStatus(request.getStatus());
+        entity.setPaymentDate(request.getPaymentDate());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+    }
+
+    public List<SupplierPaymentsResponse> toResponseList(List<SupplierPayments> entities) {
+        if (entities == null) return List.of();
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }

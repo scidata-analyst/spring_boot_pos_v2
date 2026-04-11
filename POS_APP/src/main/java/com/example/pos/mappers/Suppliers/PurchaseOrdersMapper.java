@@ -1,51 +1,70 @@
 ﻿package com.example.pos.mappers.Suppliers;
 
 import com.example.pos.entities.Suppliers.PurchaseOrders;
-import com.example.pos.dtos.Suppliers.PurchaseOrdersDto;
+import com.example.pos.dtos.request.Suppliers.PurchaseOrdersRequest;
+import com.example.pos.dtos.response.Suppliers.PurchaseOrdersResponse;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Mapper class for PurchaseOrders entity.
- * <p>
- * Responsible for converting between PurchaseOrders entity and PurchaseOrdersDto.
- */
 @Component
 public class PurchaseOrdersMapper {
 
-    /**
-     * Convert entity to DTO.
-     * @param entity the PurchaseOrders entity
-     * @return PurchaseOrdersDto representation
-     */
-    public PurchaseOrdersDto toDto(PurchaseOrders entity) {
+    public PurchaseOrdersResponse toResponse(PurchaseOrders entity) {
         if (entity == null) return null;
-        PurchaseOrdersDto dto = new PurchaseOrdersDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+
+        PurchaseOrdersResponse response = new PurchaseOrdersResponse();
+
+        response.setId(entity.getId());
+        response.setSupplierId(entity.getSupplierId());
+        response.setOrderNumber(entity.getOrderNumber());
+        response.setTotalAmount(entity.getTotalAmount());
+        response.setStatus(entity.getStatus());
+        response.setOrderDate(entity.getOrderDate());
+        response.setExpectedDelivery(entity.getExpectedDelivery());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedAt(entity.getUpdatedAt());
+
+        return response;
     }
 
-    /**
-     * Convert DTO to entity.
-     * @param dto the PurchaseOrdersDto
-     * @return PurchaseOrders entity
-     */
-    public PurchaseOrders toEntity(PurchaseOrdersDto dto) {
-        if (dto == null) return null;
+    public PurchaseOrders toEntity(PurchaseOrdersRequest request) {
+        if (request == null) return null;
+
         PurchaseOrders entity = new PurchaseOrders();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setSupplierId(request.getSupplierId());
+        entity.setOrderNumber(request.getOrderNumber());
+        entity.setTotalAmount(request.getTotalAmount());
+        entity.setStatus(request.getStatus());
+        entity.setOrderDate(request.getOrderDate());
+        entity.setExpectedDelivery(request.getExpectedDelivery());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+
         return entity;
     }
 
-    /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of PurchaseOrders
-     * @return list of PurchaseOrdersDto
-     */
-    public List<PurchaseOrdersDto> toDtoList(List<PurchaseOrders> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntity(PurchaseOrdersRequest request, PurchaseOrders entity) {
+        if (request == null || entity == null) return;
+
+
+        entity.setSupplierId(request.getSupplierId());
+        entity.setOrderNumber(request.getOrderNumber());
+        entity.setTotalAmount(request.getTotalAmount());
+        entity.setStatus(request.getStatus());
+        entity.setOrderDate(request.getOrderDate());
+        entity.setExpectedDelivery(request.getExpectedDelivery());
+        entity.setCreatedAt(request.getCreatedAt());
+        entity.setUpdatedAt(request.getUpdatedAt());
+    }
+
+    public List<PurchaseOrdersResponse> toResponseList(List<PurchaseOrders> entities) {
+        if (entities == null) return List.of();
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }

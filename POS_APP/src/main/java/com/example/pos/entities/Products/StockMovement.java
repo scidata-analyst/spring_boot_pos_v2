@@ -1,41 +1,67 @@
-package com.example.pos.entities.Products;
+﻿package com.example.pos.entities.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing stock movement tracking.
- * Maps to the stock_movement table in the database.
+ * =====================================================
+ * Entity: StockMovement
+ * Table: stock_movement
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "stock_movement")
 public class StockMovement {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "product_id")
+    /**
+     * productId
+     */
+
     private Long productId;
 
-    @Column(name = "type", length = 50)
+    /**
+     * type
+     */
+
     private String type;
 
-    @Column(name = "quantity")
+    /**
+     * quantity
+     */
+
     private Integer quantity;
 
-    @Column(name = "reference_id")
+    /**
+     * referenceId
+     */
+
     private Long referenceId;
 
-    @Column(name = "reason", length = 255)
+    /**
+     * reason
+     */
+
     private String reason;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    public StockMovement() {
-    }
+
 
     public Long getId() {
         return id;
@@ -92,4 +118,6 @@ public class StockMovement {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+
 }

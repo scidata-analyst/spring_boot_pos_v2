@@ -1,47 +1,79 @@
-package com.example.pos.entities.Suppliers;
+﻿package com.example.pos.entities.Suppliers;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 /**
- * Entity representing supplier payment records.
- * Maps to the supplier_payments table in the database.
+ * =====================================================
+ * Entity: SupplierPayments
+ * Table: supplier_payments
+ * =====================================================
+ *
+ * Auto-generated from schema.json
  */
 @Entity
 @Table(name = "supplier_payments")
 public class SupplierPayments {
 
+
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
 
-    @Column(name = "supplier_id")
+    /**
+     * supplierId
+     */
+
     private Long supplierId;
 
-    @Column(name = "amount")
+    /**
+     * amount
+     */
+
     private Double amount;
 
-    @Column(name = "payment_method", length = 50)
+    /**
+     * paymentMethod
+     */
+
     private String paymentMethod;
 
-    @Column(name = "reference_number", length = 100)
+    /**
+     * referenceNumber
+     */
+
     private String referenceNumber;
 
-    @Column(name = "status", length = 20)
+    /**
+     * status
+     */
+
     private String status;
 
-    @Column(name = "payment_date")
+    /**
+     * paymentDate
+     */
+
     private LocalDateTime paymentDate;
 
-    @Column(name = "created_at")
+    /**
+     * createdAt
+     */
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    /**
+     * updatedAt
+     */
+
     private LocalDateTime updatedAt;
 
-    public SupplierPayments() {
-    }
+
 
     public Long getId() {
         return id;
@@ -114,4 +146,6 @@ public class SupplierPayments {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

@@ -1,23 +1,111 @@
 ﻿package com.example.pos.dtos.response.Suppliers;
 
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 /**
- * Response DTO for RestockAlerts
+ * =====================================================
+ * Response DTO: RestockAlerts
+ * =====================================================
+ *
+ * Auto-generated from schema.json
+ * Used for API responses only (read-only layer)
  */
 public class RestockAlertsResponse {
 
+
+    /**
+     * id
+     */
     private Long id;
 
-    // TODO: Add other fields to return in API response
-    // Example: private String name;
-    // TODO: Add relationship fields as nested DTOs if required
-    // Example: private List<ChildEntityResponse> children;
+    /**
+     * productId
+     */
+    private Long productId;
 
-    public RestockAlertsResponse() { }
+    /**
+     * currentStock
+     */
+    private Integer currentStock;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    /**
+     * reorderLevel
+     */
+    private Integer reorderLevel;
 
-    // TODO: Add getters and setters for other fields
+    /**
+     * status
+     */
+    private String status;
+
+    /**
+     * alertDate
+     */
+    private LocalDateTime alertDate;
+
+    /**
+     * createdAt
+     */
+    private LocalDateTime createdAt;
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Integer getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Integer currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public Integer getReorderLevel() {
+        return reorderLevel;
+    }
+
+    public void setReorderLevel(Integer reorderLevel) {
+        this.reorderLevel = reorderLevel;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getAlertDate() {
+        return alertDate;
+    }
+
+    public void setAlertDate(LocalDateTime alertDate) {
+        this.alertDate = alertDate;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
 }
