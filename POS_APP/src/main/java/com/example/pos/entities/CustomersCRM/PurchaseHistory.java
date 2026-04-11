@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.CustomersCRM;
+package com.example.pos.entities.CustomersCRM;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.Hardware;
+package com.example.pos.dtos.response.Hardware;
 
 import java.time.LocalDateTime;
 

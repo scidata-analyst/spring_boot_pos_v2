@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Hardware;
+package com.example.pos.mappers.Hardware;
 
 import com.example.pos.entities.Hardware.QRMobilePay;
 import com.example.pos.dtos.request.Hardware.QRMobilePayRequest;

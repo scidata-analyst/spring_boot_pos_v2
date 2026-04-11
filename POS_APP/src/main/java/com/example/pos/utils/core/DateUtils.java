@@ -1,4 +1,4 @@
-﻿package com.example.pos.utils.core;
+package com.example.pos.utils.core;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

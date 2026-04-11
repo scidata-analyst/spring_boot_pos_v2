@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.POSTerminal;
+package com.example.pos.repositories.POSTerminal;
 
 import com.example.pos.entities.POSTerminal.POSTerminal;
 import org.springframework.data.jpa.repository.JpaRepository;

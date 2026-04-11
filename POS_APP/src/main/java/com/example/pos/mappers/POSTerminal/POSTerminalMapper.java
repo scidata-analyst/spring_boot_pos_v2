@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.POSTerminal;
+package com.example.pos.mappers.POSTerminal;
 
 import com.example.pos.entities.POSTerminal.POSTerminal;
 import com.example.pos.dtos.request.POSTerminal.POSTerminalRequest;

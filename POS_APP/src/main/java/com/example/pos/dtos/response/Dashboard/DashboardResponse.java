@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.Dashboard;
+package com.example.pos.dtos.response.Dashboard;
 
 import java.time.LocalDateTime;
 

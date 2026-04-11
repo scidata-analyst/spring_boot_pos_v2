@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Hardware;
+package com.example.pos.dtos.request.Hardware;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

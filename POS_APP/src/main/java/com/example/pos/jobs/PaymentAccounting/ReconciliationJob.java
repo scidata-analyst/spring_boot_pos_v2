@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.PaymentAccounting;
+package com.example.pos.jobs.PaymentAccounting;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

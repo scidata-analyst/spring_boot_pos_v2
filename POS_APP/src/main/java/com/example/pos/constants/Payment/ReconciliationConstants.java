@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Payment;
+package com.example.pos.constants.Payment;
 
 /**
  * Class ReconciliationConstants

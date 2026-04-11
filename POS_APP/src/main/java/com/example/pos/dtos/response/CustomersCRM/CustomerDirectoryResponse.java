@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.CustomersCRM;
+package com.example.pos.dtos.response.CustomersCRM;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

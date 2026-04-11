@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.Dashboard;
+package com.example.pos.repositories.Dashboard;
 
 import com.example.pos.entities.Dashboard.Dashboard;
 import org.springframework.data.jpa.repository.JpaRepository;

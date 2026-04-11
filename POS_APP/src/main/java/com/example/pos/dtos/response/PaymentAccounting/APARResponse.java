@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.PaymentAccounting;
+package com.example.pos.dtos.response.PaymentAccounting;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

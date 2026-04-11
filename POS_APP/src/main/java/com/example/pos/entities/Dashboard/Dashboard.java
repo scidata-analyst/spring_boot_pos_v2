@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.Dashboard;
+package com.example.pos.entities.Dashboard;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

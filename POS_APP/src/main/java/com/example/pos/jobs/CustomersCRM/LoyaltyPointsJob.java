@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.CustomersCRM;
+package com.example.pos.jobs.CustomersCRM;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

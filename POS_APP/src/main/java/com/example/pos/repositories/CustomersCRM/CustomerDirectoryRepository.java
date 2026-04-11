@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.CustomersCRM;
+package com.example.pos.repositories.CustomersCRM;
 
 import com.example.pos.entities.CustomersCRM.CustomerDirectory;
 import org.springframework.data.jpa.repository.JpaRepository;

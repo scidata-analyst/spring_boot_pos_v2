@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.ReportsAnalytics;
+package com.example.pos.dtos.request.ReportsAnalytics;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

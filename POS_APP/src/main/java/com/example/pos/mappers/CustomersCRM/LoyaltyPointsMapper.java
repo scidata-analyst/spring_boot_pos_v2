@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.CustomersCRM;
+package com.example.pos.mappers.CustomersCRM;
 
 import com.example.pos.entities.CustomersCRM.LoyaltyPoints;
 import com.example.pos.dtos.request.CustomersCRM.LoyaltyPointsRequest;

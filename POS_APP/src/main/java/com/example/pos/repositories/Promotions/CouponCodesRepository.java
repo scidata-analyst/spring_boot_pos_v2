@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.Promotions;
+package com.example.pos.repositories.Promotions;
 
 import com.example.pos.entities.Promotions.CouponCodes;
 import org.springframework.data.jpa.repository.JpaRepository;

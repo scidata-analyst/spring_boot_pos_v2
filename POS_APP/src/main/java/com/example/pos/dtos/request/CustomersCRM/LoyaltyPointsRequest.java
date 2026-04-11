@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.CustomersCRM;
+package com.example.pos.dtos.request.CustomersCRM;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

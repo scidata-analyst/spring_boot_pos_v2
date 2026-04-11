@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Customers;
+package com.example.pos.constants.Customers;
 
 /**
  * Class CustomersConstants

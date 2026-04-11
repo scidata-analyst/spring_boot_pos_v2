@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Hardware;
+package com.example.pos.mappers.Hardware;
 
 import com.example.pos.entities.Hardware.DevicesPrinters;
 import com.example.pos.dtos.request.Hardware.DevicesPrintersRequest;

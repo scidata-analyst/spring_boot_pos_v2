@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.PaymentAccounting;
+package com.example.pos.services.PaymentAccounting;
 
 import com.example.pos.entities.PaymentAccounting.Reconciliation;
 import com.example.pos.dtos.request.PaymentAccounting.ReconciliationRequest;

@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.POSTerminal;
+package com.example.pos.jobs.POSTerminal;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

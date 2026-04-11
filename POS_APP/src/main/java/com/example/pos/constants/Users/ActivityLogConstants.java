@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Users;
+package com.example.pos.constants.Users;
 
 /**
  * Class ActivityLogConstants

@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.UsersRoles;
+package com.example.pos.dtos.request.UsersRoles;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

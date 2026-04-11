@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Core;
+package com.example.pos.constants.Core;
 
 /**
  * Class DashboardConstants

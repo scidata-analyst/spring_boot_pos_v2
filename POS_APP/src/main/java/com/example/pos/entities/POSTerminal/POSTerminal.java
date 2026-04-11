@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.POSTerminal;
+package com.example.pos.entities.POSTerminal;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Hardware;
+package com.example.pos.constants.Hardware;
 
 /**
  * Class CashDrawerConstants

@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.Suppliers;
+package com.example.pos.controllers.Suppliers;
 
 import com.example.pos.dtos.request.Suppliers.SupplierPaymentsRequest;
 import com.example.pos.dtos.response.Suppliers.SupplierPaymentsResponse;

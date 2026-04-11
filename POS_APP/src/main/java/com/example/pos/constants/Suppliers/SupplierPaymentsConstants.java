@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Suppliers;
+package com.example.pos.constants.Suppliers;
 
 /**
  * Class SupplierPaymentsConstants

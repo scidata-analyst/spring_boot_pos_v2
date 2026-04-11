@@ -1,4 +1,4 @@
-﻿package com.example.pos.exceptions;
+package com.example.pos.exceptions;
 
 /**
  * Exception thrown when a requested resource/entity is not found.

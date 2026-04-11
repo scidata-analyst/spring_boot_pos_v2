@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.Products;
+package com.example.pos.dtos.response.Products;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

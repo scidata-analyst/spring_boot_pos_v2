@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.Promotions;
+package com.example.pos.entities.Promotions;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

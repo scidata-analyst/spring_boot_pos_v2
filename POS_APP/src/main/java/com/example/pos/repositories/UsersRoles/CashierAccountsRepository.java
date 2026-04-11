@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.UsersRoles;
+package com.example.pos.repositories.UsersRoles;
 
 import com.example.pos.entities.UsersRoles.CashierAccounts;
 import org.springframework.data.jpa.repository.JpaRepository;

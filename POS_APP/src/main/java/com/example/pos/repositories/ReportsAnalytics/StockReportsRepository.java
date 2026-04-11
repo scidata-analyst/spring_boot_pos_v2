@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.ReportsAnalytics;
+package com.example.pos.repositories.ReportsAnalytics;
 
 import com.example.pos.entities.ReportsAnalytics.StockReports;
 import org.springframework.data.jpa.repository.JpaRepository;

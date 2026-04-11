@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.LoyaltyMembership;
+package com.example.pos.mappers.LoyaltyMembership;
 
 import com.example.pos.entities.LoyaltyMembership.PointsConfig;
 import com.example.pos.dtos.request.LoyaltyMembership.PointsConfigRequest;

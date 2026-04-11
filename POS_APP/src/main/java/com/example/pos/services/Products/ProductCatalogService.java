@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.Products;
+package com.example.pos.services.Products;
 
 import com.example.pos.dtos.request.Products.ProductCatalogRequest;
 import com.example.pos.dtos.response.Products.ProductCatalogResponse;

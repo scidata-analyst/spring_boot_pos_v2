@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.CustomersCRM;
+package com.example.pos.services.CustomersCRM;
 
 import com.example.pos.dtos.request.CustomersCRM.MembershipsVIPRequest;
 import com.example.pos.dtos.response.CustomersCRM.MembershipsVIPResponse;

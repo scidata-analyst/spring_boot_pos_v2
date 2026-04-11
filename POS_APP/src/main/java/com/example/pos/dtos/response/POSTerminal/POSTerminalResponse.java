@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.POSTerminal;
+package com.example.pos.dtos.response.POSTerminal;
 
 import java.time.LocalDateTime;
 

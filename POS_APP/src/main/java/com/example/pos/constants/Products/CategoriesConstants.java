@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Products;
+package com.example.pos.constants.Products;
 
 /**
  * Class CategoriesConstants

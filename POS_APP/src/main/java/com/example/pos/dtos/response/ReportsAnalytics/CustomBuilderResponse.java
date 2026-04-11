@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.ReportsAnalytics;
+package com.example.pos.dtos.response.ReportsAnalytics;
 
 import java.time.LocalDateTime;
 

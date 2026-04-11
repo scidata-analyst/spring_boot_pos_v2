@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Reports;
+package com.example.pos.constants.Reports;
 
 /**
  * Class PlReportConstants

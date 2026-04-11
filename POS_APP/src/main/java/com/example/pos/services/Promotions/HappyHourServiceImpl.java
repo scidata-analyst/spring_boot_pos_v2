@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.Promotions;
+package com.example.pos.services.Promotions;
 
 import com.example.pos.entities.Promotions.HappyHour;
 import com.example.pos.dtos.request.Promotions.HappyHourRequest;

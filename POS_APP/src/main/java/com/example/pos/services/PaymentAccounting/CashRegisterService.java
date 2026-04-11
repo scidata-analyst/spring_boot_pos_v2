@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.PaymentAccounting;
+package com.example.pos.services.PaymentAccounting;
 
 import com.example.pos.dtos.request.PaymentAccounting.CashRegisterRequest;
 import com.example.pos.dtos.response.PaymentAccounting.CashRegisterResponse;

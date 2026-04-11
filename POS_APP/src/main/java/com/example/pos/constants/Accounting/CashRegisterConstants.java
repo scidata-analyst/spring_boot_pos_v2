@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Accounting;
+package com.example.pos.constants.Accounting;
 
 /**
  * Class CashRegisterConstants

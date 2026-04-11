@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.UsersRoles;
+package com.example.pos.mappers.UsersRoles;
 
 import com.example.pos.entities.UsersRoles.CashierAccounts;
 import com.example.pos.dtos.request.UsersRoles.CashierAccountsRequest;

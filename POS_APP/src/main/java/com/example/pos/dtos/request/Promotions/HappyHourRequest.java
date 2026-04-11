@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Promotions;
+package com.example.pos.dtos.request.Promotions;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

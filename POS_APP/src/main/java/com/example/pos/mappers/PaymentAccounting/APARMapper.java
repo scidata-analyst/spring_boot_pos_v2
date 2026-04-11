@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.PaymentAccounting;
+package com.example.pos.mappers.PaymentAccounting;
 
 import com.example.pos.entities.PaymentAccounting.APAR;
 import com.example.pos.dtos.request.PaymentAccounting.APARRequest;

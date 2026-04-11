@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.SalesBilling;
+package com.example.pos.repositories.SalesBilling;
 
 import com.example.pos.entities.SalesBilling.ReturnsRefunds;
 import org.springframework.data.jpa.repository.JpaRepository;

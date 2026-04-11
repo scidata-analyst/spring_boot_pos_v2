@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.POSTerminal;
+package com.example.pos.dtos.request.POSTerminal;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

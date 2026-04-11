@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.SalesBilling;
+package com.example.pos.entities.SalesBilling;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

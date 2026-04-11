@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.Products;
+package com.example.pos.jobs.Products;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

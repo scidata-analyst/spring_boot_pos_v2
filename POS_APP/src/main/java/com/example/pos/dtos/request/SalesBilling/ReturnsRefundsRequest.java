@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.SalesBilling;
+package com.example.pos.dtos.request.SalesBilling;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

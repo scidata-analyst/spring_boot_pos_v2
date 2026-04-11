@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.LoyaltyMembership;
+package com.example.pos.dtos.request.LoyaltyMembership;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

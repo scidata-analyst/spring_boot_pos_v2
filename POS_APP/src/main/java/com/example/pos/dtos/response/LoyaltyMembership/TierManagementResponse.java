@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.LoyaltyMembership;
+package com.example.pos.dtos.response.LoyaltyMembership;
 
 import java.time.LocalDateTime;
 

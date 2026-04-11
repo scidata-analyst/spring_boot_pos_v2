@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Products;
+package com.example.pos.mappers.Products;
 
 import com.example.pos.entities.Products.Categories;
 import com.example.pos.dtos.request.Products.CategoriesRequest;

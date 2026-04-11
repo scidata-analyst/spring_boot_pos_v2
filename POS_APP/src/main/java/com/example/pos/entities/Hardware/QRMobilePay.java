@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.Hardware;
+package com.example.pos.entities.Hardware;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

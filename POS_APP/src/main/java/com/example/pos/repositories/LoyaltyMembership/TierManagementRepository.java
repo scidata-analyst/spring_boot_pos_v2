@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.LoyaltyMembership;
+package com.example.pos.repositories.LoyaltyMembership;
 
 import com.example.pos.entities.LoyaltyMembership.TierManagement;
 import org.springframework.data.jpa.repository.JpaRepository;

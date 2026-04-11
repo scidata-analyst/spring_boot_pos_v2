@@ -1,4 +1,4 @@
-﻿package com.example.pos.configurations;
+package com.example.pos.configurations;
 
 import org.springframework.context.annotation.Configuration;
 

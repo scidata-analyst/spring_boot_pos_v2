@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.Suppliers;
+package com.example.pos.repositories.Suppliers;
 
 import com.example.pos.entities.Suppliers.SupplierPayments;
 import org.springframework.data.jpa.repository.JpaRepository;

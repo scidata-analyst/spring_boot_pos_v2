@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.LoyaltyMembership;
+package com.example.pos.entities.LoyaltyMembership;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

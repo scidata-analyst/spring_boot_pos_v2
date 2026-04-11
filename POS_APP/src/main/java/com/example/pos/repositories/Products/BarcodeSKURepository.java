@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.Products;
+package com.example.pos.repositories.Products;
 
 import com.example.pos.entities.Products.BarcodeSKU;
 import org.springframework.data.jpa.repository.JpaRepository;

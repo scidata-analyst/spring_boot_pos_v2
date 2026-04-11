@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.ReportsAnalytics;
+package com.example.pos.entities.ReportsAnalytics;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

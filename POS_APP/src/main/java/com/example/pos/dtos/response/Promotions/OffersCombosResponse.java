@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.Promotions;
+package com.example.pos.dtos.response.Promotions;
 
 import java.time.LocalDateTime;
 

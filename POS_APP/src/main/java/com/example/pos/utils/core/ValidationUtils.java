@@ -1,4 +1,4 @@
-﻿package com.example.pos.utils.core;
+package com.example.pos.utils.core;
 
 /**
  * Utility class for common validations.

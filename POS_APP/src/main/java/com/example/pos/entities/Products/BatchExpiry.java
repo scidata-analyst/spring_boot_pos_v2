@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.Products;
+package com.example.pos.entities.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

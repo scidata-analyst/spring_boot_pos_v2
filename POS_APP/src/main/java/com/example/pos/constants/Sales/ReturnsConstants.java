@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Sales;
+package com.example.pos.constants.Sales;
 
 /**
  * Class ReturnsConstants

@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.response.UsersRoles;
+package com.example.pos.dtos.response.UsersRoles;
 
 import java.time.LocalDateTime;
 

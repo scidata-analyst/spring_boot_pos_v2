@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.UsersRoles;
+package com.example.pos.jobs.UsersRoles;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

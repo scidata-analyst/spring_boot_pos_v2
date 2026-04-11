@@ -1,4 +1,4 @@
-﻿package com.example.pos.entities.UsersRoles;
+package com.example.pos.entities.UsersRoles;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.Hardware;
+package com.example.pos.services.Hardware;
 
 import com.example.pos.dtos.request.Hardware.DevicesPrintersRequest;
 import com.example.pos.dtos.response.Hardware.DevicesPrintersResponse;

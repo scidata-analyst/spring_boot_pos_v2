@@ -1,4 +1,4 @@
-﻿package com.example.pos.services.POSTerminal;
+package com.example.pos.services.POSTerminal;
 
 import com.example.pos.dtos.request.POSTerminal.POSTerminalRequest;
 import com.example.pos.dtos.response.POSTerminal.POSTerminalResponse;

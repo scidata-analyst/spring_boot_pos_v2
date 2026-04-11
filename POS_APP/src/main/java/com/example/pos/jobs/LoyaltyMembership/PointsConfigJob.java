@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.LoyaltyMembership;
+package com.example.pos.jobs.LoyaltyMembership;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

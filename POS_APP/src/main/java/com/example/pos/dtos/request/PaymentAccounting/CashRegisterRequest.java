@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.PaymentAccounting;
+package com.example.pos.dtos.request.PaymentAccounting;
 
 import jakarta.validation.constraints.*;
 import java.time.*;

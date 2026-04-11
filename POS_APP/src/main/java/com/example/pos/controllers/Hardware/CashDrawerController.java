@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.Hardware;
+package com.example.pos.controllers.Hardware;
 
 import com.example.pos.dtos.request.Hardware.CashDrawerRequest;
 import com.example.pos.dtos.response.Hardware.CashDrawerResponse;

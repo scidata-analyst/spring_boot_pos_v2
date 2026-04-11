@@ -1,4 +1,4 @@
-﻿package com.example.pos.jobs.Dashboard;
+package com.example.pos.jobs.Dashboard;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Promos;
+package com.example.pos.constants.Promos;
 
 /**
  * Class HappyHourConstants

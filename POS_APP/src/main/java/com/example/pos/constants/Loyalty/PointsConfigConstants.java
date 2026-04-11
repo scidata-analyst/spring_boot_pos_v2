@@ -1,4 +1,4 @@
-﻿package com.example.pos.constants.Loyalty;
+package com.example.pos.constants.Loyalty;
 
 /**
  * Class PointsConfigConstants
