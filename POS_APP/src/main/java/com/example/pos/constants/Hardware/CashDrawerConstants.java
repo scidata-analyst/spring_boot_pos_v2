@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Hardware;
+package com.example.pos.constants.Hardware;
 
 /**
  * Class CashDrawerConstants
  *
  * @package com.example.pos.constants.Hardware
  *
- * Provides constant values for CashDrawer domain.
+ *          Provides constant values for CashDrawer domain.
  */
 public final class CashDrawerConstants {
 

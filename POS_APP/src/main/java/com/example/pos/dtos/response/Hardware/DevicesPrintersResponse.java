@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.Hardware;
+package com.example.pos.dtos.response.Hardware;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class DevicesPrintersResponse {
-
 
     /**
      * id
@@ -53,8 +51,6 @@ public class DevicesPrintersResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -119,6 +115,5 @@ public class DevicesPrintersResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

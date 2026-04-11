@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Sales;
+package com.example.pos.constants.Sales;
 
 /**
  * Class ReturnsConstants
  *
  * @package com.example.pos.constants.Sales
  *
- * Provides constant values for Returns domain.
+ *          Provides constant values for Returns domain.
  */
 public final class ReturnsConstants {
 

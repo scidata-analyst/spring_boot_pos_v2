@@ -1,8 +1,7 @@
-﻿package com.example.pos.dtos.response.Promotions;
+package com.example.pos.dtos.response.Promotions;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 
 /**
  * =====================================================
@@ -13,7 +12,6 @@ import java.time.LocalTime;
  * Used for API responses only (read-only layer)
  */
 public class HappyHourResponse {
-
 
     /**
      * id
@@ -64,8 +62,6 @@ public class HappyHourResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -146,6 +142,5 @@ public class HappyHourResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

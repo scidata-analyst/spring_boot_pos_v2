@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Customers;
+package com.example.pos.constants.Customers;
 
 /**
  * Class CustomersConstants
  *
  * @package com.example.pos.constants.Customers
  *
- * Provides constant values for Customers domain.
+ *          Provides constant values for Customers domain.
  */
 public final class CustomersConstants {
 

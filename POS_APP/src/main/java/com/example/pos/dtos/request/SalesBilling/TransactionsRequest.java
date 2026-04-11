@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.SalesBilling;
+package com.example.pos.dtos.request.SalesBilling;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class TransactionsRequest {
-
 
     /**
      * id
@@ -85,8 +84,6 @@ public class TransactionsRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -183,6 +180,5 @@ public class TransactionsRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

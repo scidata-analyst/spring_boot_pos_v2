@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Products;
+package com.example.pos.constants.Products;
 
 /**
  * Class StockMovementConstants
  *
  * @package com.example.pos.constants.Products
  *
- * Provides constant values for StockMovement domain.
+ *          Provides constant values for StockMovement domain.
  */
 public final class StockMovementConstants {
 

@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Sales;
+package com.example.pos.constants.Sales;
 
 /**
  * Class InvoicesConstants
  *
  * @package com.example.pos.constants.Sales
  *
- * Provides constant values for Invoices domain.
+ *          Provides constant values for Invoices domain.
  */
 public final class InvoicesConstants {
 

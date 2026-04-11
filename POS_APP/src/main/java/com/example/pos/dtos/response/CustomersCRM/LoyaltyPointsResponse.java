@@ -1,8 +1,7 @@
-﻿package com.example.pos.dtos.response.CustomersCRM;
+package com.example.pos.dtos.response.CustomersCRM;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class LoyaltyPointsResponse {
-
 
     /**
      * id
@@ -54,8 +52,6 @@ public class LoyaltyPointsResponse {
      * createdAt
      */
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -120,6 +116,5 @@ public class LoyaltyPointsResponse {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

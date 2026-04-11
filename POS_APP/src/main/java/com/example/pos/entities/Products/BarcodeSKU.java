@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.Products;
+package com.example.pos.entities.Products;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "barcode_sku")
 public class BarcodeSKU {
-
 
     /**
      * id
@@ -66,8 +64,6 @@ public class BarcodeSKU {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class BarcodeSKU {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

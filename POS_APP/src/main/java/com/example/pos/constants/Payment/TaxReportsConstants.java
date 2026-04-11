@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Payment;
+package com.example.pos.constants.Payment;
 
 /**
  * Class TaxReportsConstants
  *
  * @package com.example.pos.constants.Payment
  *
- * Provides constant values for TaxReports domain.
+ *          Provides constant values for TaxReports domain.
  */
 public final class TaxReportsConstants {
 

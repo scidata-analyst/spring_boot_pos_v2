@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Loyalty;
+package com.example.pos.constants.Loyalty;
 
 /**
  * Class RetentionConstants
  *
  * @package com.example.pos.constants.Loyalty
  *
- * Provides constant values for Retention domain.
+ *          Provides constant values for Retention domain.
  */
 public final class RetentionConstants {
 

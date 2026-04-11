@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.PaymentAccounting;
+package com.example.pos.controllers.PaymentAccounting;
 
 import com.example.pos.dtos.request.PaymentAccounting.TaxReportsRequest;
 import com.example.pos.dtos.response.PaymentAccounting.TaxReportsResponse;

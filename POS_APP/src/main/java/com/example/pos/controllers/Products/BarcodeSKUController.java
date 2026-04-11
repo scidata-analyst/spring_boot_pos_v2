@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.Products;
+package com.example.pos.controllers.Products;
 
 import com.example.pos.dtos.request.Products.BarcodeSKURequest;
 import com.example.pos.dtos.response.Products.BarcodeSKUResponse;

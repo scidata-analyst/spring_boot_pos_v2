@@ -1,9 +1,8 @@
-﻿package com.example.pos.entities.CustomersCRM;
+package com.example.pos.entities.CustomersCRM;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "memberships_vip")
 public class MembershipsVIP {
-
 
     /**
      * id
@@ -74,8 +72,6 @@ public class MembershipsVIP {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -148,6 +144,5 @@ public class MembershipsVIP {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

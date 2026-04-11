@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Hardware;
+package com.example.pos.dtos.request.Hardware;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class CashDrawerRequest {
-
 
     /**
      * id
@@ -49,8 +48,6 @@ public class CashDrawerRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -99,6 +96,5 @@ public class CashDrawerRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

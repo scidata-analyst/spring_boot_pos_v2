@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Promotions;
+package com.example.pos.mappers.Promotions;
 
 import com.example.pos.entities.Promotions.CouponCodes;
 import com.example.pos.dtos.request.Promotions.CouponCodesRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CouponCodesMapper {
 
     public CouponCodesResponse toResponse(CouponCodes entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CouponCodesResponse response = new CouponCodesResponse();
 
@@ -33,7 +34,8 @@ public class CouponCodesMapper {
     }
 
     public CouponCodes toEntity(CouponCodesRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CouponCodes entity = new CouponCodes();
 
@@ -53,8 +55,8 @@ public class CouponCodesMapper {
     }
 
     public void updateEntity(CouponCodesRequest request, CouponCodes entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setCode(request.getCode());
         entity.setDiscountType(request.getDiscountType());
@@ -70,7 +72,8 @@ public class CouponCodesMapper {
     }
 
     public List<CouponCodesResponse> toResponseList(List<CouponCodes> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

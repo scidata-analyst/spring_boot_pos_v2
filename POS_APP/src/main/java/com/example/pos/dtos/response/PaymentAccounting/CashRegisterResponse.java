@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.PaymentAccounting;
+package com.example.pos.dtos.response.PaymentAccounting;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class CashRegisterResponse {
-
 
     /**
      * id
@@ -63,8 +61,6 @@ public class CashRegisterResponse {
      * createdAt
      */
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -145,6 +141,5 @@ public class CashRegisterResponse {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

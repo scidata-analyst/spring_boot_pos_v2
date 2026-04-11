@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.SalesBilling;
+package com.example.pos.mappers.SalesBilling;
 
 import com.example.pos.entities.SalesBilling.ReturnsRefunds;
 import com.example.pos.dtos.request.SalesBilling.ReturnsRefundsRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class ReturnsRefundsMapper {
 
     public ReturnsRefundsResponse toResponse(ReturnsRefunds entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         ReturnsRefundsResponse response = new ReturnsRefundsResponse();
 
@@ -30,7 +31,8 @@ public class ReturnsRefundsMapper {
     }
 
     public ReturnsRefunds toEntity(ReturnsRefundsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         ReturnsRefunds entity = new ReturnsRefunds();
 
@@ -47,8 +49,8 @@ public class ReturnsRefundsMapper {
     }
 
     public void updateEntity(ReturnsRefundsRequest request, ReturnsRefunds entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setTransactionId(request.getTransactionId());
         entity.setProductId(request.getProductId());
@@ -61,7 +63,8 @@ public class ReturnsRefundsMapper {
     }
 
     public List<ReturnsRefundsResponse> toResponseList(List<ReturnsRefunds> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

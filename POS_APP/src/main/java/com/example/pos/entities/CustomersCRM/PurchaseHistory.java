@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.CustomersCRM;
+package com.example.pos.entities.CustomersCRM;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "purchase_history")
 public class PurchaseHistory {
-
 
     /**
      * id
@@ -61,8 +59,6 @@ public class PurchaseHistory {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -119,6 +115,5 @@ public class PurchaseHistory {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

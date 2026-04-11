@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Reports;
+package com.example.pos.constants.Reports;
 
 /**
  * Class PlReportConstants
  *
  * @package com.example.pos.constants.Reports
  *
- * Provides constant values for PlReport domain.
+ *          Provides constant values for PlReport domain.
  */
 public final class PlReportConstants {
 

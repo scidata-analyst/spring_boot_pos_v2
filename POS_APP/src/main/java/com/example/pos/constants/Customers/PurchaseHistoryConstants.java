@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Customers;
+package com.example.pos.constants.Customers;
 
 /**
  * Class PurchaseHistoryConstants
  *
  * @package com.example.pos.constants.Customers
  *
- * Provides constant values for PurchaseHistory domain.
+ *          Provides constant values for PurchaseHistory domain.
  */
 public final class PurchaseHistoryConstants {
 

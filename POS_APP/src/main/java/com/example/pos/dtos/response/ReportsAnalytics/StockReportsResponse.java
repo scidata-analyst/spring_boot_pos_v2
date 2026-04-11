@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.ReportsAnalytics;
+package com.example.pos.dtos.response.ReportsAnalytics;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class StockReportsResponse {
-
 
     /**
      * id
@@ -53,8 +51,6 @@ public class StockReportsResponse {
      * createdAt
      */
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -119,6 +115,5 @@ public class StockReportsResponse {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

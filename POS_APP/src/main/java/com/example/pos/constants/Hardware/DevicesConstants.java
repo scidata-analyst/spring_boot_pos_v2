@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Hardware;
+package com.example.pos.constants.Hardware;
 
 /**
  * Class DevicesConstants
  *
  * @package com.example.pos.constants.Hardware
  *
- * Provides constant values for Devices domain.
+ *          Provides constant values for Devices domain.
  */
 public final class DevicesConstants {
 

@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.PaymentAccounting;
+package com.example.pos.dtos.request.PaymentAccounting;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class APARRequest {
-
 
     /**
      * id
@@ -73,8 +72,6 @@ public class APARRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -155,6 +152,5 @@ public class APARRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

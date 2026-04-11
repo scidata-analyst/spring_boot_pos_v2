@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Promotions;
+package com.example.pos.mappers.Promotions;
 
 import com.example.pos.entities.Promotions.OffersCombos;
 import com.example.pos.dtos.request.Promotions.OffersCombosRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class OffersCombosMapper {
 
     public OffersCombosResponse toResponse(OffersCombos entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         OffersCombosResponse response = new OffersCombosResponse();
 
@@ -34,7 +35,8 @@ public class OffersCombosMapper {
     }
 
     public OffersCombos toEntity(OffersCombosRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         OffersCombos entity = new OffersCombos();
 
@@ -55,8 +57,8 @@ public class OffersCombosMapper {
     }
 
     public void updateEntity(OffersCombosRequest request, OffersCombos entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setType(request.getType());
@@ -73,7 +75,8 @@ public class OffersCombosMapper {
     }
 
     public List<OffersCombosResponse> toResponseList(List<OffersCombos> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

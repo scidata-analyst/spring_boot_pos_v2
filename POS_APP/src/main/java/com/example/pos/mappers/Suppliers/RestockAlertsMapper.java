@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Suppliers;
+package com.example.pos.mappers.Suppliers;
 
 import com.example.pos.entities.Suppliers.RestockAlerts;
 import com.example.pos.dtos.request.Suppliers.RestockAlertsRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class RestockAlertsMapper {
 
     public RestockAlertsResponse toResponse(RestockAlerts entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         RestockAlertsResponse response = new RestockAlertsResponse();
 
@@ -28,7 +29,8 @@ public class RestockAlertsMapper {
     }
 
     public RestockAlerts toEntity(RestockAlertsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         RestockAlerts entity = new RestockAlerts();
 
@@ -43,8 +45,8 @@ public class RestockAlertsMapper {
     }
 
     public void updateEntity(RestockAlertsRequest request, RestockAlerts entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setProductId(request.getProductId());
         entity.setCurrentStock(request.getCurrentStock());
@@ -55,7 +57,8 @@ public class RestockAlertsMapper {
     }
 
     public List<RestockAlertsResponse> toResponseList(List<RestockAlerts> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

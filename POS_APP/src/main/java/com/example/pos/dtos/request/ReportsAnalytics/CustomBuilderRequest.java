@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.ReportsAnalytics;
+package com.example.pos.dtos.request.ReportsAnalytics;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class CustomBuilderRequest {
-
 
     /**
      * id
@@ -67,8 +66,6 @@ public class CustomBuilderRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class CustomBuilderRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

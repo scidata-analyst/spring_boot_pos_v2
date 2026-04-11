@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.POSTerminal;
+package com.example.pos.entities.POSTerminal;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "pos_terminal")
 public class POSTerminal {
-
 
     /**
      * id
@@ -66,8 +64,6 @@ public class POSTerminal {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class POSTerminal {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

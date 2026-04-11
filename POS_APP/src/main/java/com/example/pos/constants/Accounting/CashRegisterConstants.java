@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Accounting;
+package com.example.pos.constants.Accounting;
 
 /**
  * Class CashRegisterConstants
  *
  * @package com.example.pos.constants.Accounting
  *
- * Provides constant values for CashRegister domain.
+ *          Provides constant values for CashRegister domain.
  */
 public final class CashRegisterConstants {
 

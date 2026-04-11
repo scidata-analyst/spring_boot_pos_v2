@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.PaymentAccounting;
+package com.example.pos.entities.PaymentAccounting;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "reconciliation")
 public class Reconciliation {
-
 
     /**
      * id
@@ -73,8 +71,6 @@ public class Reconciliation {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -147,6 +143,5 @@ public class Reconciliation {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.SalesBilling;
+package com.example.pos.mappers.SalesBilling;
 
 import com.example.pos.entities.SalesBilling.HeldOrders;
 import com.example.pos.dtos.request.SalesBilling.HeldOrdersRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class HeldOrdersMapper {
 
     public HeldOrdersResponse toResponse(HeldOrders entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         HeldOrdersResponse response = new HeldOrdersResponse();
 
@@ -30,7 +31,8 @@ public class HeldOrdersMapper {
     }
 
     public HeldOrders toEntity(HeldOrdersRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         HeldOrders entity = new HeldOrders();
 
@@ -47,8 +49,8 @@ public class HeldOrdersMapper {
     }
 
     public void updateEntity(HeldOrdersRequest request, HeldOrders entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setOrderNumber(request.getOrderNumber());
         entity.setCartData(request.getCartData());
@@ -61,7 +63,8 @@ public class HeldOrdersMapper {
     }
 
     public List<HeldOrdersResponse> toResponseList(List<HeldOrders> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

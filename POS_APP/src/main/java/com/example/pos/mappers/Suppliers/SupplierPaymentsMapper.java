@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Suppliers;
+package com.example.pos.mappers.Suppliers;
 
 import com.example.pos.entities.Suppliers.SupplierPayments;
 import com.example.pos.dtos.request.Suppliers.SupplierPaymentsRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class SupplierPaymentsMapper {
 
     public SupplierPaymentsResponse toResponse(SupplierPayments entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         SupplierPaymentsResponse response = new SupplierPaymentsResponse();
 
@@ -30,7 +31,8 @@ public class SupplierPaymentsMapper {
     }
 
     public SupplierPayments toEntity(SupplierPaymentsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         SupplierPayments entity = new SupplierPayments();
 
@@ -47,8 +49,8 @@ public class SupplierPaymentsMapper {
     }
 
     public void updateEntity(SupplierPaymentsRequest request, SupplierPayments entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setSupplierId(request.getSupplierId());
         entity.setAmount(request.getAmount());
@@ -61,7 +63,8 @@ public class SupplierPaymentsMapper {
     }
 
     public List<SupplierPaymentsResponse> toResponseList(List<SupplierPayments> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

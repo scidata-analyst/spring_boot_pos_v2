@@ -1,4 +1,4 @@
-﻿package com.example.pos.configurations;
+package com.example.pos.configurations;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    // TODO: Add general beans here
     // Example:
     // @Bean
     // public ModelMapper modelMapper() {

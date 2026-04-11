@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.Dashboard;
+package com.example.pos.controllers.Dashboard;
 
 import com.example.pos.dtos.request.Dashboard.DashboardRequest;
 import com.example.pos.dtos.response.Dashboard.DashboardResponse;

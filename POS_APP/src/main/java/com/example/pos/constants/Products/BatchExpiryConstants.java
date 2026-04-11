@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Products;
+package com.example.pos.constants.Products;
 
 /**
  * Class BatchExpiryConstants
  *
  * @package com.example.pos.constants.Products
  *
- * Provides constant values for BatchExpiry domain.
+ *          Provides constant values for BatchExpiry domain.
  */
 public final class BatchExpiryConstants {
 

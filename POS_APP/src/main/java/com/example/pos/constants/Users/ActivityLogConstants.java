@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Users;
+package com.example.pos.constants.Users;
 
 /**
  * Class ActivityLogConstants
  *
  * @package com.example.pos.constants.Users
  *
- * Provides constant values for ActivityLog domain.
+ *          Provides constant values for ActivityLog domain.
  */
 public final class ActivityLogConstants {
 

@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.UsersRoles;
+package com.example.pos.mappers.UsersRoles;
 
 import com.example.pos.entities.UsersRoles.ActivityLog;
 import com.example.pos.dtos.request.UsersRoles.ActivityLogRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class ActivityLogMapper {
 
     public ActivityLogResponse toResponse(ActivityLog entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         ActivityLogResponse response = new ActivityLogResponse();
 
@@ -29,7 +30,8 @@ public class ActivityLogMapper {
     }
 
     public ActivityLog toEntity(ActivityLogRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         ActivityLog entity = new ActivityLog();
 
@@ -45,8 +47,8 @@ public class ActivityLogMapper {
     }
 
     public void updateEntity(ActivityLogRequest request, ActivityLog entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setUserId(request.getUserId());
         entity.setAction(request.getAction());
@@ -58,7 +60,8 @@ public class ActivityLogMapper {
     }
 
     public List<ActivityLogResponse> toResponseList(List<ActivityLog> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

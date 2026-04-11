@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.LoyaltyMembership;
+package com.example.pos.mappers.LoyaltyMembership;
 
 import com.example.pos.entities.LoyaltyMembership.TierManagement;
 import com.example.pos.dtos.request.LoyaltyMembership.TierManagementRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class TierManagementMapper {
 
     public TierManagementResponse toResponse(TierManagement entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         TierManagementResponse response = new TierManagementResponse();
 
@@ -30,7 +31,8 @@ public class TierManagementMapper {
     }
 
     public TierManagement toEntity(TierManagementRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         TierManagement entity = new TierManagement();
 
@@ -47,8 +49,8 @@ public class TierManagementMapper {
     }
 
     public void updateEntity(TierManagementRequest request, TierManagement entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setTierName(request.getTierName());
         entity.setMinPoints(request.getMinPoints());
@@ -61,7 +63,8 @@ public class TierManagementMapper {
     }
 
     public List<TierManagementResponse> toResponseList(List<TierManagement> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Sales;
+package com.example.pos.constants.Sales;
 
 /**
  * Class HeldOrdersConstants
  *
  * @package com.example.pos.constants.Sales
  *
- * Provides constant values for HeldOrders domain.
+ *          Provides constant values for HeldOrders domain.
  */
 public final class HeldOrdersConstants {
 

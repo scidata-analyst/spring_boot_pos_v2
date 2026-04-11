@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.Promotions;
+package com.example.pos.dtos.response.Promotions;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class CouponCodesResponse {
-
 
     /**
      * id
@@ -73,8 +71,6 @@ public class CouponCodesResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -171,6 +167,5 @@ public class CouponCodesResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.Promotions;
+package com.example.pos.entities.Promotions;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "coupon_codes")
 public class CouponCodes {
-
 
     /**
      * id
@@ -90,8 +88,6 @@ public class CouponCodes {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -188,6 +184,5 @@ public class CouponCodes {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

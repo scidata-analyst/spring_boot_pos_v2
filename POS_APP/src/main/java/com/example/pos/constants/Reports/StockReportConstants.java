@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Reports;
+package com.example.pos.constants.Reports;
 
 /**
  * Class StockReportConstants
  *
  * @package com.example.pos.constants.Reports
  *
- * Provides constant values for StockReport domain.
+ *          Provides constant values for StockReport domain.
  */
 public final class StockReportConstants {
 

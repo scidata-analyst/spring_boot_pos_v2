@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.PaymentAccounting;
+package com.example.pos.entities.PaymentAccounting;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tax_reports")
 public class TaxReports {
-
 
     /**
      * id
@@ -72,8 +70,6 @@ public class TaxReports {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -146,6 +142,5 @@ public class TaxReports {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

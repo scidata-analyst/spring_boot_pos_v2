@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Accounting;
+package com.example.pos.constants.Accounting;
 
 /**
  * Class ReconciliationConstants
  *
  * @package com.example.pos.constants.Accounting
  *
- * Provides constant values for Reconciliation domain.
+ *          Provides constant values for Reconciliation domain.
  */
 public final class ReconciliationConstants {
 

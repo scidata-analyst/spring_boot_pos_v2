@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Suppliers;
+package com.example.pos.constants.Suppliers;
 
 /**
  * Class SuppliersConstants
  *
  * @package com.example.pos.constants.Suppliers
  *
- * Provides constant values for Suppliers domain.
+ *          Provides constant values for Suppliers domain.
  */
 public final class SuppliersConstants {
 

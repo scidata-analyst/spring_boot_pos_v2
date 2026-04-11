@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Promos;
+package com.example.pos.constants.Promos;
 
 /**
  * Class HappyHourConstants
  *
  * @package com.example.pos.constants.Promos
  *
- * Provides constant values for HappyHour domain.
+ *          Provides constant values for HappyHour domain.
  */
 public final class HappyHourConstants {
 

@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.LoyaltyMembership;
+package com.example.pos.mappers.LoyaltyMembership;
 
 import com.example.pos.entities.LoyaltyMembership.RetentionTracking;
 import com.example.pos.dtos.request.LoyaltyMembership.RetentionTrackingRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class RetentionTrackingMapper {
 
     public RetentionTrackingResponse toResponse(RetentionTracking entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         RetentionTrackingResponse response = new RetentionTrackingResponse();
 
@@ -29,7 +30,8 @@ public class RetentionTrackingMapper {
     }
 
     public RetentionTracking toEntity(RetentionTrackingRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         RetentionTracking entity = new RetentionTracking();
 
@@ -45,8 +47,8 @@ public class RetentionTrackingMapper {
     }
 
     public void updateEntity(RetentionTrackingRequest request, RetentionTracking entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setCustomerId(request.getCustomerId());
         entity.setLastPurchaseDate(request.getLastPurchaseDate());
@@ -58,7 +60,8 @@ public class RetentionTrackingMapper {
     }
 
     public List<RetentionTrackingResponse> toResponseList(List<RetentionTracking> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

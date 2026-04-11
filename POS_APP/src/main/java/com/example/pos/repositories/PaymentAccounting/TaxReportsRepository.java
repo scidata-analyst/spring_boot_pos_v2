@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.PaymentAccounting;
+package com.example.pos.repositories.PaymentAccounting;
 
 import com.example.pos.entities.PaymentAccounting.TaxReports;
 import org.springframework.data.jpa.repository.JpaRepository;

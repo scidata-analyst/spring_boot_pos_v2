@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.UsersRoles;
+package com.example.pos.entities.UsersRoles;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "activity_log")
 public class ActivityLog {
-
 
     /**
      * id
@@ -66,8 +64,6 @@ public class ActivityLog {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class ActivityLog {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

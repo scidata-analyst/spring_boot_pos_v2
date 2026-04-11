@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.UsersRoles;
+package com.example.pos.dtos.request.UsersRoles;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class RolesPermissionsRequest {
-
 
     /**
      * id
@@ -55,8 +54,6 @@ public class RolesPermissionsRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -113,6 +110,5 @@ public class RolesPermissionsRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

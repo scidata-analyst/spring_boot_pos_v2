@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Core;
+package com.example.pos.constants.Core;
 
 /**
  * Class PosTerminalConstants
  *
  * @package com.example.pos.constants.Core
  *
- * Provides constant values for PosTerminal domain.
+ *          Provides constant values for PosTerminal domain.
  */
 public final class PosTerminalConstants {
 

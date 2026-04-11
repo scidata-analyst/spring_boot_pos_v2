@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.SalesBilling;
+package com.example.pos.dtos.request.SalesBilling;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class HeldOrdersRequest {
-
 
     /**
      * id
@@ -67,8 +66,6 @@ public class HeldOrdersRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class HeldOrdersRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

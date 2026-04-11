@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Promotions;
+package com.example.pos.mappers.Promotions;
 
 import com.example.pos.entities.Promotions.HappyHour;
 import com.example.pos.dtos.request.Promotions.HappyHourRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class HappyHourMapper {
 
     public HappyHourResponse toResponse(HappyHour entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         HappyHourResponse response = new HappyHourResponse();
 
@@ -31,7 +32,8 @@ public class HappyHourMapper {
     }
 
     public HappyHour toEntity(HappyHourRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         HappyHour entity = new HappyHour();
 
@@ -49,8 +51,8 @@ public class HappyHourMapper {
     }
 
     public void updateEntity(HappyHourRequest request, HappyHour entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setStartTime(request.getStartTime());
@@ -64,7 +66,8 @@ public class HappyHourMapper {
     }
 
     public List<HappyHourResponse> toResponseList(List<HappyHour> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

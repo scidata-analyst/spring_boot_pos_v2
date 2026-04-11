@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.ReportsAnalytics;
+package com.example.pos.entities.ReportsAnalytics;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "sales_reports")
 public class SalesReports {
-
 
     /**
      * id
@@ -73,8 +71,6 @@ public class SalesReports {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -147,6 +143,5 @@ public class SalesReports {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

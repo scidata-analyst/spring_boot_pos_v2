@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Users;
+package com.example.pos.constants.Users;
 
 /**
  * Class CashiersConstants
  *
  * @package com.example.pos.constants.Users
  *
- * Provides constant values for Cashiers domain.
+ *          Provides constant values for Cashiers domain.
  */
 public final class CashiersConstants {
 

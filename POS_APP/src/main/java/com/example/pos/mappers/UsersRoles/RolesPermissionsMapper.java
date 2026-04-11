@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.UsersRoles;
+package com.example.pos.mappers.UsersRoles;
 
 import com.example.pos.entities.UsersRoles.RolesPermissions;
 import com.example.pos.dtos.request.UsersRoles.RolesPermissionsRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class RolesPermissionsMapper {
 
     public RolesPermissionsResponse toResponse(RolesPermissions entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         RolesPermissionsResponse response = new RolesPermissionsResponse();
 
@@ -28,7 +29,8 @@ public class RolesPermissionsMapper {
     }
 
     public RolesPermissions toEntity(RolesPermissionsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         RolesPermissions entity = new RolesPermissions();
 
@@ -43,8 +45,8 @@ public class RolesPermissionsMapper {
     }
 
     public void updateEntity(RolesPermissionsRequest request, RolesPermissions entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setRoleName(request.getRoleName());
         entity.setPermissions(request.getPermissions());
@@ -55,7 +57,8 @@ public class RolesPermissionsMapper {
     }
 
     public List<RolesPermissionsResponse> toResponseList(List<RolesPermissions> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

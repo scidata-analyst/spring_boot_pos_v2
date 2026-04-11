@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.Suppliers;
+package com.example.pos.entities.Suppliers;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "restock_alerts")
 public class RestockAlerts {
-
 
     /**
      * id
@@ -60,8 +58,6 @@ public class RestockAlerts {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -118,6 +114,5 @@ public class RestockAlerts {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

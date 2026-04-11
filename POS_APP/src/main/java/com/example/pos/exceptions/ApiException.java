@@ -1,4 +1,4 @@
-﻿package com.example.pos.exceptions;
+package com.example.pos.exceptions;
 
 /**
  * Base custom exception for API-related errors.

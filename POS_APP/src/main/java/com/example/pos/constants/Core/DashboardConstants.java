@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Core;
+package com.example.pos.constants.Core;
 
 /**
  * Class DashboardConstants
  *
  * @package com.example.pos.constants.Core
  *
- * Provides constant values for Dashboard domain.
+ *          Provides constant values for Dashboard domain.
  */
 public final class DashboardConstants {
 

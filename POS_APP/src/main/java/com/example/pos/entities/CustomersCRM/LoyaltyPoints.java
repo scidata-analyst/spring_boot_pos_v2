@@ -1,9 +1,8 @@
-﻿package com.example.pos.entities.CustomersCRM;
+package com.example.pos.entities.CustomersCRM;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "loyalty_points")
 public class LoyaltyPoints {
-
 
     /**
      * id
@@ -67,8 +65,6 @@ public class LoyaltyPoints {
      */
 
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -133,6 +129,5 @@ public class LoyaltyPoints {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

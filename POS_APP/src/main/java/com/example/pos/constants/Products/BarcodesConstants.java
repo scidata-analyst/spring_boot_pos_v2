@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Products;
+package com.example.pos.constants.Products;
 
 /**
  * Class BarcodesConstants
  *
  * @package com.example.pos.constants.Products
  *
- * Provides constant values for Barcodes domain.
+ *          Provides constant values for Barcodes domain.
  */
 public final class BarcodesConstants {
 

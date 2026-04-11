@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Suppliers;
+package com.example.pos.mappers.Suppliers;
 
 import com.example.pos.entities.Suppliers.SupplierDirectory;
 import com.example.pos.dtos.request.Suppliers.SupplierDirectoryRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class SupplierDirectoryMapper {
 
     public SupplierDirectoryResponse toResponse(SupplierDirectory entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         SupplierDirectoryResponse response = new SupplierDirectoryResponse();
 
@@ -30,7 +31,8 @@ public class SupplierDirectoryMapper {
     }
 
     public SupplierDirectory toEntity(SupplierDirectoryRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         SupplierDirectory entity = new SupplierDirectory();
 
@@ -47,8 +49,8 @@ public class SupplierDirectoryMapper {
     }
 
     public void updateEntity(SupplierDirectoryRequest request, SupplierDirectory entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setContactPerson(request.getContactPerson());
@@ -61,7 +63,8 @@ public class SupplierDirectoryMapper {
     }
 
     public List<SupplierDirectoryResponse> toResponseList(List<SupplierDirectory> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

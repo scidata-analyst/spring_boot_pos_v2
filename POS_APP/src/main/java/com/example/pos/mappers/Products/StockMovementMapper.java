@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Products;
+package com.example.pos.mappers.Products;
 
 import com.example.pos.entities.Products.StockMovement;
 import com.example.pos.dtos.request.Products.StockMovementRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class StockMovementMapper {
 
     public StockMovementResponse toResponse(StockMovement entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         StockMovementResponse response = new StockMovementResponse();
 
@@ -28,7 +29,8 @@ public class StockMovementMapper {
     }
 
     public StockMovement toEntity(StockMovementRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         StockMovement entity = new StockMovement();
 
@@ -43,8 +45,8 @@ public class StockMovementMapper {
     }
 
     public void updateEntity(StockMovementRequest request, StockMovement entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setProductId(request.getProductId());
         entity.setType(request.getType());
@@ -55,7 +57,8 @@ public class StockMovementMapper {
     }
 
     public List<StockMovementResponse> toResponseList(List<StockMovement> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

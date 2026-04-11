@@ -1,24 +1,28 @@
-﻿package com.example.pos.configurations;
+package com.example.pos.configurations;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
-/**
- * Swagger configuration for API documentation.
- */
 @Configuration
 public class SwaggerConfig {
 
     @Bean
-    public Docket apiDocket() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.pos.controllers"))
-                .paths(PathSelectors.any())
-                .build();
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("POS System API")
+                        .description("REST API documentation for Point of Sale (POS) application")
+                        .version("v1.0.0")
+                        .contact(new Contact()
+                                .name("POS Support Team")
+                                .email("support@pos.com")
+                                .url("https://pos.com"))
+                        .license(new License()
+                                .name("Private License")
+                                .url("https://pos.com/license")));
     }
 }

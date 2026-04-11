@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.POSTerminal;
+package com.example.pos.mappers.POSTerminal;
 
 import com.example.pos.entities.POSTerminal.POSTerminal;
 import com.example.pos.dtos.request.POSTerminal.POSTerminalRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class POSTerminalMapper {
 
     public POSTerminalResponse toResponse(POSTerminal entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         POSTerminalResponse response = new POSTerminalResponse();
 
@@ -29,7 +30,8 @@ public class POSTerminalMapper {
     }
 
     public POSTerminal toEntity(POSTerminalRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         POSTerminal entity = new POSTerminal();
 
@@ -45,8 +47,8 @@ public class POSTerminalMapper {
     }
 
     public void updateEntity(POSTerminalRequest request, POSTerminal entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setTerminalName(request.getTerminalName());
         entity.setTerminalCode(request.getTerminalCode());
@@ -58,7 +60,8 @@ public class POSTerminalMapper {
     }
 
     public List<POSTerminalResponse> toResponseList(List<POSTerminal> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.ReportsAnalytics;
+package com.example.pos.mappers.ReportsAnalytics;
 
 import com.example.pos.entities.ReportsAnalytics.PLReport;
 import com.example.pos.dtos.request.ReportsAnalytics.PLReportRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class PLReportMapper {
 
     public PLReportResponse toResponse(PLReport entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         PLReportResponse response = new PLReportResponse();
 
@@ -32,7 +33,8 @@ public class PLReportMapper {
     }
 
     public PLReport toEntity(PLReportRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         PLReport entity = new PLReport();
 
@@ -51,8 +53,8 @@ public class PLReportMapper {
     }
 
     public void updateEntity(PLReportRequest request, PLReport entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setReportType(request.getReportType());
         entity.setPeriod(request.getPeriod());
@@ -67,7 +69,8 @@ public class PLReportMapper {
     }
 
     public List<PLReportResponse> toResponseList(List<PLReport> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -1,4 +1,4 @@
-﻿package com.example.pos.mappers.Hardware;
+package com.example.pos.mappers.Hardware;
 
 import com.example.pos.entities.Hardware.DevicesPrinters;
 import com.example.pos.dtos.request.Hardware.DevicesPrintersRequest;
@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class DevicesPrintersMapper {
 
     public DevicesPrintersResponse toResponse(DevicesPrinters entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         DevicesPrintersResponse response = new DevicesPrintersResponse();
 
@@ -29,7 +30,8 @@ public class DevicesPrintersMapper {
     }
 
     public DevicesPrinters toEntity(DevicesPrintersRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         DevicesPrinters entity = new DevicesPrinters();
 
@@ -45,8 +47,8 @@ public class DevicesPrintersMapper {
     }
 
     public void updateEntity(DevicesPrintersRequest request, DevicesPrinters entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setDeviceName(request.getDeviceName());
         entity.setDeviceType(request.getDeviceType());
@@ -58,7 +60,8 @@ public class DevicesPrintersMapper {
     }
 
     public List<DevicesPrintersResponse> toResponseList(List<DevicesPrinters> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

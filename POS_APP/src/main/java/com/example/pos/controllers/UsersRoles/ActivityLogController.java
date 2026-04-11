@@ -1,4 +1,4 @@
-﻿package com.example.pos.controllers.UsersRoles;
+package com.example.pos.controllers.UsersRoles;
 
 import com.example.pos.dtos.request.UsersRoles.ActivityLogRequest;
 import com.example.pos.dtos.response.UsersRoles.ActivityLogResponse;

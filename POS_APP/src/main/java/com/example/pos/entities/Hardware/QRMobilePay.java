@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.Hardware;
+package com.example.pos.entities.Hardware;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "qr_mobile_pay")
 public class QRMobilePay {
-
 
     /**
      * id
@@ -60,8 +58,6 @@ public class QRMobilePay {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -118,6 +114,5 @@ public class QRMobilePay {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

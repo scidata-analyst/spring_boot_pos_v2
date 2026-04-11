@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Products;
+package com.example.pos.dtos.request.Products;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class BarcodeSKURequest {
-
 
     /**
      * id
@@ -61,8 +60,6 @@ public class BarcodeSKURequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -127,6 +124,5 @@ public class BarcodeSKURequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

@@ -1,25 +1,44 @@
-﻿package com.example.pos.jobs.Suppliers;
+package com.example.pos.jobs.Suppliers;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Scheduled job class for SupplierPayments.
- * <p>
- * This class is responsible for executing recurring tasks related to
- * SupplierPayments.
- * Define job logic inside the execute() method.
+ * =====================================================
+ * Scheduled Job: SupplierPayments
+ * =====================================================
+ *
+ * This job runs background tasks for SupplierPayments.
+ *
+ * Notes:
+ * - No service dependency (safe compile)
+ * - Add service later if needed
+ * - Requires @EnableScheduling in main class
  */
 @Component
 public class SupplierPaymentsJob {
 
     /**
-     * Executes the scheduled job for SupplierPayments.
-     * Runs every hour (customize cron expression as needed).
+     * =====================================================
+     * Scheduled Task
+     * =====================================================
+     *
+     * Runs every 10 minutes.
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    public void execute() {
-        // TODO: Implement the job logic for SupplierPayments
-        System.out.println("Executing job for SupplierPayments...");
+    @Scheduled(cron = "0 */10 * * * *")
+    public void handle() {
+
+        // =====================================================
+        // Job Execution
+        // =====================================================
+
+        System.out.println("Running SupplierPayments job...");
+
+        // Add business logic here
+        // Example:
+        // - cleanup expired records
+        // - update status
+        // - sync data
+
     }
 }

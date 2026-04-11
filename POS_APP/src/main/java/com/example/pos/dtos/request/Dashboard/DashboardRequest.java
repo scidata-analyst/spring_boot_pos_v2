@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Dashboard;
+package com.example.pos.dtos.request.Dashboard;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class DashboardRequest {
-
 
     /**
      * id
@@ -67,8 +66,6 @@ public class DashboardRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class DashboardRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

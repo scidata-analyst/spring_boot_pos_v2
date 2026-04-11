@@ -1,4 +1,4 @@
-﻿package com.example.pos.dtos.request.Suppliers;
+package com.example.pos.dtos.request.Suppliers;
 
 import jakarta.validation.constraints.*;
 import java.time.*;
@@ -12,7 +12,6 @@ import java.time.*;
  * Includes all fields including audit fields
  */
 public class RestockAlertsRequest {
-
 
     /**
      * id
@@ -55,8 +54,6 @@ public class RestockAlertsRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -113,6 +110,5 @@ public class RestockAlertsRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

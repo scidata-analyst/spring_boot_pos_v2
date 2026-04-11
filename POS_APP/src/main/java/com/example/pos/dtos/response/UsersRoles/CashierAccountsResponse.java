@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.UsersRoles;
+package com.example.pos.dtos.response.UsersRoles;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class CashierAccountsResponse {
-
 
     /**
      * id
@@ -68,8 +66,6 @@ public class CashierAccountsResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -158,6 +154,5 @@ public class CashierAccountsResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

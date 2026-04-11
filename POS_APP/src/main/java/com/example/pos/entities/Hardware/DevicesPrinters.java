@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.Hardware;
+package com.example.pos.entities.Hardware;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "devices_printers")
 public class DevicesPrinters {
-
 
     /**
      * id
@@ -66,8 +64,6 @@ public class DevicesPrinters {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class DevicesPrinters {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

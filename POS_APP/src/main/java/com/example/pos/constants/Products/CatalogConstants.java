@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Products;
+package com.example.pos.constants.Products;
 
 /**
  * Class CatalogConstants
  *
  * @package com.example.pos.constants.Products
  *
- * Provides constant values for Catalog domain.
+ *          Provides constant values for Catalog domain.
  */
 public final class CatalogConstants {
 

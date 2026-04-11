@@ -1,7 +1,6 @@
-﻿package com.example.pos.dtos.response.LoyaltyMembership;
+package com.example.pos.dtos.response.LoyaltyMembership;
 
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class PointsConfigResponse {
-
 
     /**
      * id
@@ -48,8 +46,6 @@ public class PointsConfigResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -106,6 +102,5 @@ public class PointsConfigResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

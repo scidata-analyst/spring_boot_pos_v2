@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.UsersRoles;
+package com.example.pos.entities.UsersRoles;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "cashier_accounts")
 public class CashierAccounts {
-
 
     /**
      * id
@@ -84,8 +82,6 @@ public class CashierAccounts {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -174,6 +170,5 @@ public class CashierAccounts {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

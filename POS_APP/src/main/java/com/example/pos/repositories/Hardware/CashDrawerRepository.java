@@ -1,4 +1,4 @@
-﻿package com.example.pos.repositories.Hardware;
+package com.example.pos.repositories.Hardware;
 
 import com.example.pos.entities.Hardware.CashDrawer;
 import org.springframework.data.jpa.repository.JpaRepository;

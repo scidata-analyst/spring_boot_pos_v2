@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Promos;
+package com.example.pos.constants.Promos;
 
 /**
  * Class OffersConstants
  *
  * @package com.example.pos.constants.Promos
  *
- * Provides constant values for Offers domain.
+ *          Provides constant values for Offers domain.
  */
 public final class OffersConstants {
 

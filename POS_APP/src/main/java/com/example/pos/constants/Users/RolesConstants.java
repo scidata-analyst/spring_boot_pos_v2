@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Users;
+package com.example.pos.constants.Users;
 
 /**
  * Class RolesConstants
  *
  * @package com.example.pos.constants.Users
  *
- * Provides constant values for Roles domain.
+ *          Provides constant values for Roles domain.
  */
 public final class RolesConstants {
 

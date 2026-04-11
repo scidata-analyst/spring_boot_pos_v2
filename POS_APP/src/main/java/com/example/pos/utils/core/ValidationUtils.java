@@ -1,4 +1,4 @@
-﻿package com.example.pos.utils.core;
+package com.example.pos.utils.core;
 
 /**
  * Utility class for common validations.
@@ -12,6 +12,4 @@ public class ValidationUtils {
     public static boolean isNull(Object obj) {
         return obj == null;
     }
-
-    // TODO: Add more validation utility methods as needed
 }

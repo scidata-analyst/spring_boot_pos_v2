@@ -1,9 +1,8 @@
-﻿package com.example.pos.entities.SalesBilling;
+package com.example.pos.entities.SalesBilling;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "invoices")
 public class Invoices {
-
 
     /**
      * id
@@ -85,8 +83,6 @@ public class Invoices {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -175,6 +171,5 @@ public class Invoices {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

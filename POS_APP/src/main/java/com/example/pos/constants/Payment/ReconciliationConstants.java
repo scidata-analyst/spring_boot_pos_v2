@@ -1,11 +1,11 @@
-﻿package com.example.pos.constants.Payment;
+package com.example.pos.constants.Payment;
 
 /**
  * Class ReconciliationConstants
  *
  * @package com.example.pos.constants.Payment
  *
- * Provides constant values for Reconciliation domain.
+ *          Provides constant values for Reconciliation domain.
  */
 public final class ReconciliationConstants {
 

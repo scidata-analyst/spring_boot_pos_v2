@@ -1,8 +1,7 @@
-﻿package com.example.pos.entities.LoyaltyMembership;
+package com.example.pos.entities.LoyaltyMembership;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 /**
  * =====================================================
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "points_config")
 public class PointsConfig {
-
 
     /**
      * id
@@ -60,8 +58,6 @@ public class PointsConfig {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -118,6 +114,5 @@ public class PointsConfig {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }
