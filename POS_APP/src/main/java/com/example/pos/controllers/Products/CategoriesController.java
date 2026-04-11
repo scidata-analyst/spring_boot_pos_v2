@@ -6,12 +6,23 @@ import com.example.pos.services.Products.CategoriesService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
- * REST Controller for managing Categories operations.
- * Provides standard CRUD endpoints for Categories.
+ * =====================================================
+ * REST Controller: Categories
+ * =====================================================
+ *
+ * Provides standard CRUD APIs for Categories.
  * All responses are returned using CategoriesResponse DTO.
+ *
+ * Endpoints:
+ * - GET    /api/Products/Categories
+ * - GET    /api/Products/Categories/{id}
+ * - POST   /api/Products/Categories
+ * - PUT    /api/Products/Categories/{id}
+ * - DELETE /api/Products/Categories/{id}
  */
 @RestController
 @RequestMapping("/api/Products/Categories")
@@ -22,7 +33,7 @@ public class CategoriesController {
 
     /**
      * Retrieve all Categories records.
-     * 
+     *
      * @return List of CategoriesResponse
      */
     @GetMapping
@@ -31,10 +42,10 @@ public class CategoriesController {
     }
 
     /**
-     * Retrieve a single Categories by its ID.
-     * 
+     * Retrieve a single Categories by ID.
+     *
      * @param id ID of the Categories
-     * @return CategoriesResponse object
+     * @return CategoriesResponse
      */
     @GetMapping("/{id}")
     public CategoriesResponse get(@PathVariable Long id) {
@@ -42,10 +53,10 @@ public class CategoriesController {
     }
 
     /**
-     * Create a new Categories record.
-     * 
-     * @param request DTO containing the Categories data
-     * @return Created CategoriesResponse
+     * Create new Categories record.
+     *
+     * @param request request DTO
+     * @return created CategoriesResponse
      */
     @PostMapping
     public CategoriesResponse create(@RequestBody @Valid CategoriesRequest request) {
@@ -53,22 +64,23 @@ public class CategoriesController {
     }
 
     /**
-     * Update an existing Categories by its ID.
-     * 
-     * @param id      ID of the Categories to update
-     * @param request DTO containing updated data
-     * @return Updated CategoriesResponse
+     * Update existing Categories record.
+     *
+     * @param id      record ID
+     * @param request updated data
+     * @return updated CategoriesResponse
      */
     @PutMapping("/{id}")
-    public CategoriesResponse update(@PathVariable Long id, @RequestBody @Valid CategoriesRequest request) {
+    public CategoriesResponse update(@PathVariable Long id,
+                                         @RequestBody @Valid CategoriesRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a Categories by its ID.
-     * 
-     * @param id ID of the Categories to delete
-     * @return Success message
+     * Delete a Categories record.
+     *
+     * @param id record ID
+     * @return success message
      */
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {

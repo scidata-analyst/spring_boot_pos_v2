@@ -6,12 +6,23 @@ import com.example.pos.services.Hardware.CashDrawerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
- * REST Controller for managing CashDrawer operations.
- * Provides standard CRUD endpoints for CashDrawer.
+ * =====================================================
+ * REST Controller: CashDrawer
+ * =====================================================
+ *
+ * Provides standard CRUD APIs for CashDrawer.
  * All responses are returned using CashDrawerResponse DTO.
+ *
+ * Endpoints:
+ * - GET    /api/Hardware/CashDrawer
+ * - GET    /api/Hardware/CashDrawer/{id}
+ * - POST   /api/Hardware/CashDrawer
+ * - PUT    /api/Hardware/CashDrawer/{id}
+ * - DELETE /api/Hardware/CashDrawer/{id}
  */
 @RestController
 @RequestMapping("/api/Hardware/CashDrawer")
@@ -22,7 +33,7 @@ public class CashDrawerController {
 
     /**
      * Retrieve all CashDrawer records.
-     * 
+     *
      * @return List of CashDrawerResponse
      */
     @GetMapping
@@ -31,10 +42,10 @@ public class CashDrawerController {
     }
 
     /**
-     * Retrieve a single CashDrawer by its ID.
-     * 
+     * Retrieve a single CashDrawer by ID.
+     *
      * @param id ID of the CashDrawer
-     * @return CashDrawerResponse object
+     * @return CashDrawerResponse
      */
     @GetMapping("/{id}")
     public CashDrawerResponse get(@PathVariable Long id) {
@@ -42,10 +53,10 @@ public class CashDrawerController {
     }
 
     /**
-     * Create a new CashDrawer record.
-     * 
-     * @param request DTO containing the CashDrawer data
-     * @return Created CashDrawerResponse
+     * Create new CashDrawer record.
+     *
+     * @param request request DTO
+     * @return created CashDrawerResponse
      */
     @PostMapping
     public CashDrawerResponse create(@RequestBody @Valid CashDrawerRequest request) {
@@ -53,22 +64,23 @@ public class CashDrawerController {
     }
 
     /**
-     * Update an existing CashDrawer by its ID.
-     * 
-     * @param id      ID of the CashDrawer to update
-     * @param request DTO containing updated data
-     * @return Updated CashDrawerResponse
+     * Update existing CashDrawer record.
+     *
+     * @param id      record ID
+     * @param request updated data
+     * @return updated CashDrawerResponse
      */
     @PutMapping("/{id}")
-    public CashDrawerResponse update(@PathVariable Long id, @RequestBody @Valid CashDrawerRequest request) {
+    public CashDrawerResponse update(@PathVariable Long id,
+                                         @RequestBody @Valid CashDrawerRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a CashDrawer by its ID.
-     * 
-     * @param id ID of the CashDrawer to delete
-     * @return Success message
+     * Delete a CashDrawer record.
+     *
+     * @param id record ID
+     * @return success message
      */
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {

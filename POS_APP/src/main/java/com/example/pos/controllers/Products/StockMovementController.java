@@ -6,12 +6,23 @@ import com.example.pos.services.Products.StockMovementService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
- * REST Controller for managing StockMovement operations.
- * Provides standard CRUD endpoints for StockMovement.
+ * =====================================================
+ * REST Controller: StockMovement
+ * =====================================================
+ *
+ * Provides standard CRUD APIs for StockMovement.
  * All responses are returned using StockMovementResponse DTO.
+ *
+ * Endpoints:
+ * - GET    /api/Products/StockMovement
+ * - GET    /api/Products/StockMovement/{id}
+ * - POST   /api/Products/StockMovement
+ * - PUT    /api/Products/StockMovement/{id}
+ * - DELETE /api/Products/StockMovement/{id}
  */
 @RestController
 @RequestMapping("/api/Products/StockMovement")
@@ -22,7 +33,7 @@ public class StockMovementController {
 
     /**
      * Retrieve all StockMovement records.
-     * 
+     *
      * @return List of StockMovementResponse
      */
     @GetMapping
@@ -31,10 +42,10 @@ public class StockMovementController {
     }
 
     /**
-     * Retrieve a single StockMovement by its ID.
-     * 
+     * Retrieve a single StockMovement by ID.
+     *
      * @param id ID of the StockMovement
-     * @return StockMovementResponse object
+     * @return StockMovementResponse
      */
     @GetMapping("/{id}")
     public StockMovementResponse get(@PathVariable Long id) {
@@ -42,10 +53,10 @@ public class StockMovementController {
     }
 
     /**
-     * Create a new StockMovement record.
-     * 
-     * @param request DTO containing the StockMovement data
-     * @return Created StockMovementResponse
+     * Create new StockMovement record.
+     *
+     * @param request request DTO
+     * @return created StockMovementResponse
      */
     @PostMapping
     public StockMovementResponse create(@RequestBody @Valid StockMovementRequest request) {
@@ -53,22 +64,23 @@ public class StockMovementController {
     }
 
     /**
-     * Update an existing StockMovement by its ID.
-     * 
-     * @param id      ID of the StockMovement to update
-     * @param request DTO containing updated data
-     * @return Updated StockMovementResponse
+     * Update existing StockMovement record.
+     *
+     * @param id      record ID
+     * @param request updated data
+     * @return updated StockMovementResponse
      */
     @PutMapping("/{id}")
-    public StockMovementResponse update(@PathVariable Long id, @RequestBody @Valid StockMovementRequest request) {
+    public StockMovementResponse update(@PathVariable Long id,
+                                         @RequestBody @Valid StockMovementRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a StockMovement by its ID.
-     * 
-     * @param id ID of the StockMovement to delete
-     * @return Success message
+     * Delete a StockMovement record.
+     *
+     * @param id record ID
+     * @return success message
      */
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {

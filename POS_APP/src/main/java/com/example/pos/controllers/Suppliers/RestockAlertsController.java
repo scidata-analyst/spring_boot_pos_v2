@@ -6,12 +6,23 @@ import com.example.pos.services.Suppliers.RestockAlertsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
- * REST Controller for managing RestockAlerts operations.
- * Provides standard CRUD endpoints for RestockAlerts.
+ * =====================================================
+ * REST Controller: RestockAlerts
+ * =====================================================
+ *
+ * Provides standard CRUD APIs for RestockAlerts.
  * All responses are returned using RestockAlertsResponse DTO.
+ *
+ * Endpoints:
+ * - GET    /api/Suppliers/RestockAlerts
+ * - GET    /api/Suppliers/RestockAlerts/{id}
+ * - POST   /api/Suppliers/RestockAlerts
+ * - PUT    /api/Suppliers/RestockAlerts/{id}
+ * - DELETE /api/Suppliers/RestockAlerts/{id}
  */
 @RestController
 @RequestMapping("/api/Suppliers/RestockAlerts")
@@ -22,7 +33,7 @@ public class RestockAlertsController {
 
     /**
      * Retrieve all RestockAlerts records.
-     * 
+     *
      * @return List of RestockAlertsResponse
      */
     @GetMapping
@@ -31,10 +42,10 @@ public class RestockAlertsController {
     }
 
     /**
-     * Retrieve a single RestockAlerts by its ID.
-     * 
+     * Retrieve a single RestockAlerts by ID.
+     *
      * @param id ID of the RestockAlerts
-     * @return RestockAlertsResponse object
+     * @return RestockAlertsResponse
      */
     @GetMapping("/{id}")
     public RestockAlertsResponse get(@PathVariable Long id) {
@@ -42,10 +53,10 @@ public class RestockAlertsController {
     }
 
     /**
-     * Create a new RestockAlerts record.
-     * 
-     * @param request DTO containing the RestockAlerts data
-     * @return Created RestockAlertsResponse
+     * Create new RestockAlerts record.
+     *
+     * @param request request DTO
+     * @return created RestockAlertsResponse
      */
     @PostMapping
     public RestockAlertsResponse create(@RequestBody @Valid RestockAlertsRequest request) {
@@ -53,22 +64,23 @@ public class RestockAlertsController {
     }
 
     /**
-     * Update an existing RestockAlerts by its ID.
-     * 
-     * @param id      ID of the RestockAlerts to update
-     * @param request DTO containing updated data
-     * @return Updated RestockAlertsResponse
+     * Update existing RestockAlerts record.
+     *
+     * @param id      record ID
+     * @param request updated data
+     * @return updated RestockAlertsResponse
      */
     @PutMapping("/{id}")
-    public RestockAlertsResponse update(@PathVariable Long id, @RequestBody @Valid RestockAlertsRequest request) {
+    public RestockAlertsResponse update(@PathVariable Long id,
+                                         @RequestBody @Valid RestockAlertsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a RestockAlerts by its ID.
-     * 
-     * @param id ID of the RestockAlerts to delete
-     * @return Success message
+     * Delete a RestockAlerts record.
+     *
+     * @param id record ID
+     * @return success message
      */
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
