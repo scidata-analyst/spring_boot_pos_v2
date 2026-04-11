@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.CustomersCRM.PurchaseHistoryRequest;
 import com.example.pos.dtos.response.CustomersCRM.PurchaseHistoryResponse;
 import com.example.pos.services.CustomersCRM.PurchaseHistoryService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: PurchaseHistory
  * =====================================================
  *
- * Provides standard CRUD APIs for PurchaseHistory.
- * All responses are returned using PurchaseHistoryResponse DTO.
- *
- * Endpoints:
- * - GET    /api/CustomersCRM/PurchaseHistory
- * - GET    /api/CustomersCRM/PurchaseHistory/{id}
- * - POST   /api/CustomersCRM/PurchaseHistory
- * - PUT    /api/CustomersCRM/PurchaseHistory/{id}
- * - DELETE /api/CustomersCRM/PurchaseHistory/{id}
+ * Provides standard REST APIs for PurchaseHistory.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/CustomersCRM/PurchaseHistory")
@@ -32,57 +27,50 @@ public class PurchaseHistoryController {
     private PurchaseHistoryService service;
 
     /**
-     * Retrieve all PurchaseHistory records.
-     *
-     * @return List of PurchaseHistoryResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<PurchaseHistoryResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<PurchaseHistoryResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single PurchaseHistory by ID.
-     *
-     * @param id ID of the PurchaseHistory
-     * @return PurchaseHistoryResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public PurchaseHistoryResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<PurchaseHistoryResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new PurchaseHistory record.
-     *
-     * @param request request DTO
-     * @return created PurchaseHistoryResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public PurchaseHistoryResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public PurchaseHistoryResponse create(@RequestBody @Valid PurchaseHistoryRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing PurchaseHistory record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated PurchaseHistoryResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public PurchaseHistoryResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid PurchaseHistoryRequest request) {
+            @RequestBody @Valid PurchaseHistoryRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a PurchaseHistory record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

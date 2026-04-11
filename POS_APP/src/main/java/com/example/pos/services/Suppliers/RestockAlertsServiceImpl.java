@@ -1,15 +1,19 @@
 ﻿package com.example.pos.services.Suppliers;
 
+import com.example.pos.entities.Suppliers.RestockAlerts;
 import com.example.pos.dtos.request.Suppliers.RestockAlertsRequest;
 import com.example.pos.dtos.response.Suppliers.RestockAlertsResponse;
+import com.example.pos.mappers.Suppliers.RestockAlertsMapper;
 import com.example.pos.repositories.Suppliers.RestockAlertsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * Service implementation for RestockAlerts.
- * Implements CRUD operations defined in RestockAlertsService.
+ * Uses repository semantic methods (no JPA direct calls).
  */
 @Service
 public class RestockAlertsServiceImpl implements RestockAlertsService {
@@ -17,56 +21,53 @@ public class RestockAlertsServiceImpl implements RestockAlertsService {
     @Autowired
     private RestockAlertsRepository repository;
 
-    /**
-     * Retrieve all RestockAlerts records.
-     * @return List of RestockAlertsResponse
-     */
+    @Autowired
+    private RestockAlertsMapper mapper;
+
     @Override
-    public List<RestockAlertsResponse> getAll() {
-        // TODO: Fetch all RestockAlerts and map to RestockAlertsResponse
-        return null;
+    public List<RestockAlertsResponse> all() {
+        return repository.all()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Retrieve a single RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts
-     * @return RestockAlertsResponse object
-     */
     @Override
-    public RestockAlertsResponse get(Long id) {
-        // TODO: Fetch single RestockAlerts by id and map to RestockAlertsResponse
-        return null;
+    public List<RestockAlertsResponse> index() {
+        return repository.index()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Create a new RestockAlerts record.
-     * @param request DTO containing the RestockAlerts data
-     * @return Created RestockAlertsResponse
-     */
+    @Override
+    public RestockAlertsResponse view(Long id) {
+        return repository.view(id)
+                .map(mapper::toResponse)
+                .orElse(null);
+    }
+
     @Override
     public RestockAlertsResponse create(RestockAlertsRequest request) {
-        // TODO: Map request to entity, save, and return response DTO
-        return null;
+        RestockAlerts entity = mapper.toEntity(request);
+        return mapper.toResponse(repository.create(entity));
     }
 
-    /**
-     * Update an existing RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts to update
-     * @param request DTO containing updated data
-     * @return Updated RestockAlertsResponse
-     */
     @Override
     public RestockAlertsResponse update(Long id, RestockAlertsRequest request) {
-        // TODO: Update existing entity and return response DTO
-        return null;
+
+        RestockAlerts existing = repository.view(id).orElse(null);
+
+        if (existing == null)
+            return null;
+
+        mapper.updateEntity(request, existing);
+
+        return mapper.toResponse(repository.update(existing));
     }
 
-    /**
-     * Delete a RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts to delete
-     */
     @Override
     public void delete(Long id) {
-        // TODO: Delete entity by id
+        repository.delete(id);
     }
 }

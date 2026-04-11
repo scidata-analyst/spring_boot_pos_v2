@@ -1,15 +1,19 @@
 ﻿package com.example.pos.services.Products;
 
+import com.example.pos.entities.Products.Categories;
 import com.example.pos.dtos.request.Products.CategoriesRequest;
 import com.example.pos.dtos.response.Products.CategoriesResponse;
+import com.example.pos.mappers.Products.CategoriesMapper;
 import com.example.pos.repositories.Products.CategoriesRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * Service implementation for Categories.
- * Implements CRUD operations defined in CategoriesService.
+ * Uses repository semantic methods (no JPA direct calls).
  */
 @Service
 public class CategoriesServiceImpl implements CategoriesService {
@@ -17,56 +21,53 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Autowired
     private CategoriesRepository repository;
 
-    /**
-     * Retrieve all Categories records.
-     * @return List of CategoriesResponse
-     */
+    @Autowired
+    private CategoriesMapper mapper;
+
     @Override
-    public List<CategoriesResponse> getAll() {
-        // TODO: Fetch all Categories and map to CategoriesResponse
-        return null;
+    public List<CategoriesResponse> all() {
+        return repository.all()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Retrieve a single Categories by its ID.
-     * @param id ID of the Categories
-     * @return CategoriesResponse object
-     */
     @Override
-    public CategoriesResponse get(Long id) {
-        // TODO: Fetch single Categories by id and map to CategoriesResponse
-        return null;
+    public List<CategoriesResponse> index() {
+        return repository.index()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Create a new Categories record.
-     * @param request DTO containing the Categories data
-     * @return Created CategoriesResponse
-     */
+    @Override
+    public CategoriesResponse view(Long id) {
+        return repository.view(id)
+                .map(mapper::toResponse)
+                .orElse(null);
+    }
+
     @Override
     public CategoriesResponse create(CategoriesRequest request) {
-        // TODO: Map request to entity, save, and return response DTO
-        return null;
+        Categories entity = mapper.toEntity(request);
+        return mapper.toResponse(repository.create(entity));
     }
 
-    /**
-     * Update an existing Categories by its ID.
-     * @param id ID of the Categories to update
-     * @param request DTO containing updated data
-     * @return Updated CategoriesResponse
-     */
     @Override
     public CategoriesResponse update(Long id, CategoriesRequest request) {
-        // TODO: Update existing entity and return response DTO
-        return null;
+
+        Categories existing = repository.view(id).orElse(null);
+
+        if (existing == null)
+            return null;
+
+        mapper.updateEntity(request, existing);
+
+        return mapper.toResponse(repository.update(existing));
     }
 
-    /**
-     * Delete a Categories by its ID.
-     * @param id ID of the Categories to delete
-     */
     @Override
     public void delete(Long id) {
-        // TODO: Delete entity by id
+        repository.delete(id);
     }
 }

@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.ReportsAnalytics.SalesReportsRequest;
 import com.example.pos.dtos.response.ReportsAnalytics.SalesReportsResponse;
 import com.example.pos.services.ReportsAnalytics.SalesReportsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: SalesReports
  * =====================================================
  *
- * Provides standard CRUD APIs for SalesReports.
- * All responses are returned using SalesReportsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/ReportsAnalytics/SalesReports
- * - GET    /api/ReportsAnalytics/SalesReports/{id}
- * - POST   /api/ReportsAnalytics/SalesReports
- * - PUT    /api/ReportsAnalytics/SalesReports/{id}
- * - DELETE /api/ReportsAnalytics/SalesReports/{id}
+ * Provides standard REST APIs for SalesReports.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/ReportsAnalytics/SalesReports")
@@ -32,57 +27,50 @@ public class SalesReportsController {
     private SalesReportsService service;
 
     /**
-     * Retrieve all SalesReports records.
-     *
-     * @return List of SalesReportsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<SalesReportsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<SalesReportsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single SalesReports by ID.
-     *
-     * @param id ID of the SalesReports
-     * @return SalesReportsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public SalesReportsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<SalesReportsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new SalesReports record.
-     *
-     * @param request request DTO
-     * @return created SalesReportsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public SalesReportsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public SalesReportsResponse create(@RequestBody @Valid SalesReportsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing SalesReports record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated SalesReportsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public SalesReportsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid SalesReportsRequest request) {
+            @RequestBody @Valid SalesReportsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a SalesReports record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

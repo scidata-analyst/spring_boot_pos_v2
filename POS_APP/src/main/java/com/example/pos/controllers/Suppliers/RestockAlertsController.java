@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Suppliers.RestockAlertsRequest;
 import com.example.pos.dtos.response.Suppliers.RestockAlertsResponse;
 import com.example.pos.services.Suppliers.RestockAlertsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: RestockAlerts
  * =====================================================
  *
- * Provides standard CRUD APIs for RestockAlerts.
- * All responses are returned using RestockAlertsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Suppliers/RestockAlerts
- * - GET    /api/Suppliers/RestockAlerts/{id}
- * - POST   /api/Suppliers/RestockAlerts
- * - PUT    /api/Suppliers/RestockAlerts/{id}
- * - DELETE /api/Suppliers/RestockAlerts/{id}
+ * Provides standard REST APIs for RestockAlerts.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Suppliers/RestockAlerts")
@@ -32,57 +27,50 @@ public class RestockAlertsController {
     private RestockAlertsService service;
 
     /**
-     * Retrieve all RestockAlerts records.
-     *
-     * @return List of RestockAlertsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<RestockAlertsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<RestockAlertsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single RestockAlerts by ID.
-     *
-     * @param id ID of the RestockAlerts
-     * @return RestockAlertsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public RestockAlertsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<RestockAlertsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new RestockAlerts record.
-     *
-     * @param request request DTO
-     * @return created RestockAlertsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public RestockAlertsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public RestockAlertsResponse create(@RequestBody @Valid RestockAlertsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing RestockAlerts record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated RestockAlertsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public RestockAlertsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid RestockAlertsRequest request) {
+            @RequestBody @Valid RestockAlertsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a RestockAlerts record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

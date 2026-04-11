@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.SalesBilling.TransactionsRequest;
 import com.example.pos.dtos.response.SalesBilling.TransactionsResponse;
 import com.example.pos.services.SalesBilling.TransactionsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: Transactions
  * =====================================================
  *
- * Provides standard CRUD APIs for Transactions.
- * All responses are returned using TransactionsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/SalesBilling/Transactions
- * - GET    /api/SalesBilling/Transactions/{id}
- * - POST   /api/SalesBilling/Transactions
- * - PUT    /api/SalesBilling/Transactions/{id}
- * - DELETE /api/SalesBilling/Transactions/{id}
+ * Provides standard REST APIs for Transactions.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/SalesBilling/Transactions")
@@ -32,57 +27,50 @@ public class TransactionsController {
     private TransactionsService service;
 
     /**
-     * Retrieve all Transactions records.
-     *
-     * @return List of TransactionsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<TransactionsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<TransactionsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single Transactions by ID.
-     *
-     * @param id ID of the Transactions
-     * @return TransactionsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public TransactionsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<TransactionsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new Transactions record.
-     *
-     * @param request request DTO
-     * @return created TransactionsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public TransactionsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public TransactionsResponse create(@RequestBody @Valid TransactionsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing Transactions record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated TransactionsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public TransactionsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid TransactionsRequest request) {
+            @RequestBody @Valid TransactionsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a Transactions record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

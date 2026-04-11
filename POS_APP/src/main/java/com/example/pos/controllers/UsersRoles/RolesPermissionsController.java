@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.UsersRoles.RolesPermissionsRequest;
 import com.example.pos.dtos.response.UsersRoles.RolesPermissionsResponse;
 import com.example.pos.services.UsersRoles.RolesPermissionsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: RolesPermissions
  * =====================================================
  *
- * Provides standard CRUD APIs for RolesPermissions.
- * All responses are returned using RolesPermissionsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/UsersRoles/RolesPermissions
- * - GET    /api/UsersRoles/RolesPermissions/{id}
- * - POST   /api/UsersRoles/RolesPermissions
- * - PUT    /api/UsersRoles/RolesPermissions/{id}
- * - DELETE /api/UsersRoles/RolesPermissions/{id}
+ * Provides standard REST APIs for RolesPermissions.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/UsersRoles/RolesPermissions")
@@ -32,57 +27,50 @@ public class RolesPermissionsController {
     private RolesPermissionsService service;
 
     /**
-     * Retrieve all RolesPermissions records.
-     *
-     * @return List of RolesPermissionsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<RolesPermissionsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<RolesPermissionsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single RolesPermissions by ID.
-     *
-     * @param id ID of the RolesPermissions
-     * @return RolesPermissionsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public RolesPermissionsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<RolesPermissionsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new RolesPermissions record.
-     *
-     * @param request request DTO
-     * @return created RolesPermissionsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public RolesPermissionsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public RolesPermissionsResponse create(@RequestBody @Valid RolesPermissionsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing RolesPermissions record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated RolesPermissionsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public RolesPermissionsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid RolesPermissionsRequest request) {
+            @RequestBody @Valid RolesPermissionsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a RolesPermissions record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

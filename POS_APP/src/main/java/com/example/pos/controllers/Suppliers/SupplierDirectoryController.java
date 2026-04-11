@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Suppliers.SupplierDirectoryRequest;
 import com.example.pos.dtos.response.Suppliers.SupplierDirectoryResponse;
 import com.example.pos.services.Suppliers.SupplierDirectoryService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: SupplierDirectory
  * =====================================================
  *
- * Provides standard CRUD APIs for SupplierDirectory.
- * All responses are returned using SupplierDirectoryResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Suppliers/SupplierDirectory
- * - GET    /api/Suppliers/SupplierDirectory/{id}
- * - POST   /api/Suppliers/SupplierDirectory
- * - PUT    /api/Suppliers/SupplierDirectory/{id}
- * - DELETE /api/Suppliers/SupplierDirectory/{id}
+ * Provides standard REST APIs for SupplierDirectory.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Suppliers/SupplierDirectory")
@@ -32,57 +27,50 @@ public class SupplierDirectoryController {
     private SupplierDirectoryService service;
 
     /**
-     * Retrieve all SupplierDirectory records.
-     *
-     * @return List of SupplierDirectoryResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<SupplierDirectoryResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<SupplierDirectoryResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single SupplierDirectory by ID.
-     *
-     * @param id ID of the SupplierDirectory
-     * @return SupplierDirectoryResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public SupplierDirectoryResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<SupplierDirectoryResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new SupplierDirectory record.
-     *
-     * @param request request DTO
-     * @return created SupplierDirectoryResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public SupplierDirectoryResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public SupplierDirectoryResponse create(@RequestBody @Valid SupplierDirectoryRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing SupplierDirectory record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated SupplierDirectoryResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public SupplierDirectoryResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid SupplierDirectoryRequest request) {
+            @RequestBody @Valid SupplierDirectoryRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a SupplierDirectory record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

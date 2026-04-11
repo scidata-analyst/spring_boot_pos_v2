@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.CustomersCRM.LoyaltyPointsRequest;
 import com.example.pos.dtos.response.CustomersCRM.LoyaltyPointsResponse;
 import com.example.pos.services.CustomersCRM.LoyaltyPointsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: LoyaltyPoints
  * =====================================================
  *
- * Provides standard CRUD APIs for LoyaltyPoints.
- * All responses are returned using LoyaltyPointsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/CustomersCRM/LoyaltyPoints
- * - GET    /api/CustomersCRM/LoyaltyPoints/{id}
- * - POST   /api/CustomersCRM/LoyaltyPoints
- * - PUT    /api/CustomersCRM/LoyaltyPoints/{id}
- * - DELETE /api/CustomersCRM/LoyaltyPoints/{id}
+ * Provides standard REST APIs for LoyaltyPoints.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/CustomersCRM/LoyaltyPoints")
@@ -32,57 +27,50 @@ public class LoyaltyPointsController {
     private LoyaltyPointsService service;
 
     /**
-     * Retrieve all LoyaltyPoints records.
-     *
-     * @return List of LoyaltyPointsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<LoyaltyPointsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<LoyaltyPointsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single LoyaltyPoints by ID.
-     *
-     * @param id ID of the LoyaltyPoints
-     * @return LoyaltyPointsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public LoyaltyPointsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<LoyaltyPointsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new LoyaltyPoints record.
-     *
-     * @param request request DTO
-     * @return created LoyaltyPointsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public LoyaltyPointsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public LoyaltyPointsResponse create(@RequestBody @Valid LoyaltyPointsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing LoyaltyPoints record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated LoyaltyPointsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public LoyaltyPointsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid LoyaltyPointsRequest request) {
+            @RequestBody @Valid LoyaltyPointsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a LoyaltyPoints record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

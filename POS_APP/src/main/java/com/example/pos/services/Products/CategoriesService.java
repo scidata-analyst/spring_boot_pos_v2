@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Products.CategoriesRequest;
 import com.example.pos.dtos.response.Products.CategoriesResponse;
+
 import java.util.List;
 
 /**
- * Service interface for Categories.
- * Defines standard CRUD operations for Categories, same as Controller methods.
+ * =====================================================
+ * Service Contract: Categories
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface CategoriesService {
 
-    /**
-     * Retrieve all Categories records.
-     * @return List of CategoriesResponse
-     */
-    List<CategoriesResponse> getAll();
+    List<CategoriesResponse> all();
 
-    /**
-     * Retrieve a single Categories by its ID.
-     * @param id ID of the Categories
-     * @return CategoriesResponse object
-     */
-    CategoriesResponse get(Long id);
+    List<CategoriesResponse> index();
 
-    /**
-     * Create a new Categories record.
-     * @param request DTO containing the Categories data
-     * @return Created CategoriesResponse
-     */
+    CategoriesResponse view(Long id);
+
     CategoriesResponse create(CategoriesRequest request);
 
-    /**
-     * Update an existing Categories by its ID.
-     * @param id ID of the Categories to update
-     * @param request DTO containing updated data
-     * @return Updated CategoriesResponse
-     */
     CategoriesResponse update(Long id, CategoriesRequest request);
 
-    /**
-     * Delete a Categories by its ID.
-     * @param id ID of the Categories to delete
-     */
     void delete(Long id);
 }

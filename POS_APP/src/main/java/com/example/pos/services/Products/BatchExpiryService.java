@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Products.BatchExpiryRequest;
 import com.example.pos.dtos.response.Products.BatchExpiryResponse;
+
 import java.util.List;
 
 /**
- * Service interface for BatchExpiry.
- * Defines standard CRUD operations for BatchExpiry, same as Controller methods.
+ * =====================================================
+ * Service Contract: BatchExpiry
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface BatchExpiryService {
 
-    /**
-     * Retrieve all BatchExpiry records.
-     * @return List of BatchExpiryResponse
-     */
-    List<BatchExpiryResponse> getAll();
+    List<BatchExpiryResponse> all();
 
-    /**
-     * Retrieve a single BatchExpiry by its ID.
-     * @param id ID of the BatchExpiry
-     * @return BatchExpiryResponse object
-     */
-    BatchExpiryResponse get(Long id);
+    List<BatchExpiryResponse> index();
 
-    /**
-     * Create a new BatchExpiry record.
-     * @param request DTO containing the BatchExpiry data
-     * @return Created BatchExpiryResponse
-     */
+    BatchExpiryResponse view(Long id);
+
     BatchExpiryResponse create(BatchExpiryRequest request);
 
-    /**
-     * Update an existing BatchExpiry by its ID.
-     * @param id ID of the BatchExpiry to update
-     * @param request DTO containing updated data
-     * @return Updated BatchExpiryResponse
-     */
     BatchExpiryResponse update(Long id, BatchExpiryRequest request);
 
-    /**
-     * Delete a BatchExpiry by its ID.
-     * @param id ID of the BatchExpiry to delete
-     */
     void delete(Long id);
 }

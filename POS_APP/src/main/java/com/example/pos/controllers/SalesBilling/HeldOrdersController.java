@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.SalesBilling.HeldOrdersRequest;
 import com.example.pos.dtos.response.SalesBilling.HeldOrdersResponse;
 import com.example.pos.services.SalesBilling.HeldOrdersService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: HeldOrders
  * =====================================================
  *
- * Provides standard CRUD APIs for HeldOrders.
- * All responses are returned using HeldOrdersResponse DTO.
- *
- * Endpoints:
- * - GET    /api/SalesBilling/HeldOrders
- * - GET    /api/SalesBilling/HeldOrders/{id}
- * - POST   /api/SalesBilling/HeldOrders
- * - PUT    /api/SalesBilling/HeldOrders/{id}
- * - DELETE /api/SalesBilling/HeldOrders/{id}
+ * Provides standard REST APIs for HeldOrders.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/SalesBilling/HeldOrders")
@@ -32,57 +27,50 @@ public class HeldOrdersController {
     private HeldOrdersService service;
 
     /**
-     * Retrieve all HeldOrders records.
-     *
-     * @return List of HeldOrdersResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<HeldOrdersResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<HeldOrdersResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single HeldOrders by ID.
-     *
-     * @param id ID of the HeldOrders
-     * @return HeldOrdersResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public HeldOrdersResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<HeldOrdersResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new HeldOrders record.
-     *
-     * @param request request DTO
-     * @return created HeldOrdersResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public HeldOrdersResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public HeldOrdersResponse create(@RequestBody @Valid HeldOrdersRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing HeldOrders record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated HeldOrdersResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public HeldOrdersResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid HeldOrdersRequest request) {
+            @RequestBody @Valid HeldOrdersRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a HeldOrders record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

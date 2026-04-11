@@ -3,58 +3,61 @@
 import com.example.pos.entities.Suppliers.PurchaseOrders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for PurchaseOrders entity.
- * <p>
- * Provides full CRUD operations for PurchaseOrders using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for PurchaseOrders.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface PurchaseOrdersRepository extends JpaRepository<PurchaseOrders, Long> {
 
     /**
-     * Retrieve all PurchaseOrders records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of PurchaseOrders
+     * Get all records (API usage).
      */
-    default List<PurchaseOrders> getAll() {
+    default List<PurchaseOrders> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single PurchaseOrders by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the PurchaseOrders
-     * @return Optional containing PurchaseOrders if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<PurchaseOrders> get(Long id) {
+    default List<PurchaseOrders> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<PurchaseOrders> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a PurchaseOrders.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved PurchaseOrders
+     * Create new entity.
      */
-    default PurchaseOrders saveEntity(PurchaseOrders entity) {
+    default PurchaseOrders create(PurchaseOrders entity) {
         return save(entity);
     }
 
     /**
-     * Delete a PurchaseOrders by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default PurchaseOrders update(PurchaseOrders entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Promotions.OffersCombosRequest;
 import com.example.pos.dtos.response.Promotions.OffersCombosResponse;
 import com.example.pos.services.Promotions.OffersCombosService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: OffersCombos
  * =====================================================
  *
- * Provides standard CRUD APIs for OffersCombos.
- * All responses are returned using OffersCombosResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Promotions/OffersCombos
- * - GET    /api/Promotions/OffersCombos/{id}
- * - POST   /api/Promotions/OffersCombos
- * - PUT    /api/Promotions/OffersCombos/{id}
- * - DELETE /api/Promotions/OffersCombos/{id}
+ * Provides standard REST APIs for OffersCombos.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Promotions/OffersCombos")
@@ -32,57 +27,50 @@ public class OffersCombosController {
     private OffersCombosService service;
 
     /**
-     * Retrieve all OffersCombos records.
-     *
-     * @return List of OffersCombosResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<OffersCombosResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<OffersCombosResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single OffersCombos by ID.
-     *
-     * @param id ID of the OffersCombos
-     * @return OffersCombosResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public OffersCombosResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<OffersCombosResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new OffersCombos record.
-     *
-     * @param request request DTO
-     * @return created OffersCombosResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public OffersCombosResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public OffersCombosResponse create(@RequestBody @Valid OffersCombosRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing OffersCombos record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated OffersCombosResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public OffersCombosResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid OffersCombosRequest request) {
+            @RequestBody @Valid OffersCombosRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a OffersCombos record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

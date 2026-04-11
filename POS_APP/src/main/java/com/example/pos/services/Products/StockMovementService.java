@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Products.StockMovementRequest;
 import com.example.pos.dtos.response.Products.StockMovementResponse;
+
 import java.util.List;
 
 /**
- * Service interface for StockMovement.
- * Defines standard CRUD operations for StockMovement, same as Controller methods.
+ * =====================================================
+ * Service Contract: StockMovement
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface StockMovementService {
 
-    /**
-     * Retrieve all StockMovement records.
-     * @return List of StockMovementResponse
-     */
-    List<StockMovementResponse> getAll();
+    List<StockMovementResponse> all();
 
-    /**
-     * Retrieve a single StockMovement by its ID.
-     * @param id ID of the StockMovement
-     * @return StockMovementResponse object
-     */
-    StockMovementResponse get(Long id);
+    List<StockMovementResponse> index();
 
-    /**
-     * Create a new StockMovement record.
-     * @param request DTO containing the StockMovement data
-     * @return Created StockMovementResponse
-     */
+    StockMovementResponse view(Long id);
+
     StockMovementResponse create(StockMovementRequest request);
 
-    /**
-     * Update an existing StockMovement by its ID.
-     * @param id ID of the StockMovement to update
-     * @param request DTO containing updated data
-     * @return Updated StockMovementResponse
-     */
     StockMovementResponse update(Long id, StockMovementRequest request);
 
-    /**
-     * Delete a StockMovement by its ID.
-     * @param id ID of the StockMovement to delete
-     */
     void delete(Long id);
 }

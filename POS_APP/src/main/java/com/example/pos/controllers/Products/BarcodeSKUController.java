@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Products.BarcodeSKURequest;
 import com.example.pos.dtos.response.Products.BarcodeSKUResponse;
 import com.example.pos.services.Products.BarcodeSKUService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: BarcodeSKU
  * =====================================================
  *
- * Provides standard CRUD APIs for BarcodeSKU.
- * All responses are returned using BarcodeSKUResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Products/BarcodeSKU
- * - GET    /api/Products/BarcodeSKU/{id}
- * - POST   /api/Products/BarcodeSKU
- * - PUT    /api/Products/BarcodeSKU/{id}
- * - DELETE /api/Products/BarcodeSKU/{id}
+ * Provides standard REST APIs for BarcodeSKU.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Products/BarcodeSKU")
@@ -32,57 +27,50 @@ public class BarcodeSKUController {
     private BarcodeSKUService service;
 
     /**
-     * Retrieve all BarcodeSKU records.
-     *
-     * @return List of BarcodeSKUResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<BarcodeSKUResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<BarcodeSKUResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single BarcodeSKU by ID.
-     *
-     * @param id ID of the BarcodeSKU
-     * @return BarcodeSKUResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public BarcodeSKUResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<BarcodeSKUResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new BarcodeSKU record.
-     *
-     * @param request request DTO
-     * @return created BarcodeSKUResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public BarcodeSKUResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public BarcodeSKUResponse create(@RequestBody @Valid BarcodeSKURequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing BarcodeSKU record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated BarcodeSKUResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public BarcodeSKUResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid BarcodeSKURequest request) {
+            @RequestBody @Valid BarcodeSKURequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a BarcodeSKU record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

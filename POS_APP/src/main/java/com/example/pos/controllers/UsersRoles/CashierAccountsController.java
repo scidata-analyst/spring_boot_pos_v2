@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.UsersRoles.CashierAccountsRequest;
 import com.example.pos.dtos.response.UsersRoles.CashierAccountsResponse;
 import com.example.pos.services.UsersRoles.CashierAccountsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: CashierAccounts
  * =====================================================
  *
- * Provides standard CRUD APIs for CashierAccounts.
- * All responses are returned using CashierAccountsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/UsersRoles/CashierAccounts
- * - GET    /api/UsersRoles/CashierAccounts/{id}
- * - POST   /api/UsersRoles/CashierAccounts
- * - PUT    /api/UsersRoles/CashierAccounts/{id}
- * - DELETE /api/UsersRoles/CashierAccounts/{id}
+ * Provides standard REST APIs for CashierAccounts.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/UsersRoles/CashierAccounts")
@@ -32,57 +27,50 @@ public class CashierAccountsController {
     private CashierAccountsService service;
 
     /**
-     * Retrieve all CashierAccounts records.
-     *
-     * @return List of CashierAccountsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<CashierAccountsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<CashierAccountsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single CashierAccounts by ID.
-     *
-     * @param id ID of the CashierAccounts
-     * @return CashierAccountsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public CashierAccountsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<CashierAccountsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new CashierAccounts record.
-     *
-     * @param request request DTO
-     * @return created CashierAccountsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public CashierAccountsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public CashierAccountsResponse create(@RequestBody @Valid CashierAccountsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing CashierAccounts record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated CashierAccountsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CashierAccountsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid CashierAccountsRequest request) {
+            @RequestBody @Valid CashierAccountsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a CashierAccounts record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

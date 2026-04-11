@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Suppliers.SupplierPaymentsRequest;
 import com.example.pos.dtos.response.Suppliers.SupplierPaymentsResponse;
+
 import java.util.List;
 
 /**
- * Service interface for SupplierPayments.
- * Defines standard CRUD operations for SupplierPayments, same as Controller methods.
+ * =====================================================
+ * Service Contract: SupplierPayments
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface SupplierPaymentsService {
 
-    /**
-     * Retrieve all SupplierPayments records.
-     * @return List of SupplierPaymentsResponse
-     */
-    List<SupplierPaymentsResponse> getAll();
+    List<SupplierPaymentsResponse> all();
 
-    /**
-     * Retrieve a single SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments
-     * @return SupplierPaymentsResponse object
-     */
-    SupplierPaymentsResponse get(Long id);
+    List<SupplierPaymentsResponse> index();
 
-    /**
-     * Create a new SupplierPayments record.
-     * @param request DTO containing the SupplierPayments data
-     * @return Created SupplierPaymentsResponse
-     */
+    SupplierPaymentsResponse view(Long id);
+
     SupplierPaymentsResponse create(SupplierPaymentsRequest request);
 
-    /**
-     * Update an existing SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments to update
-     * @param request DTO containing updated data
-     * @return Updated SupplierPaymentsResponse
-     */
     SupplierPaymentsResponse update(Long id, SupplierPaymentsRequest request);
 
-    /**
-     * Delete a SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments to delete
-     */
     void delete(Long id);
 }

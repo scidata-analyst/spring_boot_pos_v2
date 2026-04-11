@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.PaymentAccounting.TaxReportsRequest;
 import com.example.pos.dtos.response.PaymentAccounting.TaxReportsResponse;
 import com.example.pos.services.PaymentAccounting.TaxReportsService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: TaxReports
  * =====================================================
  *
- * Provides standard CRUD APIs for TaxReports.
- * All responses are returned using TaxReportsResponse DTO.
- *
- * Endpoints:
- * - GET    /api/PaymentAccounting/TaxReports
- * - GET    /api/PaymentAccounting/TaxReports/{id}
- * - POST   /api/PaymentAccounting/TaxReports
- * - PUT    /api/PaymentAccounting/TaxReports/{id}
- * - DELETE /api/PaymentAccounting/TaxReports/{id}
+ * Provides standard REST APIs for TaxReports.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/PaymentAccounting/TaxReports")
@@ -32,57 +27,50 @@ public class TaxReportsController {
     private TaxReportsService service;
 
     /**
-     * Retrieve all TaxReports records.
-     *
-     * @return List of TaxReportsResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<TaxReportsResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<TaxReportsResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single TaxReports by ID.
-     *
-     * @param id ID of the TaxReports
-     * @return TaxReportsResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public TaxReportsResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<TaxReportsResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new TaxReports record.
-     *
-     * @param request request DTO
-     * @return created TaxReportsResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public TaxReportsResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public TaxReportsResponse create(@RequestBody @Valid TaxReportsRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing TaxReports record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated TaxReportsResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public TaxReportsResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid TaxReportsRequest request) {
+            @RequestBody @Valid TaxReportsRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a TaxReports record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

@@ -1,15 +1,19 @@
 ﻿package com.example.pos.services.Suppliers;
 
+import com.example.pos.entities.Suppliers.SupplierPayments;
 import com.example.pos.dtos.request.Suppliers.SupplierPaymentsRequest;
 import com.example.pos.dtos.response.Suppliers.SupplierPaymentsResponse;
+import com.example.pos.mappers.Suppliers.SupplierPaymentsMapper;
 import com.example.pos.repositories.Suppliers.SupplierPaymentsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * Service implementation for SupplierPayments.
- * Implements CRUD operations defined in SupplierPaymentsService.
+ * Uses repository semantic methods (no JPA direct calls).
  */
 @Service
 public class SupplierPaymentsServiceImpl implements SupplierPaymentsService {
@@ -17,56 +21,53 @@ public class SupplierPaymentsServiceImpl implements SupplierPaymentsService {
     @Autowired
     private SupplierPaymentsRepository repository;
 
-    /**
-     * Retrieve all SupplierPayments records.
-     * @return List of SupplierPaymentsResponse
-     */
+    @Autowired
+    private SupplierPaymentsMapper mapper;
+
     @Override
-    public List<SupplierPaymentsResponse> getAll() {
-        // TODO: Fetch all SupplierPayments and map to SupplierPaymentsResponse
-        return null;
+    public List<SupplierPaymentsResponse> all() {
+        return repository.all()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Retrieve a single SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments
-     * @return SupplierPaymentsResponse object
-     */
     @Override
-    public SupplierPaymentsResponse get(Long id) {
-        // TODO: Fetch single SupplierPayments by id and map to SupplierPaymentsResponse
-        return null;
+    public List<SupplierPaymentsResponse> index() {
+        return repository.index()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Create a new SupplierPayments record.
-     * @param request DTO containing the SupplierPayments data
-     * @return Created SupplierPaymentsResponse
-     */
+    @Override
+    public SupplierPaymentsResponse view(Long id) {
+        return repository.view(id)
+                .map(mapper::toResponse)
+                .orElse(null);
+    }
+
     @Override
     public SupplierPaymentsResponse create(SupplierPaymentsRequest request) {
-        // TODO: Map request to entity, save, and return response DTO
-        return null;
+        SupplierPayments entity = mapper.toEntity(request);
+        return mapper.toResponse(repository.create(entity));
     }
 
-    /**
-     * Update an existing SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments to update
-     * @param request DTO containing updated data
-     * @return Updated SupplierPaymentsResponse
-     */
     @Override
     public SupplierPaymentsResponse update(Long id, SupplierPaymentsRequest request) {
-        // TODO: Update existing entity and return response DTO
-        return null;
+
+        SupplierPayments existing = repository.view(id).orElse(null);
+
+        if (existing == null)
+            return null;
+
+        mapper.updateEntity(request, existing);
+
+        return mapper.toResponse(repository.update(existing));
     }
 
-    /**
-     * Delete a SupplierPayments by its ID.
-     * @param id ID of the SupplierPayments to delete
-     */
     @Override
     public void delete(Long id) {
-        // TODO: Delete entity by id
+        repository.delete(id);
     }
 }

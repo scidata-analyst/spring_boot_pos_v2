@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.PaymentAccounting.ReconciliationRequest;
 import com.example.pos.dtos.response.PaymentAccounting.ReconciliationResponse;
 import com.example.pos.services.PaymentAccounting.ReconciliationService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: Reconciliation
  * =====================================================
  *
- * Provides standard CRUD APIs for Reconciliation.
- * All responses are returned using ReconciliationResponse DTO.
- *
- * Endpoints:
- * - GET    /api/PaymentAccounting/Reconciliation
- * - GET    /api/PaymentAccounting/Reconciliation/{id}
- * - POST   /api/PaymentAccounting/Reconciliation
- * - PUT    /api/PaymentAccounting/Reconciliation/{id}
- * - DELETE /api/PaymentAccounting/Reconciliation/{id}
+ * Provides standard REST APIs for Reconciliation.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/PaymentAccounting/Reconciliation")
@@ -32,57 +27,50 @@ public class ReconciliationController {
     private ReconciliationService service;
 
     /**
-     * Retrieve all Reconciliation records.
-     *
-     * @return List of ReconciliationResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<ReconciliationResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<ReconciliationResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single Reconciliation by ID.
-     *
-     * @param id ID of the Reconciliation
-     * @return ReconciliationResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public ReconciliationResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<ReconciliationResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new Reconciliation record.
-     *
-     * @param request request DTO
-     * @return created ReconciliationResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public ReconciliationResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public ReconciliationResponse create(@RequestBody @Valid ReconciliationRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing Reconciliation record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated ReconciliationResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ReconciliationResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid ReconciliationRequest request) {
+            @RequestBody @Valid ReconciliationRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a Reconciliation record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

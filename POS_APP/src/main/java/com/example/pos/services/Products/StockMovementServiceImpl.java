@@ -1,15 +1,19 @@
 ﻿package com.example.pos.services.Products;
 
+import com.example.pos.entities.Products.StockMovement;
 import com.example.pos.dtos.request.Products.StockMovementRequest;
 import com.example.pos.dtos.response.Products.StockMovementResponse;
+import com.example.pos.mappers.Products.StockMovementMapper;
 import com.example.pos.repositories.Products.StockMovementRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * Service implementation for StockMovement.
- * Implements CRUD operations defined in StockMovementService.
+ * Uses repository semantic methods (no JPA direct calls).
  */
 @Service
 public class StockMovementServiceImpl implements StockMovementService {
@@ -17,56 +21,53 @@ public class StockMovementServiceImpl implements StockMovementService {
     @Autowired
     private StockMovementRepository repository;
 
-    /**
-     * Retrieve all StockMovement records.
-     * @return List of StockMovementResponse
-     */
+    @Autowired
+    private StockMovementMapper mapper;
+
     @Override
-    public List<StockMovementResponse> getAll() {
-        // TODO: Fetch all StockMovement and map to StockMovementResponse
-        return null;
+    public List<StockMovementResponse> all() {
+        return repository.all()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Retrieve a single StockMovement by its ID.
-     * @param id ID of the StockMovement
-     * @return StockMovementResponse object
-     */
     @Override
-    public StockMovementResponse get(Long id) {
-        // TODO: Fetch single StockMovement by id and map to StockMovementResponse
-        return null;
+    public List<StockMovementResponse> index() {
+        return repository.index()
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
-    /**
-     * Create a new StockMovement record.
-     * @param request DTO containing the StockMovement data
-     * @return Created StockMovementResponse
-     */
+    @Override
+    public StockMovementResponse view(Long id) {
+        return repository.view(id)
+                .map(mapper::toResponse)
+                .orElse(null);
+    }
+
     @Override
     public StockMovementResponse create(StockMovementRequest request) {
-        // TODO: Map request to entity, save, and return response DTO
-        return null;
+        StockMovement entity = mapper.toEntity(request);
+        return mapper.toResponse(repository.create(entity));
     }
 
-    /**
-     * Update an existing StockMovement by its ID.
-     * @param id ID of the StockMovement to update
-     * @param request DTO containing updated data
-     * @return Updated StockMovementResponse
-     */
     @Override
     public StockMovementResponse update(Long id, StockMovementRequest request) {
-        // TODO: Update existing entity and return response DTO
-        return null;
+
+        StockMovement existing = repository.view(id).orElse(null);
+
+        if (existing == null)
+            return null;
+
+        mapper.updateEntity(request, existing);
+
+        return mapper.toResponse(repository.update(existing));
     }
 
-    /**
-     * Delete a StockMovement by its ID.
-     * @param id ID of the StockMovement to delete
-     */
     @Override
     public void delete(Long id) {
-        // TODO: Delete entity by id
+        repository.delete(id);
     }
 }

@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.LoyaltyMembership.PointsConfigRequest;
 import com.example.pos.dtos.response.LoyaltyMembership.PointsConfigResponse;
 import com.example.pos.services.LoyaltyMembership.PointsConfigService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: PointsConfig
  * =====================================================
  *
- * Provides standard CRUD APIs for PointsConfig.
- * All responses are returned using PointsConfigResponse DTO.
- *
- * Endpoints:
- * - GET    /api/LoyaltyMembership/PointsConfig
- * - GET    /api/LoyaltyMembership/PointsConfig/{id}
- * - POST   /api/LoyaltyMembership/PointsConfig
- * - PUT    /api/LoyaltyMembership/PointsConfig/{id}
- * - DELETE /api/LoyaltyMembership/PointsConfig/{id}
+ * Provides standard REST APIs for PointsConfig.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/LoyaltyMembership/PointsConfig")
@@ -32,57 +27,50 @@ public class PointsConfigController {
     private PointsConfigService service;
 
     /**
-     * Retrieve all PointsConfig records.
-     *
-     * @return List of PointsConfigResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<PointsConfigResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<PointsConfigResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single PointsConfig by ID.
-     *
-     * @param id ID of the PointsConfig
-     * @return PointsConfigResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public PointsConfigResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<PointsConfigResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new PointsConfig record.
-     *
-     * @param request request DTO
-     * @return created PointsConfigResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public PointsConfigResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public PointsConfigResponse create(@RequestBody @Valid PointsConfigRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing PointsConfig record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated PointsConfigResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public PointsConfigResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid PointsConfigRequest request) {
+            @RequestBody @Valid PointsConfigRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a PointsConfig record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

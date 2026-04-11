@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.ReportsAnalytics.PLReportRequest;
 import com.example.pos.dtos.response.ReportsAnalytics.PLReportResponse;
 import com.example.pos.services.ReportsAnalytics.PLReportService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: PLReport
  * =====================================================
  *
- * Provides standard CRUD APIs for PLReport.
- * All responses are returned using PLReportResponse DTO.
- *
- * Endpoints:
- * - GET    /api/ReportsAnalytics/PLReport
- * - GET    /api/ReportsAnalytics/PLReport/{id}
- * - POST   /api/ReportsAnalytics/PLReport
- * - PUT    /api/ReportsAnalytics/PLReport/{id}
- * - DELETE /api/ReportsAnalytics/PLReport/{id}
+ * Provides standard REST APIs for PLReport.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/ReportsAnalytics/PLReport")
@@ -32,57 +27,50 @@ public class PLReportController {
     private PLReportService service;
 
     /**
-     * Retrieve all PLReport records.
-     *
-     * @return List of PLReportResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<PLReportResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<PLReportResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single PLReport by ID.
-     *
-     * @param id ID of the PLReport
-     * @return PLReportResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public PLReportResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<PLReportResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new PLReport record.
-     *
-     * @param request request DTO
-     * @return created PLReportResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public PLReportResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public PLReportResponse create(@RequestBody @Valid PLReportRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing PLReport record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated PLReportResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public PLReportResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid PLReportRequest request) {
+            @RequestBody @Valid PLReportRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a PLReport record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

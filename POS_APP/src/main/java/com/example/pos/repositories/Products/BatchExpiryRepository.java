@@ -3,58 +3,61 @@
 import com.example.pos.entities.Products.BatchExpiry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for BatchExpiry entity.
- * <p>
- * Provides full CRUD operations for BatchExpiry using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for BatchExpiry.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface BatchExpiryRepository extends JpaRepository<BatchExpiry, Long> {
 
     /**
-     * Retrieve all BatchExpiry records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of BatchExpiry
+     * Get all records (API usage).
      */
-    default List<BatchExpiry> getAll() {
+    default List<BatchExpiry> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single BatchExpiry by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the BatchExpiry
-     * @return Optional containing BatchExpiry if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<BatchExpiry> get(Long id) {
+    default List<BatchExpiry> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<BatchExpiry> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a BatchExpiry.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved BatchExpiry
+     * Create new entity.
      */
-    default BatchExpiry saveEntity(BatchExpiry entity) {
+    default BatchExpiry create(BatchExpiry entity) {
         return save(entity);
     }
 
     /**
-     * Delete a BatchExpiry by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default BatchExpiry update(BatchExpiry entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

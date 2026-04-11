@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Hardware.CashDrawerRequest;
 import com.example.pos.dtos.response.Hardware.CashDrawerResponse;
+
 import java.util.List;
 
 /**
- * Service interface for CashDrawer.
- * Defines standard CRUD operations for CashDrawer, same as Controller methods.
+ * =====================================================
+ * Service Contract: CashDrawer
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface CashDrawerService {
 
-    /**
-     * Retrieve all CashDrawer records.
-     * @return List of CashDrawerResponse
-     */
-    List<CashDrawerResponse> getAll();
+    List<CashDrawerResponse> all();
 
-    /**
-     * Retrieve a single CashDrawer by its ID.
-     * @param id ID of the CashDrawer
-     * @return CashDrawerResponse object
-     */
-    CashDrawerResponse get(Long id);
+    List<CashDrawerResponse> index();
 
-    /**
-     * Create a new CashDrawer record.
-     * @param request DTO containing the CashDrawer data
-     * @return Created CashDrawerResponse
-     */
+    CashDrawerResponse view(Long id);
+
     CashDrawerResponse create(CashDrawerRequest request);
 
-    /**
-     * Update an existing CashDrawer by its ID.
-     * @param id ID of the CashDrawer to update
-     * @param request DTO containing updated data
-     * @return Updated CashDrawerResponse
-     */
     CashDrawerResponse update(Long id, CashDrawerRequest request);
 
-    /**
-     * Delete a CashDrawer by its ID.
-     * @param id ID of the CashDrawer to delete
-     */
     void delete(Long id);
 }

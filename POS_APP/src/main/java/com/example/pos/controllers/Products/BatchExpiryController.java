@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Products.BatchExpiryRequest;
 import com.example.pos.dtos.response.Products.BatchExpiryResponse;
 import com.example.pos.services.Products.BatchExpiryService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: BatchExpiry
  * =====================================================
  *
- * Provides standard CRUD APIs for BatchExpiry.
- * All responses are returned using BatchExpiryResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Products/BatchExpiry
- * - GET    /api/Products/BatchExpiry/{id}
- * - POST   /api/Products/BatchExpiry
- * - PUT    /api/Products/BatchExpiry/{id}
- * - DELETE /api/Products/BatchExpiry/{id}
+ * Provides standard REST APIs for BatchExpiry.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Products/BatchExpiry")
@@ -32,57 +27,50 @@ public class BatchExpiryController {
     private BatchExpiryService service;
 
     /**
-     * Retrieve all BatchExpiry records.
-     *
-     * @return List of BatchExpiryResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<BatchExpiryResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<BatchExpiryResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single BatchExpiry by ID.
-     *
-     * @param id ID of the BatchExpiry
-     * @return BatchExpiryResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public BatchExpiryResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<BatchExpiryResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new BatchExpiry record.
-     *
-     * @param request request DTO
-     * @return created BatchExpiryResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public BatchExpiryResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public BatchExpiryResponse create(@RequestBody @Valid BatchExpiryRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing BatchExpiry record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated BatchExpiryResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public BatchExpiryResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid BatchExpiryRequest request) {
+            @RequestBody @Valid BatchExpiryRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a BatchExpiry record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

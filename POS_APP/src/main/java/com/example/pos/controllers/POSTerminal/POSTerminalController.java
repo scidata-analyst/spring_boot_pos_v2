@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.POSTerminal.POSTerminalRequest;
 import com.example.pos.dtos.response.POSTerminal.POSTerminalResponse;
 import com.example.pos.services.POSTerminal.POSTerminalService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: POSTerminal
  * =====================================================
  *
- * Provides standard CRUD APIs for POSTerminal.
- * All responses are returned using POSTerminalResponse DTO.
- *
- * Endpoints:
- * - GET    /api/POSTerminal/POSTerminal
- * - GET    /api/POSTerminal/POSTerminal/{id}
- * - POST   /api/POSTerminal/POSTerminal
- * - PUT    /api/POSTerminal/POSTerminal/{id}
- * - DELETE /api/POSTerminal/POSTerminal/{id}
+ * Provides standard REST APIs for POSTerminal.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/POSTerminal/POSTerminal")
@@ -32,57 +27,50 @@ public class POSTerminalController {
     private POSTerminalService service;
 
     /**
-     * Retrieve all POSTerminal records.
-     *
-     * @return List of POSTerminalResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<POSTerminalResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<POSTerminalResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single POSTerminal by ID.
-     *
-     * @param id ID of the POSTerminal
-     * @return POSTerminalResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public POSTerminalResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<POSTerminalResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new POSTerminal record.
-     *
-     * @param request request DTO
-     * @return created POSTerminalResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public POSTerminalResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public POSTerminalResponse create(@RequestBody @Valid POSTerminalRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing POSTerminal record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated POSTerminalResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public POSTerminalResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid POSTerminalRequest request) {
+            @RequestBody @Valid POSTerminalRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a POSTerminal record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

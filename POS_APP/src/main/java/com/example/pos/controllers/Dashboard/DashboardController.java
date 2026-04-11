@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Dashboard.DashboardRequest;
 import com.example.pos.dtos.response.Dashboard.DashboardResponse;
 import com.example.pos.services.Dashboard.DashboardService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: Dashboard
  * =====================================================
  *
- * Provides standard CRUD APIs for Dashboard.
- * All responses are returned using DashboardResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Dashboard/Dashboard
- * - GET    /api/Dashboard/Dashboard/{id}
- * - POST   /api/Dashboard/Dashboard
- * - PUT    /api/Dashboard/Dashboard/{id}
- * - DELETE /api/Dashboard/Dashboard/{id}
+ * Provides standard REST APIs for Dashboard.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Dashboard/Dashboard")
@@ -32,57 +27,50 @@ public class DashboardController {
     private DashboardService service;
 
     /**
-     * Retrieve all Dashboard records.
-     *
-     * @return List of DashboardResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<DashboardResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<DashboardResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single Dashboard by ID.
-     *
-     * @param id ID of the Dashboard
-     * @return DashboardResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public DashboardResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<DashboardResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new Dashboard record.
-     *
-     * @param request request DTO
-     * @return created DashboardResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public DashboardResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public DashboardResponse create(@RequestBody @Valid DashboardRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing Dashboard record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated DashboardResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public DashboardResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid DashboardRequest request) {
+            @RequestBody @Valid DashboardRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a Dashboard record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

@@ -2,45 +2,35 @@
 
 import com.example.pos.dtos.request.Suppliers.RestockAlertsRequest;
 import com.example.pos.dtos.response.Suppliers.RestockAlertsResponse;
+
 import java.util.List;
 
 /**
- * Service interface for RestockAlerts.
- * Defines standard CRUD operations for RestockAlerts, same as Controller methods.
+ * =====================================================
+ * Service Contract: RestockAlerts
+ * =====================================================
+ *
+ * Repository-style semantic methods:
+ * - all()     -> get all records
+ * - index()   -> UI listing (paginated later if needed)
+ * - view()    -> single record view
+ * - create()  -> create new record
+ * - update()  -> update existing record
+ * - delete()  -> delete record
+ *
+ * This interface is used by Service Implementation layer.
  */
 public interface RestockAlertsService {
 
-    /**
-     * Retrieve all RestockAlerts records.
-     * @return List of RestockAlertsResponse
-     */
-    List<RestockAlertsResponse> getAll();
+    List<RestockAlertsResponse> all();
 
-    /**
-     * Retrieve a single RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts
-     * @return RestockAlertsResponse object
-     */
-    RestockAlertsResponse get(Long id);
+    List<RestockAlertsResponse> index();
 
-    /**
-     * Create a new RestockAlerts record.
-     * @param request DTO containing the RestockAlerts data
-     * @return Created RestockAlertsResponse
-     */
+    RestockAlertsResponse view(Long id);
+
     RestockAlertsResponse create(RestockAlertsRequest request);
 
-    /**
-     * Update an existing RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts to update
-     * @param request DTO containing updated data
-     * @return Updated RestockAlertsResponse
-     */
     RestockAlertsResponse update(Long id, RestockAlertsRequest request);
 
-    /**
-     * Delete a RestockAlerts by its ID.
-     * @param id ID of the RestockAlerts to delete
-     */
     void delete(Long id);
 }

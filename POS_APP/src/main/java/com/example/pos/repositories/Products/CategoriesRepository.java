@@ -3,58 +3,61 @@
 import com.example.pos.entities.Products.Categories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for Categories entity.
- * <p>
- * Provides full CRUD operations for Categories using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for Categories.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Long> {
 
     /**
-     * Retrieve all Categories records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of Categories
+     * Get all records (API usage).
      */
-    default List<Categories> getAll() {
+    default List<Categories> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single Categories by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the Categories
-     * @return Optional containing Categories if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<Categories> get(Long id) {
+    default List<Categories> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<Categories> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a Categories.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved Categories
+     * Create new entity.
      */
-    default Categories saveEntity(Categories entity) {
+    default Categories create(Categories entity) {
         return save(entity);
     }
 
     /**
-     * Delete a Categories by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default Categories update(Categories entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

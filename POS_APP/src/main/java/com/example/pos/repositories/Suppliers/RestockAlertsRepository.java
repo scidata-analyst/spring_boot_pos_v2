@@ -3,58 +3,61 @@
 import com.example.pos.entities.Suppliers.RestockAlerts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for RestockAlerts entity.
- * <p>
- * Provides full CRUD operations for RestockAlerts using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for RestockAlerts.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface RestockAlertsRepository extends JpaRepository<RestockAlerts, Long> {
 
     /**
-     * Retrieve all RestockAlerts records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of RestockAlerts
+     * Get all records (API usage).
      */
-    default List<RestockAlerts> getAll() {
+    default List<RestockAlerts> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single RestockAlerts by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the RestockAlerts
-     * @return Optional containing RestockAlerts if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<RestockAlerts> get(Long id) {
+    default List<RestockAlerts> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<RestockAlerts> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a RestockAlerts.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved RestockAlerts
+     * Create new entity.
      */
-    default RestockAlerts saveEntity(RestockAlerts entity) {
+    default RestockAlerts create(RestockAlerts entity) {
         return save(entity);
     }
 
     /**
-     * Delete a RestockAlerts by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default RestockAlerts update(RestockAlerts entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

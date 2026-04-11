@@ -3,58 +3,61 @@
 import com.example.pos.entities.Hardware.CashDrawer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for CashDrawer entity.
- * <p>
- * Provides full CRUD operations for CashDrawer using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for CashDrawer.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface CashDrawerRepository extends JpaRepository<CashDrawer, Long> {
 
     /**
-     * Retrieve all CashDrawer records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of CashDrawer
+     * Get all records (API usage).
      */
-    default List<CashDrawer> getAll() {
+    default List<CashDrawer> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single CashDrawer by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the CashDrawer
-     * @return Optional containing CashDrawer if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<CashDrawer> get(Long id) {
+    default List<CashDrawer> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<CashDrawer> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a CashDrawer.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved CashDrawer
+     * Create new entity.
      */
-    default CashDrawer saveEntity(CashDrawer entity) {
+    default CashDrawer create(CashDrawer entity) {
         return save(entity);
     }
 
     /**
-     * Delete a CashDrawer by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default CashDrawer update(CashDrawer entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

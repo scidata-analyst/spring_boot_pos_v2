@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.SalesBilling.InvoicesRequest;
 import com.example.pos.dtos.response.SalesBilling.InvoicesResponse;
 import com.example.pos.services.SalesBilling.InvoicesService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: Invoices
  * =====================================================
  *
- * Provides standard CRUD APIs for Invoices.
- * All responses are returned using InvoicesResponse DTO.
- *
- * Endpoints:
- * - GET    /api/SalesBilling/Invoices
- * - GET    /api/SalesBilling/Invoices/{id}
- * - POST   /api/SalesBilling/Invoices
- * - PUT    /api/SalesBilling/Invoices/{id}
- * - DELETE /api/SalesBilling/Invoices/{id}
+ * Provides standard REST APIs for Invoices.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/SalesBilling/Invoices")
@@ -32,57 +27,50 @@ public class InvoicesController {
     private InvoicesService service;
 
     /**
-     * Retrieve all Invoices records.
-     *
-     * @return List of InvoicesResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<InvoicesResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<InvoicesResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single Invoices by ID.
-     *
-     * @param id ID of the Invoices
-     * @return InvoicesResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public InvoicesResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<InvoicesResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new Invoices record.
-     *
-     * @param request request DTO
-     * @return created InvoicesResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public InvoicesResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public InvoicesResponse create(@RequestBody @Valid InvoicesRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing Invoices record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated InvoicesResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public InvoicesResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid InvoicesRequest request) {
+            @RequestBody @Valid InvoicesRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a Invoices record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

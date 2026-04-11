@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.LoyaltyMembership.RetentionTrackingRequest;
 import com.example.pos.dtos.response.LoyaltyMembership.RetentionTrackingResponse;
 import com.example.pos.services.LoyaltyMembership.RetentionTrackingService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: RetentionTracking
  * =====================================================
  *
- * Provides standard CRUD APIs for RetentionTracking.
- * All responses are returned using RetentionTrackingResponse DTO.
- *
- * Endpoints:
- * - GET    /api/LoyaltyMembership/RetentionTracking
- * - GET    /api/LoyaltyMembership/RetentionTracking/{id}
- * - POST   /api/LoyaltyMembership/RetentionTracking
- * - PUT    /api/LoyaltyMembership/RetentionTracking/{id}
- * - DELETE /api/LoyaltyMembership/RetentionTracking/{id}
+ * Provides standard REST APIs for RetentionTracking.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/LoyaltyMembership/RetentionTracking")
@@ -32,57 +27,50 @@ public class RetentionTrackingController {
     private RetentionTrackingService service;
 
     /**
-     * Retrieve all RetentionTracking records.
-     *
-     * @return List of RetentionTrackingResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<RetentionTrackingResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<RetentionTrackingResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single RetentionTracking by ID.
-     *
-     * @param id ID of the RetentionTracking
-     * @return RetentionTrackingResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public RetentionTrackingResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<RetentionTrackingResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new RetentionTracking record.
-     *
-     * @param request request DTO
-     * @return created RetentionTrackingResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public RetentionTrackingResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public RetentionTrackingResponse create(@RequestBody @Valid RetentionTrackingRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing RetentionTracking record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated RetentionTrackingResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public RetentionTrackingResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid RetentionTrackingRequest request) {
+            @RequestBody @Valid RetentionTrackingRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a RetentionTracking record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

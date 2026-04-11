@@ -3,58 +3,61 @@
 import com.example.pos.entities.Suppliers.SupplierPayments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for SupplierPayments entity.
- * <p>
- * Provides full CRUD operations for SupplierPayments using JpaRepository.
- * Method names are aligned with Controller and Service:
- * getAll(), get(Long id), create(), update(), delete().
- * JpaRepository handles create, update, and delete by default.
- * Custom queries can be added here following the same naming convention.
+ * Repository for SupplierPayments.
+ * Supports both API and UI-friendly data access methods.
  */
 @Repository
 public interface SupplierPaymentsRepository extends JpaRepository<SupplierPayments, Long> {
 
     /**
-     * Retrieve all SupplierPayments records.
-     * Corresponds to getAll() in Controller/Service.
-     * @return List of SupplierPayments
+     * Get all records (API usage).
      */
-    default List<SupplierPayments> getAll() {
+    default List<SupplierPayments> all() {
         return findAll();
     }
 
     /**
-     * Retrieve a single SupplierPayments by its ID.
-     * Corresponds to get(Long id) in Controller/Service.
-     * @param id ID of the SupplierPayments
-     * @return Optional containing SupplierPayments if found
+     * Get list for index page (UI summary data).
+     * Same as all() but kept for UI semantic separation.
      */
-    default Optional<SupplierPayments> get(Long id) {
+    default List<SupplierPayments> index() {
+        return findAll();
+    }
+
+    /**
+     * View single record by ID (UI detail page).
+     */
+    default Optional<SupplierPayments> view(Long id) {
         return findById(id);
     }
 
     /**
-     * Save or update a SupplierPayments.
-     * Corresponds to create() or update() in Controller/Service.
-     * @param entity Entity object to save
-     * @return Saved SupplierPayments
+     * Create new entity.
      */
-    default SupplierPayments saveEntity(SupplierPayments entity) {
+    default SupplierPayments create(SupplierPayments entity) {
         return save(entity);
     }
 
     /**
-     * Delete a SupplierPayments by ID.
-     * Corresponds to delete() in Controller/Service.
-     * @param id ID of the entity to delete
+     * Update existing entity.
      */
-    default void deleteEntity(Long id) {
+    default SupplierPayments update(SupplierPayments entity) {
+        return save(entity);
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    default void delete(Long id) {
         deleteById(id);
     }
 
-    // TODO: Add more custom query methods as needed
+    // =====================================
+    // Custom Queries Section
+    // =====================================
 }

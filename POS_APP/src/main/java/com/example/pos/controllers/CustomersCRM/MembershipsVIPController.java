@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.CustomersCRM.MembershipsVIPRequest;
 import com.example.pos.dtos.response.CustomersCRM.MembershipsVIPResponse;
 import com.example.pos.services.CustomersCRM.MembershipsVIPService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: MembershipsVIP
  * =====================================================
  *
- * Provides standard CRUD APIs for MembershipsVIP.
- * All responses are returned using MembershipsVIPResponse DTO.
- *
- * Endpoints:
- * - GET    /api/CustomersCRM/MembershipsVIP
- * - GET    /api/CustomersCRM/MembershipsVIP/{id}
- * - POST   /api/CustomersCRM/MembershipsVIP
- * - PUT    /api/CustomersCRM/MembershipsVIP/{id}
- * - DELETE /api/CustomersCRM/MembershipsVIP/{id}
+ * Provides standard REST APIs for MembershipsVIP.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/CustomersCRM/MembershipsVIP")
@@ -32,57 +27,50 @@ public class MembershipsVIPController {
     private MembershipsVIPService service;
 
     /**
-     * Retrieve all MembershipsVIP records.
-     *
-     * @return List of MembershipsVIPResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<MembershipsVIPResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<MembershipsVIPResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single MembershipsVIP by ID.
-     *
-     * @param id ID of the MembershipsVIP
-     * @return MembershipsVIPResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public MembershipsVIPResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<MembershipsVIPResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new MembershipsVIP record.
-     *
-     * @param request request DTO
-     * @return created MembershipsVIPResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public MembershipsVIPResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public MembershipsVIPResponse create(@RequestBody @Valid MembershipsVIPRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing MembershipsVIP record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated MembershipsVIPResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public MembershipsVIPResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid MembershipsVIPRequest request) {
+            @RequestBody @Valid MembershipsVIPRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a MembershipsVIP record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

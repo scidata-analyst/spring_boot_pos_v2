@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.LoyaltyMembership.TierManagementRequest;
 import com.example.pos.dtos.response.LoyaltyMembership.TierManagementResponse;
 import com.example.pos.services.LoyaltyMembership.TierManagementService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: TierManagement
  * =====================================================
  *
- * Provides standard CRUD APIs for TierManagement.
- * All responses are returned using TierManagementResponse DTO.
- *
- * Endpoints:
- * - GET    /api/LoyaltyMembership/TierManagement
- * - GET    /api/LoyaltyMembership/TierManagement/{id}
- * - POST   /api/LoyaltyMembership/TierManagement
- * - PUT    /api/LoyaltyMembership/TierManagement/{id}
- * - DELETE /api/LoyaltyMembership/TierManagement/{id}
+ * Provides standard REST APIs for TierManagement.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/LoyaltyMembership/TierManagement")
@@ -32,57 +27,50 @@ public class TierManagementController {
     private TierManagementService service;
 
     /**
-     * Retrieve all TierManagement records.
-     *
-     * @return List of TierManagementResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<TierManagementResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<TierManagementResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single TierManagement by ID.
-     *
-     * @param id ID of the TierManagement
-     * @return TierManagementResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public TierManagementResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<TierManagementResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new TierManagement record.
-     *
-     * @param request request DTO
-     * @return created TierManagementResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public TierManagementResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public TierManagementResponse create(@RequestBody @Valid TierManagementRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing TierManagement record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated TierManagementResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public TierManagementResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid TierManagementRequest request) {
+            @RequestBody @Valid TierManagementRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a TierManagement record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

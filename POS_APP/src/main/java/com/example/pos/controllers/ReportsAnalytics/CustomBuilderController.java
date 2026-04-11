@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.ReportsAnalytics.CustomBuilderRequest;
 import com.example.pos.dtos.response.ReportsAnalytics.CustomBuilderResponse;
 import com.example.pos.services.ReportsAnalytics.CustomBuilderService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: CustomBuilder
  * =====================================================
  *
- * Provides standard CRUD APIs for CustomBuilder.
- * All responses are returned using CustomBuilderResponse DTO.
- *
- * Endpoints:
- * - GET    /api/ReportsAnalytics/CustomBuilder
- * - GET    /api/ReportsAnalytics/CustomBuilder/{id}
- * - POST   /api/ReportsAnalytics/CustomBuilder
- * - PUT    /api/ReportsAnalytics/CustomBuilder/{id}
- * - DELETE /api/ReportsAnalytics/CustomBuilder/{id}
+ * Provides standard REST APIs for CustomBuilder.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/ReportsAnalytics/CustomBuilder")
@@ -32,57 +27,50 @@ public class CustomBuilderController {
     private CustomBuilderService service;
 
     /**
-     * Retrieve all CustomBuilder records.
-     *
-     * @return List of CustomBuilderResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<CustomBuilderResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<CustomBuilderResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single CustomBuilder by ID.
-     *
-     * @param id ID of the CustomBuilder
-     * @return CustomBuilderResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public CustomBuilderResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<CustomBuilderResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new CustomBuilder record.
-     *
-     * @param request request DTO
-     * @return created CustomBuilderResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public CustomBuilderResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public CustomBuilderResponse create(@RequestBody @Valid CustomBuilderRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing CustomBuilder record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated CustomBuilderResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CustomBuilderResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid CustomBuilderRequest request) {
+            @RequestBody @Valid CustomBuilderRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a CustomBuilder record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";

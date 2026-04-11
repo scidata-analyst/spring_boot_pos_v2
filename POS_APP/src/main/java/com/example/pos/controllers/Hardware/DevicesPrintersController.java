@@ -3,6 +3,7 @@
 import com.example.pos.dtos.request.Hardware.DevicesPrintersRequest;
 import com.example.pos.dtos.response.Hardware.DevicesPrintersResponse;
 import com.example.pos.services.Hardware.DevicesPrintersService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,9 @@ import java.util.List;
  * REST Controller: DevicesPrinters
  * =====================================================
  *
- * Provides standard CRUD APIs for DevicesPrinters.
- * All responses are returned using DevicesPrintersResponse DTO.
- *
- * Endpoints:
- * - GET    /api/Hardware/DevicesPrinters
- * - GET    /api/Hardware/DevicesPrinters/{id}
- * - POST   /api/Hardware/DevicesPrinters
- * - PUT    /api/Hardware/DevicesPrinters/{id}
- * - DELETE /api/Hardware/DevicesPrinters/{id}
+ * Provides standard REST APIs for DevicesPrinters.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
 @RestController
 @RequestMapping("/api/Hardware/DevicesPrinters")
@@ -32,57 +27,50 @@ public class DevicesPrintersController {
     private DevicesPrintersService service;
 
     /**
-     * Retrieve all DevicesPrinters records.
-     *
-     * @return List of DevicesPrintersResponse
+     * Get all records.
      */
-    @GetMapping
-    public List<DevicesPrintersResponse> getAll() {
-        return service.getAll();
+    @GetMapping("/all")
+    public List<DevicesPrintersResponse> all() {
+        return service.all();
     }
 
     /**
-     * Retrieve a single DevicesPrinters by ID.
-     *
-     * @param id ID of the DevicesPrinters
-     * @return DevicesPrintersResponse
+     * Get paginated/index data.
      */
-    @GetMapping("/{id}")
-    public DevicesPrintersResponse get(@PathVariable Long id) {
-        return service.get(id);
+    @GetMapping("/index")
+    public List<DevicesPrintersResponse> index() {
+        return service.index();
     }
 
     /**
-     * Create new DevicesPrinters record.
-     *
-     * @param request request DTO
-     * @return created DevicesPrintersResponse
+     * View single record.
      */
-    @PostMapping
+    @GetMapping("/view/{id}")
+    public DevicesPrintersResponse view(@PathVariable Long id) {
+        return service.view(id);
+    }
+
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
     public DevicesPrintersResponse create(@RequestBody @Valid DevicesPrintersRequest request) {
         return service.create(request);
     }
 
     /**
-     * Update existing DevicesPrinters record.
-     *
-     * @param id      record ID
-     * @param request updated data
-     * @return updated DevicesPrintersResponse
+     * Update existing record.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public DevicesPrintersResponse update(@PathVariable Long id,
-                                         @RequestBody @Valid DevicesPrintersRequest request) {
+            @RequestBody @Valid DevicesPrintersRequest request) {
         return service.update(id, request);
     }
 
     /**
-     * Delete a DevicesPrinters record.
-     *
-     * @param id record ID
-     * @return success message
+     * Delete record.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "Deleted successfully";
