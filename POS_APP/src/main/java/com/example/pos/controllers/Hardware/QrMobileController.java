@@ -38,7 +38,7 @@ public class QrMobileController {
      */
     @GetMapping("/{id}")
     public QrMobileResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

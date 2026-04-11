@@ -38,7 +38,7 @@ public class MembershipsController {
      */
     @GetMapping("/{id}")
     public MembershipsResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

@@ -38,7 +38,7 @@ public class SuppliersController {
      */
     @GetMapping("/{id}")
     public SuppliersResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

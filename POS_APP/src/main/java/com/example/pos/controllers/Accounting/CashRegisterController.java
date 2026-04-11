@@ -38,7 +38,7 @@ public class CashRegisterController {
      */
     @GetMapping("/{id}")
     public CashRegisterResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

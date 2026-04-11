@@ -38,7 +38,7 @@ public class ActivityLogController {
      */
     @GetMapping("/{id}")
     public ActivityLogResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

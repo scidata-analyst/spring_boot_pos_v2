@@ -38,7 +38,7 @@ public class CouponsController {
      */
     @GetMapping("/{id}")
     public CouponsResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

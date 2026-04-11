@@ -38,7 +38,7 @@ public class CatalogController {
      */
     @GetMapping("/{id}")
     public CatalogResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

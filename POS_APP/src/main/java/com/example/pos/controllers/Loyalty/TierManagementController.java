@@ -38,7 +38,7 @@ public class TierManagementController {
      */
     @GetMapping("/{id}")
     public TierManagementResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

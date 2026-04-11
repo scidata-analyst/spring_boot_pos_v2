@@ -38,7 +38,7 @@ public class PlReportController {
      */
     @GetMapping("/{id}")
     public PlReportResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

@@ -38,7 +38,7 @@ public class HeldOrdersController {
      */
     @GetMapping("/{id}")
     public HeldOrdersResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

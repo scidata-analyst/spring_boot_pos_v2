@@ -38,7 +38,7 @@ public class CustomReportController {
      */
     @GetMapping("/{id}")
     public CustomReportResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

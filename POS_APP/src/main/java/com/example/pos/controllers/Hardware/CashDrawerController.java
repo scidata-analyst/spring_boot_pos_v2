@@ -38,7 +38,7 @@ public class CashDrawerController {
      */
     @GetMapping("/{id}")
     public CashDrawerResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

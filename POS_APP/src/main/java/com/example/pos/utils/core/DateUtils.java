@@ -17,7 +17,8 @@ public class DateUtils {
     }
 
     public static LocalDate parseDate(String dateString) {
-        if ([string]::IsNullOrEmpty(dateString)) return null;
+        if (dateString == null)
+            return null;
         return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN));
     }
 }

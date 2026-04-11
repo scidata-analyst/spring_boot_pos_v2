@@ -38,7 +38,7 @@ public class InvoicesController {
      */
     @GetMapping("/{id}")
     public InvoicesResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

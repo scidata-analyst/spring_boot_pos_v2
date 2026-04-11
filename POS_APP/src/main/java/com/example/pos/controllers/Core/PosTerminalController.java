@@ -38,7 +38,7 @@ public class PosTerminalController {
      */
     @GetMapping("/{id}")
     public PosTerminalResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

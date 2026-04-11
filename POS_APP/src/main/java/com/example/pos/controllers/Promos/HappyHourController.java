@@ -38,7 +38,7 @@ public class HappyHourController {
      */
     @GetMapping("/{id}")
     public HappyHourResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

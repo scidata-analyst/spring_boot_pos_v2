@@ -38,7 +38,7 @@ public class CategoriesController {
      */
     @GetMapping("/{id}")
     public CategoriesResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

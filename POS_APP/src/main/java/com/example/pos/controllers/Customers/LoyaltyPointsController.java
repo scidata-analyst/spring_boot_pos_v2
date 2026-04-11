@@ -38,7 +38,7 @@ public class LoyaltyPointsController {
      */
     @GetMapping("/{id}")
     public LoyaltyPointsResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

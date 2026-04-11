@@ -38,7 +38,7 @@ public class CustomersController {
      */
     @GetMapping("/{id}")
     public CustomersResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

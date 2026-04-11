@@ -38,7 +38,7 @@ public class ReconciliationController {
      */
     @GetMapping("/{id}")
     public ReconciliationResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

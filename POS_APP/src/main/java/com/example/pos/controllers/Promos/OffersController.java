@@ -38,7 +38,7 @@ public class OffersController {
      */
     @GetMapping("/{id}")
     public OffersResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

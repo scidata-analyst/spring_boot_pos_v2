@@ -38,7 +38,7 @@ public class StockMovementController {
      */
     @GetMapping("/{id}")
     public StockMovementResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

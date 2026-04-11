@@ -38,7 +38,7 @@ public class CashiersController {
      */
     @GetMapping("/{id}")
     public CashiersResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

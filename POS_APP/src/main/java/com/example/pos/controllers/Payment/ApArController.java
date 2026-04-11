@@ -38,7 +38,7 @@ public class ApArController {
      */
     @GetMapping("/{id}")
     public ApArResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

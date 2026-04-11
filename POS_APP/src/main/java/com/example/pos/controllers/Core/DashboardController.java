@@ -38,7 +38,7 @@ public class DashboardController {
      */
     @GetMapping("/{id}")
     public DashboardResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

@@ -38,7 +38,7 @@ public class DevicesController {
      */
     @GetMapping("/{id}")
     public DevicesResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

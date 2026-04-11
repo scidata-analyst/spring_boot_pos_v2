@@ -38,7 +38,7 @@ public class RetentionController {
      */
     @GetMapping("/{id}")
     public RetentionResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

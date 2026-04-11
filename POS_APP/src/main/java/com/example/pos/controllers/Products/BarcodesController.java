@@ -38,7 +38,7 @@ public class BarcodesController {
      */
     @GetMapping("/{id}")
     public BarcodesResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

@@ -38,7 +38,7 @@ public class TransactionsController {
      */
     @GetMapping("/{id}")
     public TransactionsResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**

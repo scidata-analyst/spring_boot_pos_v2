@@ -38,7 +38,7 @@ public class RestockAlertsController {
      */
     @GetMapping("/{id}")
     public RestockAlertsResponse get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     /**
