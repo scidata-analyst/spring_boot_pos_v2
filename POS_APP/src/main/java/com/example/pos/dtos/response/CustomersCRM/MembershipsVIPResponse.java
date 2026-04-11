@@ -3,7 +3,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: MembershipsVIP
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class MembershipsVIPResponse {
-
 
     /**
      * id
@@ -59,8 +57,6 @@ public class MembershipsVIPResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -133,6 +129,5 @@ public class MembershipsVIPResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

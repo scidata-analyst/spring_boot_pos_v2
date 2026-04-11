@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class HappyHourRequest {
 
-
     /**
      * id
      */
@@ -73,8 +72,6 @@ public class HappyHourRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -155,6 +152,5 @@ public class HappyHourRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

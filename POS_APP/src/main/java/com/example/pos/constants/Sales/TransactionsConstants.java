@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Sales
  *
- * Provides constant values for Transactions domain.
+ *          Provides constant values for Transactions domain.
  */
 public final class TransactionsConstants {
 

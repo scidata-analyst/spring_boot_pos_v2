@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class MembershipsVIPMapper {
 
     public MembershipsVIPResponse toResponse(MembershipsVIP entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         MembershipsVIPResponse response = new MembershipsVIPResponse();
 
@@ -30,7 +31,8 @@ public class MembershipsVIPMapper {
     }
 
     public MembershipsVIP toEntity(MembershipsVIPRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         MembershipsVIP entity = new MembershipsVIP();
 
@@ -47,8 +49,8 @@ public class MembershipsVIPMapper {
     }
 
     public void updateEntity(MembershipsVIPRequest request, MembershipsVIP entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setCustomerId(request.getCustomerId());
         entity.setMembershipType(request.getMembershipType());
@@ -61,7 +63,8 @@ public class MembershipsVIPMapper {
     }
 
     public List<MembershipsVIPResponse> toResponseList(List<MembershipsVIP> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

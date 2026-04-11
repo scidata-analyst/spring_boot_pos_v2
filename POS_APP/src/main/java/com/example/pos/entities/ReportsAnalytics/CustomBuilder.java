@@ -3,7 +3,6 @@
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Entity: CustomBuilder
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "custom_builder")
 public class CustomBuilder {
-
 
     /**
      * id
@@ -74,8 +72,6 @@ public class CustomBuilder {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -148,6 +144,5 @@ public class CustomBuilder {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

@@ -2,7 +2,6 @@
 
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: StockMovement
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class StockMovementResponse {
-
 
     /**
      * id
@@ -48,8 +46,6 @@ public class StockMovementResponse {
      * createdAt
      */
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -106,6 +102,5 @@ public class StockMovementResponse {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class StockReportsMapper {
 
     public StockReportsResponse toResponse(StockReports entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         StockReportsResponse response = new StockReportsResponse();
 
@@ -29,7 +30,8 @@ public class StockReportsMapper {
     }
 
     public StockReports toEntity(StockReportsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         StockReports entity = new StockReports();
 
@@ -45,8 +47,8 @@ public class StockReportsMapper {
     }
 
     public void updateEntity(StockReportsRequest request, StockReports entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setReportType(request.getReportType());
         entity.setTotalProducts(request.getTotalProducts());
@@ -58,7 +60,8 @@ public class StockReportsMapper {
     }
 
     public List<StockReportsResponse> toResponseList(List<StockReports> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class ProductCatalogMapper {
 
     public ProductCatalogResponse toResponse(ProductCatalog entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         ProductCatalogResponse response = new ProductCatalogResponse();
 
@@ -38,7 +39,8 @@ public class ProductCatalogMapper {
     }
 
     public ProductCatalog toEntity(ProductCatalogRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         ProductCatalog entity = new ProductCatalog();
 
@@ -63,8 +65,8 @@ public class ProductCatalogMapper {
     }
 
     public void updateEntity(ProductCatalogRequest request, ProductCatalog entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setSku(request.getSku());
@@ -85,7 +87,8 @@ public class ProductCatalogMapper {
     }
 
     public List<ProductCatalogResponse> toResponseList(List<ProductCatalog> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

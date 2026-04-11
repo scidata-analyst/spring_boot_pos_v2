@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class CouponCodesRequest {
 
-
     /**
      * id
      */
@@ -85,8 +84,6 @@ public class CouponCodesRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -183,6 +180,5 @@ public class CouponCodesRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

@@ -3,7 +3,6 @@
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Entity: HeldOrders
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "held_orders")
 public class HeldOrders {
-
 
     /**
      * id
@@ -73,8 +71,6 @@ public class HeldOrders {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -147,6 +143,5 @@ public class HeldOrders {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

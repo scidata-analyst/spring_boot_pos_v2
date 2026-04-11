@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class CashRegisterRequest {
 
-
     /**
      * id
      */
@@ -73,8 +72,6 @@ public class CashRegisterRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -155,6 +152,5 @@ public class CashRegisterRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

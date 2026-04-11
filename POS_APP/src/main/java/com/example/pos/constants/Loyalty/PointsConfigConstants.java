@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Loyalty
  *
- * Provides constant values for PointsConfig domain.
+ *          Provides constant values for PointsConfig domain.
  */
 public final class PointsConfigConstants {
 

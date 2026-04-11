@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class TaxReportsMapper {
 
     public TaxReportsResponse toResponse(TaxReports entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         TaxReportsResponse response = new TaxReportsResponse();
 
@@ -30,7 +31,8 @@ public class TaxReportsMapper {
     }
 
     public TaxReports toEntity(TaxReportsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         TaxReports entity = new TaxReports();
 
@@ -47,8 +49,8 @@ public class TaxReportsMapper {
     }
 
     public void updateEntity(TaxReportsRequest request, TaxReports entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setTaxType(request.getTaxType());
         entity.setTaxRate(request.getTaxRate());
@@ -61,7 +63,8 @@ public class TaxReportsMapper {
     }
 
     public List<TaxReportsResponse> toResponseList(List<TaxReports> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

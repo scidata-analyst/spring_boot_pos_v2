@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class InvoicesMapper {
 
     public InvoicesResponse toResponse(Invoices entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         InvoicesResponse response = new InvoicesResponse();
 
@@ -32,7 +33,8 @@ public class InvoicesMapper {
     }
 
     public Invoices toEntity(InvoicesRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         Invoices entity = new Invoices();
 
@@ -51,8 +53,8 @@ public class InvoicesMapper {
     }
 
     public void updateEntity(InvoicesRequest request, Invoices entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setInvoiceNumber(request.getInvoiceNumber());
         entity.setTransactionId(request.getTransactionId());
@@ -67,7 +69,8 @@ public class InvoicesMapper {
     }
 
     public List<InvoicesResponse> toResponseList(List<Invoices> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

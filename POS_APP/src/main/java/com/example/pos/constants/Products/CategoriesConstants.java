@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Products
  *
- * Provides constant values for Categories domain.
+ *          Provides constant values for Categories domain.
  */
 public final class CategoriesConstants {
 

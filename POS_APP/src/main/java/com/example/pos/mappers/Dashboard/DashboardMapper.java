@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class DashboardMapper {
 
     public DashboardResponse toResponse(Dashboard entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         DashboardResponse response = new DashboardResponse();
 
@@ -30,7 +31,8 @@ public class DashboardMapper {
     }
 
     public Dashboard toEntity(DashboardRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         Dashboard entity = new Dashboard();
 
@@ -47,8 +49,8 @@ public class DashboardMapper {
     }
 
     public void updateEntity(DashboardRequest request, Dashboard entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setWidgetType(request.getWidgetType());
         entity.setTitle(request.getTitle());
@@ -61,7 +63,8 @@ public class DashboardMapper {
     }
 
     public List<DashboardResponse> toResponseList(List<Dashboard> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

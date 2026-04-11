@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Users
  *
- * Provides constant values for ActivityLog domain.
+ *          Provides constant values for ActivityLog domain.
  */
 public final class ActivityLogConstants {
 

@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Accounting
  *
- * Provides constant values for TaxReports domain.
+ *          Provides constant values for TaxReports domain.
  */
 public final class TaxReportsConstants {
 

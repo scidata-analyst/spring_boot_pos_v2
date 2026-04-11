@@ -12,6 +12,4 @@ public class ValidationUtils {
     public static boolean isNull(Object obj) {
         return obj == null;
     }
-
-    // TODO: Add more validation utility methods as needed
 }

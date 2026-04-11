@@ -2,7 +2,6 @@
 
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: SupplierDirectory
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class SupplierDirectoryResponse {
-
 
     /**
      * id
@@ -58,8 +56,6 @@ public class SupplierDirectoryResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class SupplierDirectoryResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

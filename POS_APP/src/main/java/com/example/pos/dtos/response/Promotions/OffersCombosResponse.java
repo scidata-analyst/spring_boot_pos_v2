@@ -2,7 +2,6 @@
 
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: OffersCombos
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class OffersCombosResponse {
-
 
     /**
      * id
@@ -78,8 +76,6 @@ public class OffersCombosResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -184,6 +180,5 @@ public class OffersCombosResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

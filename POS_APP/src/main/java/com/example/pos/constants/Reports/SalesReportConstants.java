@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Reports
  *
- * Provides constant values for SalesReport domain.
+ *          Provides constant values for SalesReport domain.
  */
 public final class SalesReportConstants {
 

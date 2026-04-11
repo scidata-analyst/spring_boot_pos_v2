@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Suppliers
  *
- * Provides constant values for PurchaseOrders domain.
+ *          Provides constant values for PurchaseOrders domain.
  */
 public final class PurchaseOrdersConstants {
 

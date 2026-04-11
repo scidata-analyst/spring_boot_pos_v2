@@ -2,7 +2,6 @@
 
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: SalesReports
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class SalesReportsResponse {
-
 
     /**
      * id
@@ -58,8 +56,6 @@ public class SalesReportsResponse {
      * createdAt
      */
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -132,6 +128,5 @@ public class SalesReportsResponse {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

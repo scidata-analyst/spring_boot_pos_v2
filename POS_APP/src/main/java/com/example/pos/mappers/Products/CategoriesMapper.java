@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CategoriesMapper {
 
     public CategoriesResponse toResponse(Categories entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CategoriesResponse response = new CategoriesResponse();
 
@@ -28,7 +29,8 @@ public class CategoriesMapper {
     }
 
     public Categories toEntity(CategoriesRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         Categories entity = new Categories();
 
@@ -43,8 +45,8 @@ public class CategoriesMapper {
     }
 
     public void updateEntity(CategoriesRequest request, Categories entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setIcon(request.getIcon());
@@ -55,7 +57,8 @@ public class CategoriesMapper {
     }
 
     public List<CategoriesResponse> toResponseList(List<Categories> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

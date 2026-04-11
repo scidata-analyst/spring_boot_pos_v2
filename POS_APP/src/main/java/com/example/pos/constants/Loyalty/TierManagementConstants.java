@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Loyalty
  *
- * Provides constant values for TierManagement domain.
+ *          Provides constant values for TierManagement domain.
  */
 public final class TierManagementConstants {
 

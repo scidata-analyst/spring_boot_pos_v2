@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Entity: BatchExpiry
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "batch_expiry")
 public class BatchExpiry {
-
 
     /**
      * id
@@ -73,8 +71,6 @@ public class BatchExpiry {
      */
 
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -147,6 +143,5 @@ public class BatchExpiry {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

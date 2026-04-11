@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class BatchExpiryMapper {
 
     public BatchExpiryResponse toResponse(BatchExpiry entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         BatchExpiryResponse response = new BatchExpiryResponse();
 
@@ -30,7 +31,8 @@ public class BatchExpiryMapper {
     }
 
     public BatchExpiry toEntity(BatchExpiryRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         BatchExpiry entity = new BatchExpiry();
 
@@ -47,8 +49,8 @@ public class BatchExpiryMapper {
     }
 
     public void updateEntity(BatchExpiryRequest request, BatchExpiry entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setProductId(request.getProductId());
         entity.setBatchNumber(request.getBatchNumber());
@@ -61,7 +63,8 @@ public class BatchExpiryMapper {
     }
 
     public List<BatchExpiryResponse> toResponseList(List<BatchExpiry> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

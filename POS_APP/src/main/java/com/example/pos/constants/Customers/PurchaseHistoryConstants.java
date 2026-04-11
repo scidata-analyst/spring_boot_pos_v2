@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Customers
  *
- * Provides constant values for PurchaseHistory domain.
+ *          Provides constant values for PurchaseHistory domain.
  */
 public final class PurchaseHistoryConstants {
 

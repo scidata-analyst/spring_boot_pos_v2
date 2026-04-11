@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    // TODO: Add general beans here
     // Example:
     // @Bean
     // public ModelMapper modelMapper() {

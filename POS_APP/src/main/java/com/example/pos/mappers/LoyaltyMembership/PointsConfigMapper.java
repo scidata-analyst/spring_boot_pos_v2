@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class PointsConfigMapper {
 
     public PointsConfigResponse toResponse(PointsConfig entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         PointsConfigResponse response = new PointsConfigResponse();
 
@@ -28,7 +29,8 @@ public class PointsConfigMapper {
     }
 
     public PointsConfig toEntity(PointsConfigRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         PointsConfig entity = new PointsConfig();
 
@@ -43,8 +45,8 @@ public class PointsConfigMapper {
     }
 
     public void updateEntity(PointsConfigRequest request, PointsConfig entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setPointsPerDollar(request.getPointsPerDollar());
         entity.setRedemptionRate(request.getRedemptionRate());
@@ -55,7 +57,8 @@ public class PointsConfigMapper {
     }
 
     public List<PointsConfigResponse> toResponseList(List<PointsConfig> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

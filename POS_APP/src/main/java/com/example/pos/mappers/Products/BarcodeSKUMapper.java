@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class BarcodeSKUMapper {
 
     public BarcodeSKUResponse toResponse(BarcodeSKU entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         BarcodeSKUResponse response = new BarcodeSKUResponse();
 
@@ -29,7 +30,8 @@ public class BarcodeSKUMapper {
     }
 
     public BarcodeSKU toEntity(BarcodeSKURequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         BarcodeSKU entity = new BarcodeSKU();
 
@@ -45,8 +47,8 @@ public class BarcodeSKUMapper {
     }
 
     public void updateEntity(BarcodeSKURequest request, BarcodeSKU entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setBarcode(request.getBarcode());
         entity.setSku(request.getSku());
@@ -58,7 +60,8 @@ public class BarcodeSKUMapper {
     }
 
     public List<BarcodeSKUResponse> toResponseList(List<BarcodeSKU> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

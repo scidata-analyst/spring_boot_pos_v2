@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Promos
  *
- * Provides constant values for Coupons domain.
+ *          Provides constant values for Coupons domain.
  */
 public final class CouponsConstants {
 

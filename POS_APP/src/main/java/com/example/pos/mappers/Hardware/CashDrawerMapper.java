@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CashDrawerMapper {
 
     public CashDrawerResponse toResponse(CashDrawer entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CashDrawerResponse response = new CashDrawerResponse();
 
@@ -27,7 +28,8 @@ public class CashDrawerMapper {
     }
 
     public CashDrawer toEntity(CashDrawerRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CashDrawer entity = new CashDrawer();
 
@@ -41,8 +43,8 @@ public class CashDrawerMapper {
     }
 
     public void updateEntity(CashDrawerRequest request, CashDrawer entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setDrawerNumber(request.getDrawerNumber());
         entity.setStatus(request.getStatus());
@@ -52,7 +54,8 @@ public class CashDrawerMapper {
     }
 
     public List<CashDrawerResponse> toResponseList(List<CashDrawer> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

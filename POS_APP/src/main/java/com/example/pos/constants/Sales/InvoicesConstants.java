@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Sales
  *
- * Provides constant values for Invoices domain.
+ *          Provides constant values for Invoices domain.
  */
 public final class InvoicesConstants {
 

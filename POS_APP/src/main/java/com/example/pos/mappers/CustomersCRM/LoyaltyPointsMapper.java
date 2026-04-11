@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class LoyaltyPointsMapper {
 
     public LoyaltyPointsResponse toResponse(LoyaltyPoints entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         LoyaltyPointsResponse response = new LoyaltyPointsResponse();
 
@@ -29,7 +30,8 @@ public class LoyaltyPointsMapper {
     }
 
     public LoyaltyPoints toEntity(LoyaltyPointsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         LoyaltyPoints entity = new LoyaltyPoints();
 
@@ -45,8 +47,8 @@ public class LoyaltyPointsMapper {
     }
 
     public void updateEntity(LoyaltyPointsRequest request, LoyaltyPoints entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setCustomerId(request.getCustomerId());
         entity.setPoints(request.getPoints());
@@ -58,7 +60,8 @@ public class LoyaltyPointsMapper {
     }
 
     public List<LoyaltyPointsResponse> toResponseList(List<LoyaltyPoints> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

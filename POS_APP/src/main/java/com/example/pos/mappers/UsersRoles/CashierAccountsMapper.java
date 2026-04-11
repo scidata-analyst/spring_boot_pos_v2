@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CashierAccountsMapper {
 
     public CashierAccountsResponse toResponse(CashierAccounts entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CashierAccountsResponse response = new CashierAccountsResponse();
 
@@ -32,7 +33,8 @@ public class CashierAccountsMapper {
     }
 
     public CashierAccounts toEntity(CashierAccountsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CashierAccounts entity = new CashierAccounts();
 
@@ -51,8 +53,8 @@ public class CashierAccountsMapper {
     }
 
     public void updateEntity(CashierAccountsRequest request, CashierAccounts entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setUsername(request.getUsername());
         entity.setPassword(request.getPassword());
@@ -67,7 +69,8 @@ public class CashierAccountsMapper {
     }
 
     public List<CashierAccountsResponse> toResponseList(List<CashierAccounts> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class PurchaseOrdersMapper {
 
     public PurchaseOrdersResponse toResponse(PurchaseOrders entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         PurchaseOrdersResponse response = new PurchaseOrdersResponse();
 
@@ -30,7 +31,8 @@ public class PurchaseOrdersMapper {
     }
 
     public PurchaseOrders toEntity(PurchaseOrdersRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         PurchaseOrders entity = new PurchaseOrders();
 
@@ -47,8 +49,8 @@ public class PurchaseOrdersMapper {
     }
 
     public void updateEntity(PurchaseOrdersRequest request, PurchaseOrders entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setSupplierId(request.getSupplierId());
         entity.setOrderNumber(request.getOrderNumber());
@@ -61,7 +63,8 @@ public class PurchaseOrdersMapper {
     }
 
     public List<PurchaseOrdersResponse> toResponseList(List<PurchaseOrders> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

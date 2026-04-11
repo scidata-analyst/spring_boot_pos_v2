@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CustomerDirectoryMapper {
 
     public CustomerDirectoryResponse toResponse(CustomerDirectory entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CustomerDirectoryResponse response = new CustomerDirectoryResponse();
 
@@ -35,7 +36,8 @@ public class CustomerDirectoryMapper {
     }
 
     public CustomerDirectory toEntity(CustomerDirectoryRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CustomerDirectory entity = new CustomerDirectory();
 
@@ -57,8 +59,8 @@ public class CustomerDirectoryMapper {
     }
 
     public void updateEntity(CustomerDirectoryRequest request, CustomerDirectory entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setName(request.getName());
         entity.setEmail(request.getEmail());
@@ -76,7 +78,8 @@ public class CustomerDirectoryMapper {
     }
 
     public List<CustomerDirectoryResponse> toResponseList(List<CustomerDirectory> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

@@ -4,22 +4,41 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Scheduled job class for RestockAlerts.
- * <p>
- * This class is responsible for executing recurring tasks related to
- * RestockAlerts.
- * Define job logic inside the execute() method.
+ * =====================================================
+ * Scheduled Job: RestockAlerts
+ * =====================================================
+ *
+ * This job runs background tasks for RestockAlerts.
+ *
+ * Notes:
+ * - No service dependency (safe compile)
+ * - Add service later if needed
+ * - Requires @EnableScheduling in main class
  */
 @Component
 public class RestockAlertsJob {
 
     /**
-     * Executes the scheduled job for RestockAlerts.
-     * Runs every hour (customize cron expression as needed).
+     * =====================================================
+     * Scheduled Task
+     * =====================================================
+     *
+     * Runs every 10 minutes.
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    public void execute() {
-        // TODO: Implement the job logic for RestockAlerts
-        System.out.println("Executing job for RestockAlerts...");
+    @Scheduled(cron = "0 */10 * * * *")
+    public void handle() {
+
+        // =====================================================
+        // Job Execution
+        // =====================================================
+
+        System.out.println("Running RestockAlerts job...");
+
+        // Add business logic here
+        // Example:
+        // - cleanup expired records
+        // - update status
+        // - sync data
+
     }
 }

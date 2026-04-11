@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class PLReportRequest {
 
-
     /**
      * id
      */
@@ -79,8 +78,6 @@ public class PLReportRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -169,6 +166,5 @@ public class PLReportRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

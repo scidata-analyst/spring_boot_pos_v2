@@ -2,10 +2,10 @@
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * This filter is applied globally to all incoming HTTP requests.
  */
 @Component
-public class RateLimiterFilter extends HttpFilter {
+public class RateLimiterFilter extends OncePerRequestFilter {
 
     /** Tracks request counts per client IP */
     private final Map<String, AtomicInteger> requestCounts = new ConcurrentHashMap<>();
@@ -51,8 +51,8 @@ public class RateLimiterFilter extends HttpFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain)
+            HttpServletResponse response,
+            FilterChain chain)
             throws IOException, ServletException {
 
         String clientIP = request.getRemoteAddr();
@@ -69,7 +69,7 @@ public class RateLimiterFilter extends HttpFilter {
 
         // Exceeding requests returns 429
         if (requestCounts.get(clientIP).incrementAndGet() > MAX_REQUESTS) {
-            response.setStatus(HttpServletResponse.SC_TOO_MANY_REQUESTS);
+            response.setStatus(429);
             response.getWriter().write("Too many requests. Please try again later.");
             return;
         }

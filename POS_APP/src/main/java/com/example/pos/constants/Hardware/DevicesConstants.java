@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Hardware
  *
- * Provides constant values for Devices domain.
+ *          Provides constant values for Devices domain.
  */
 public final class DevicesConstants {
 

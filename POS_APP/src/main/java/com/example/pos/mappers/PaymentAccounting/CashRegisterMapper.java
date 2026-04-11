@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CashRegisterMapper {
 
     public CashRegisterResponse toResponse(CashRegister entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CashRegisterResponse response = new CashRegisterResponse();
 
@@ -31,7 +32,8 @@ public class CashRegisterMapper {
     }
 
     public CashRegister toEntity(CashRegisterRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CashRegister entity = new CashRegister();
 
@@ -49,8 +51,8 @@ public class CashRegisterMapper {
     }
 
     public void updateEntity(CashRegisterRequest request, CashRegister entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setRegisterName(request.getRegisterName());
         entity.setOpeningBalance(request.getOpeningBalance());
@@ -64,7 +66,8 @@ public class CashRegisterMapper {
     }
 
     public List<CashRegisterResponse> toResponseList(List<CashRegister> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

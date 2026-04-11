@@ -3,7 +3,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 /**
  * =====================================================
  * Response DTO: RetentionTracking
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
  * Used for API responses only (read-only layer)
  */
 public class RetentionTrackingResponse {
-
 
     /**
      * id
@@ -54,8 +52,6 @@ public class RetentionTrackingResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -120,6 +116,5 @@ public class RetentionTrackingResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

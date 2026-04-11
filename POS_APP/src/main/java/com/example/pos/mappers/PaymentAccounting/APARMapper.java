@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class APARMapper {
 
     public APARResponse toResponse(APAR entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         APARResponse response = new APARResponse();
 
@@ -31,7 +32,8 @@ public class APARMapper {
     }
 
     public APAR toEntity(APARRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         APAR entity = new APAR();
 
@@ -49,8 +51,8 @@ public class APARMapper {
     }
 
     public void updateEntity(APARRequest request, APAR entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setType(request.getType());
         entity.setReferenceId(request.getReferenceId());
@@ -64,7 +66,8 @@ public class APARMapper {
     }
 
     public List<APARResponse> toResponseList(List<APAR> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

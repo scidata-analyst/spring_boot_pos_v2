@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class SalesReportsMapper {
 
     public SalesReportsResponse toResponse(SalesReports entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         SalesReportsResponse response = new SalesReportsResponse();
 
@@ -30,7 +31,8 @@ public class SalesReportsMapper {
     }
 
     public SalesReports toEntity(SalesReportsRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         SalesReports entity = new SalesReports();
 
@@ -47,8 +49,8 @@ public class SalesReportsMapper {
     }
 
     public void updateEntity(SalesReportsRequest request, SalesReports entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setReportType(request.getReportType());
         entity.setPeriod(request.getPeriod());
@@ -61,7 +63,8 @@ public class SalesReportsMapper {
     }
 
     public List<SalesReportsResponse> toResponseList(List<SalesReports> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

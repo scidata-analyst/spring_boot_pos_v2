@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Users
  *
- * Provides constant values for Cashiers domain.
+ *          Provides constant values for Cashiers domain.
  */
 public final class CashiersConstants {
 

@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class OffersCombosRequest {
 
-
     /**
      * id
      */
@@ -91,8 +90,6 @@ public class OffersCombosRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -197,6 +194,5 @@ public class OffersCombosRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

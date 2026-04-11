@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Core
  *
- * Provides constant values for Dashboard domain.
+ *          Provides constant values for Dashboard domain.
  */
 public final class DashboardConstants {
 

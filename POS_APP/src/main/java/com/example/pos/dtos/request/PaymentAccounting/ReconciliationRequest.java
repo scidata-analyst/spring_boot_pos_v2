@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class ReconciliationRequest {
 
-
     /**
      * id
      */
@@ -67,8 +66,6 @@ public class ReconciliationRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class ReconciliationRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class BarcodeSKURequest {
 
-
     /**
      * id
      */
@@ -61,8 +60,6 @@ public class BarcodeSKURequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -127,6 +124,5 @@ public class BarcodeSKURequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

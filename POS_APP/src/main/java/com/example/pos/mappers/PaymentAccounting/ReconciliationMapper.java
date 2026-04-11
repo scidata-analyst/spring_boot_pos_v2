@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class ReconciliationMapper {
 
     public ReconciliationResponse toResponse(Reconciliation entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         ReconciliationResponse response = new ReconciliationResponse();
 
@@ -30,7 +31,8 @@ public class ReconciliationMapper {
     }
 
     public Reconciliation toEntity(ReconciliationRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         Reconciliation entity = new Reconciliation();
 
@@ -47,8 +49,8 @@ public class ReconciliationMapper {
     }
 
     public void updateEntity(ReconciliationRequest request, Reconciliation entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setRegisterId(request.getRegisterId());
         entity.setExpectedAmount(request.getExpectedAmount());
@@ -61,7 +63,8 @@ public class ReconciliationMapper {
     }
 
     public List<ReconciliationResponse> toResponseList(List<Reconciliation> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

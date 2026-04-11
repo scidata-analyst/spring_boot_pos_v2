@@ -3,7 +3,6 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-
 /**
  * =====================================================
  * Response DTO: HappyHour
@@ -13,7 +12,6 @@ import java.time.LocalTime;
  * Used for API responses only (read-only layer)
  */
 public class HappyHourResponse {
-
 
     /**
      * id
@@ -64,8 +62,6 @@ public class HappyHourResponse {
      * updatedAt
      */
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -146,6 +142,5 @@ public class HappyHourResponse {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

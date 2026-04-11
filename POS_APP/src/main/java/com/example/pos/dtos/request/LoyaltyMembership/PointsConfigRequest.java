@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class PointsConfigRequest {
 
-
     /**
      * id
      */
@@ -55,8 +54,6 @@ public class PointsConfigRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -113,6 +110,5 @@ public class PointsConfigRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

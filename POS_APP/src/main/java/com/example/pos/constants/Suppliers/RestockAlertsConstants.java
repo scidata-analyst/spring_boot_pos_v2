@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Suppliers
  *
- * Provides constant values for RestockAlerts domain.
+ *          Provides constant values for RestockAlerts domain.
  */
 public final class RestockAlertsConstants {
 

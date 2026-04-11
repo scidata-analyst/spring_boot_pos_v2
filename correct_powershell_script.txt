@@ -1,116 +1,109 @@
-# ==============================
-# Helper function to ensure folder exists
-# ==============================
+$schemaPath = "F:\DASHBOARD_APP\GIT_VERSION\POS\schema.json"
+
+$basePath = "F:\DASHBOARD_APP\GIT_VERSION\POS\POS_APP\src\main\java\com\example\pos\controllers"
+
 function Ensure-Folder($path) {
     if (!(Test-Path $path)) {
         New-Item -Path $path -ItemType Directory | Out-Null
     }
 }
 
-# ==============================
-# Base path for constants
-# ==============================
-$basePath = "F:\DASHBOARD_APP\GIT_VERSION\POS\POS_APP\src\main\java\com\example\pos\constants"
+$schema = Get-Content $schemaPath | ConvertFrom-Json
 
-# Ensure base constants folder exists
-Ensure-Folder $basePath
+foreach ($group in $schema.groups) {
 
-# ==============================
-# Schema (modules and entities)
-# ==============================
-$schema = @{
-    "Accounting" = @("ApAr", "CashRegister", "Reconciliation", "TaxReports")
-    "Core" = @("Dashboard", "PosTerminal")
-    "Customers" = @("Customers", "LoyaltyPoints", "Memberships", "PurchaseHistory")
-    "Hardware" = @("CashDrawer", "Devices", "QrMobile")
-    "Loyalty" = @("PointsConfig", "Retention", "TierManagement")
-    "Payment" = @("ApAr", "CashRegister", "Reconciliation", "TaxReports")
-    "Products" = @("Barcodes", "BatchExpiry", "Catalog", "Categories", "StockMovement")
-    "Promos" = @("Coupons", "HappyHour", "Offers")
-    "Reports" = @("CustomReport", "PlReport", "SalesReport", "StockReport")
-    "Sales" = @("HeldOrders", "Invoices", "Returns", "Transactions")
-    "Suppliers" = @("PurchaseOrders", "RestockAlerts", "SupplierPayments", "Suppliers")
-    "Users" = @("ActivityLog", "Cashiers", "Roles")
-}
+    foreach ($entity in $group.entities) {
 
-foreach ($module in $schema.Keys) {
+        $entityName = $entity.name
 
-    $entities = $schema[$module]
+        $modulePath = Join-Path $basePath $group.name
+        Ensure-Folder $modulePath
 
-    # Create module folder under constants
-    $moduleDir = Join-Path $basePath $module
-    Ensure-Folder $moduleDir
-
-    foreach ($entity in $entities) {
-
-        $filePath = Join-Path $moduleDir "$entity`Constants.java"
+        $filePath = Join-Path $modulePath "$entityName`Controller.java"
 
         $content = @"
-package com.example.pos.constants.$module;
+package com.example.pos.controllers.$($group.name);
+
+import com.example.pos.dtos.request.$($group.name).${entityName}Request;
+import com.example.pos.dtos.response.$($group.name).${entityName}Response;
+import com.example.pos.services.$($group.name).${entityName}Service;
+
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * =====================================================
- * Constants class for $entity module.
+ * REST Controller: $entityName
  * =====================================================
  *
- * <p>
- * This class holds all constant values related to $entity.
- * It is designed as a utility class and should not be instantiated.
- * </p>
- *
- * <p>
- * Naming Convention:
- * - Constant names are in UPPER_CASE with underscores.
- * - Group related constants logically.
- * </p>
- *
- * <p>
- * Usage Example:
- * <pre>
- *     String status = ${entity}Constants.STATUS_ACTIVE;
- * </pre>
- * </p>
+ * Provides standard REST APIs for $entityName.
+ * Uses repository-semantic service methods:
+ * all, index, view, create, update, delete.
  */
-public final class ${entity}Constants {
+@RestController
+@RequestMapping("/api/$($group.name)/$entityName")
+public class ${entityName}Controller {
+
+    @Autowired
+    private ${entityName}Service service;
 
     /**
-     * Private constructor to prevent instantiation.
+     * Get all records.
      */
-    private ${entity}Constants() {
-        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    @GetMapping("/all")
+    public List<${entityName}Response> all() {
+        return service.all();
     }
 
-    // ==========================================
-    // Status Constants
-    // ==========================================
-    public static final String STATUS_ACTIVE = "ACTIVE";
-    public static final String STATUS_INACTIVE = "INACTIVE";
+    /**
+     * Get paginated/index data.
+     */
+    @GetMapping("/index")
+    public List<${entityName}Response> index() {
+        return service.index();
+    }
 
-    // ==========================================
-    // Default Values
-    // ==========================================
-    public static final int DEFAULT_PAGE_SIZE = 20;
-    public static final int MAX_PAGE_SIZE = 100;
+    /**
+     * View single record.
+     */
+    @GetMapping("/view/{id}")
+    public ${entityName}Response view(@PathVariable Long id) {
+        return service.view(id);
+    }
 
-    // ==========================================
-    // Messages
-    // ==========================================
-    public static final String MSG_CREATED_SUCCESS = "$entity created successfully";
-    public static final String MSG_UPDATED_SUCCESS = "$entity updated successfully";
-    public static final String MSG_DELETED_SUCCESS = "$entity deleted successfully";
+    /**
+     * Create new record.
+     */
+    @PostMapping("/create")
+    public ${entityName}Response create(@RequestBody @Valid ${entityName}Request request) {
+        return service.create(request);
+    }
 
-    // ==========================================
-    // Error Messages
-    // ==========================================
-    public static final String ERR_NOT_FOUND = "$entity not found";
-    public static final String ERR_INVALID_REQUEST = "Invalid request for $entity";
+    /**
+     * Update existing record.
+     */
+    @PutMapping("/update/{id}")
+    public ${entityName}Response update(@PathVariable Long id,
+            @RequestBody @Valid ${entityName}Request request) {
+        return service.update(id, request);
+    }
 
+    /**
+     * Delete record.
+     */
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        service.delete(id);
+        return "Deleted successfully";
+    }
 }
 "@
 
-        # Write file
         $content | Out-File -FilePath $filePath -Encoding UTF8
 
-        Write-Host "Constants created: $module\$entity`Constants.java"
+        Write-Host "Controller Updated: $group -> $entityName"
     }
 }

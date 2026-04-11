@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Payment
  *
- * Provides constant values for ApAr domain.
+ *          Provides constant values for ApAr domain.
  */
 public final class ApArConstants {
 

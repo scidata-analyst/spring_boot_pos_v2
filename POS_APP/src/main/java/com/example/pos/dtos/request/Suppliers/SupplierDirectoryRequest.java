@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class SupplierDirectoryRequest {
 
-
     /**
      * id
      */
@@ -67,8 +66,6 @@ public class SupplierDirectoryRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class SupplierDirectoryRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

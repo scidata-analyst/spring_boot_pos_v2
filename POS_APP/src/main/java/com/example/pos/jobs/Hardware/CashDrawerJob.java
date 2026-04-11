@@ -4,22 +4,41 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Scheduled job class for CashDrawer.
- * <p>
- * This class is responsible for executing recurring tasks related to
- * CashDrawer.
- * Define job logic inside the execute() method.
+ * =====================================================
+ * Scheduled Job: CashDrawer
+ * =====================================================
+ *
+ * This job runs background tasks for CashDrawer.
+ *
+ * Notes:
+ * - No service dependency (safe compile)
+ * - Add service later if needed
+ * - Requires @EnableScheduling in main class
  */
 @Component
 public class CashDrawerJob {
 
     /**
-     * Executes the scheduled job for CashDrawer.
-     * Runs every hour (customize cron expression as needed).
+     * =====================================================
+     * Scheduled Task
+     * =====================================================
+     *
+     * Runs every 10 minutes.
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    public void execute() {
-        // TODO: Implement the job logic for CashDrawer
-        System.out.println("Executing job for CashDrawer...");
+    @Scheduled(cron = "0 */10 * * * *")
+    public void handle() {
+
+        // =====================================================
+        // Job Execution
+        // =====================================================
+
+        System.out.println("Running CashDrawer job...");
+
+        // Add business logic here
+        // Example:
+        // - cleanup expired records
+        // - update status
+        // - sync data
+
     }
 }

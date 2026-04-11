@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Suppliers
  *
- * Provides constant values for SupplierPayments domain.
+ *          Provides constant values for SupplierPayments domain.
  */
 public final class SupplierPaymentsConstants {
 

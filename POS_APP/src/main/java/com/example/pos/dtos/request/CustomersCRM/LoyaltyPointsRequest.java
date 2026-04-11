@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class LoyaltyPointsRequest {
 
-
     /**
      * id
      */
@@ -61,8 +60,6 @@ public class LoyaltyPointsRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -127,6 +124,5 @@ public class LoyaltyPointsRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

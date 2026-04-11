@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class TaxReportsRequest {
 
-
     /**
      * id
      */
@@ -67,8 +66,6 @@ public class TaxReportsRequest {
      */
     @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
-
-
 
     public Long getId() {
         return id;
@@ -141,6 +138,5 @@ public class TaxReportsRequest {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

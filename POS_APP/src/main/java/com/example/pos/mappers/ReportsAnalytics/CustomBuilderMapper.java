@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class CustomBuilderMapper {
 
     public CustomBuilderResponse toResponse(CustomBuilder entity) {
-        if (entity == null) return null;
+        if (entity == null)
+            return null;
 
         CustomBuilderResponse response = new CustomBuilderResponse();
 
@@ -30,7 +31,8 @@ public class CustomBuilderMapper {
     }
 
     public CustomBuilder toEntity(CustomBuilderRequest request) {
-        if (request == null) return null;
+        if (request == null)
+            return null;
 
         CustomBuilder entity = new CustomBuilder();
 
@@ -47,8 +49,8 @@ public class CustomBuilderMapper {
     }
 
     public void updateEntity(CustomBuilderRequest request, CustomBuilder entity) {
-        if (request == null || entity == null) return;
-
+        if (request == null || entity == null)
+            return;
 
         entity.setReportName(request.getReportName());
         entity.setQueryConfig(request.getQueryConfig());
@@ -61,7 +63,8 @@ public class CustomBuilderMapper {
     }
 
     public List<CustomBuilderResponse> toResponseList(List<CustomBuilder> entities) {
-        if (entities == null) return List.of();
+        if (entities == null)
+            return List.of();
 
         return entities.stream()
                 .map(this::toResponse)

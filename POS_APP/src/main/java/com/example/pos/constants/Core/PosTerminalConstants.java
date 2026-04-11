@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Core
  *
- * Provides constant values for PosTerminal domain.
+ *          Provides constant values for PosTerminal domain.
  */
 public final class PosTerminalConstants {
 

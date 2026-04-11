@@ -13,7 +13,6 @@ import java.time.*;
  */
 public class TransactionsRequest {
 
-
     /**
      * id
      */
@@ -85,8 +84,6 @@ public class TransactionsRequest {
      */
     @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
-
-
 
     public Long getId() {
         return id;
@@ -183,6 +180,5 @@ public class TransactionsRequest {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
 }

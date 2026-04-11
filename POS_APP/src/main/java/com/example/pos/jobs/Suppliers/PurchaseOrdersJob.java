@@ -4,22 +4,41 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Scheduled job class for PurchaseOrders.
- * <p>
- * This class is responsible for executing recurring tasks related to
- * PurchaseOrders.
- * Define job logic inside the execute() method.
+ * =====================================================
+ * Scheduled Job: PurchaseOrders
+ * =====================================================
+ *
+ * This job runs background tasks for PurchaseOrders.
+ *
+ * Notes:
+ * - No service dependency (safe compile)
+ * - Add service later if needed
+ * - Requires @EnableScheduling in main class
  */
 @Component
 public class PurchaseOrdersJob {
 
     /**
-     * Executes the scheduled job for PurchaseOrders.
-     * Runs every hour (customize cron expression as needed).
+     * =====================================================
+     * Scheduled Task
+     * =====================================================
+     *
+     * Runs every 10 minutes.
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    public void execute() {
-        // TODO: Implement the job logic for PurchaseOrders
-        System.out.println("Executing job for PurchaseOrders...");
+    @Scheduled(cron = "0 */10 * * * *")
+    public void handle() {
+
+        // =====================================================
+        // Job Execution
+        // =====================================================
+
+        System.out.println("Running PurchaseOrders job...");
+
+        // Add business logic here
+        // Example:
+        // - cleanup expired records
+        // - update status
+        // - sync data
+
     }
 }

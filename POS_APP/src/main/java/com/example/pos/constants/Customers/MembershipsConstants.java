@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Customers
  *
- * Provides constant values for Memberships domain.
+ *          Provides constant values for Memberships domain.
  */
 public final class MembershipsConstants {
 

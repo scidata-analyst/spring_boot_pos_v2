@@ -5,7 +5,7 @@
  *
  * @package com.example.pos.constants.Hardware
  *
- * Provides constant values for QrMobile domain.
+ *          Provides constant values for QrMobile domain.
  */
 public final class QrMobileConstants {
 
