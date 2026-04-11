@@ -1,51 +1,120 @@
 ﻿package com.example.pos.mappers.Accounting;
 
 import com.example.pos.entities.Accounting.ApAr;
-import com.example.pos.dtos.Accounting.ApArDto;
+import com.example.pos.dtos.request.Accounting.ApArRequest;
+import com.example.pos.dtos.response.Accounting.ApArResponse;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Mapper class for ApAr entity.
+ *
  * <p>
- * Responsible for converting between ApAr entity and ApArDto.
+ * This component is responsible for converting between:
+ * <ul>
+ * <li>{@link ApAr} entity</li>
+ * <li>{@link ApArRequest} request DTO</li>
+ * <li>{@link ApArResponse} response DTO</li>
+ * </ul>
+ *
+ * <p>
+ * It ensures separation of concerns between API layer and persistence layer
+ * following Spring Boot MVC architecture principles.
+ *
+ * @author POS Application
+ * @version 1.0
+ * @since 2024
  */
 @Component
 public class ApArMapper {
 
     /**
-     * Convert entity to DTO.
+     * Converts {@link ApAr} entity to {@link ApArResponse}.
+     *
      * @param entity the ApAr entity
-     * @return ApArDto representation
+     * @return mapped ApArResponse or null if entity is null
      */
-    public ApArDto toDto(ApAr entity) {
-        if (entity == null) return null;
-        ApArDto dto = new ApArDto();
-        dto.setId(entity.getId());
-        // TODO: map other fields
-        return dto;
+    public ApArResponse toResponse(ApAr entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        ApArResponse response = new ApArResponse();
+
+        response.setId(entity.getId());
+        response.setType(entity.getType());
+        response.setReferenceId(entity.getReferenceId());
+        response.setCustomerId(entity.getCustomerId());
+        response.setSupplierId(entity.getSupplierId());
+        response.setAmount(entity.getAmount());
+        response.setDueDate(entity.getDueDate());
+        response.setStatus(entity.getStatus());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedAt(entity.getUpdatedAt());
+
+        return response;
     }
 
     /**
-     * Convert DTO to entity.
-     * @param dto the ApArDto
-     * @return ApAr entity
+     * Converts {@link ApArRequest} to {@link ApAr} entity.
+     *
+     * @param request the request DTO
+     * @return mapped ApAr entity or null if request is null
      */
-    public ApAr toEntity(ApArDto dto) {
-        if (dto == null) return null;
+    public ApAr toEntity(ApArRequest request) {
+        if (request == null) {
+            return null;
+        }
+
         ApAr entity = new ApAr();
-        entity.setId(dto.getId());
-        // TODO: map other fields
+
+        entity.setId(request.getId());
+        entity.setType(request.getType());
+        entity.setReferenceId(request.getReferenceId());
+        entity.setCustomerId(request.getCustomerId());
+        entity.setSupplierId(request.getSupplierId());
+        entity.setAmount(request.getAmount());
+        entity.setDueDate(request.getDueDate());
+        entity.setStatus(request.getStatus());
+
         return entity;
     }
 
     /**
-     * Convert list of entities to list of DTOs.
-     * @param entities list of ApAr
-     * @return list of ApArDto
+     * Updates an existing {@link ApAr} entity using {@link ApArRequest}.
+     *
+     * @param request the request DTO containing updated data
+     * @param entity  the existing entity to update
      */
-    public List<ApArDto> toDtoList(List<ApAr> entities) {
-        return entities.stream().map(this::toDto).collect(Collectors.toList());
+    public void updateEntityFromRequest(ApArRequest request, ApAr entity) {
+        if (request == null || entity == null) {
+            return;
+        }
+
+        entity.setType(request.getType());
+        entity.setReferenceId(request.getReferenceId());
+        entity.setCustomerId(request.getCustomerId());
+        entity.setSupplierId(request.getSupplierId());
+        entity.setAmount(request.getAmount());
+        entity.setDueDate(request.getDueDate());
+        entity.setStatus(request.getStatus());
+    }
+
+    /**
+     * Converts a list of {@link ApAr} entities to {@link ApArResponse} list.
+     *
+     * @param entities list of ApAr entities
+     * @return list of mapped responses or empty list if null
+     */
+    public List<ApArResponse> toResponseList(List<ApAr> entities) {
+        if (entities == null) {
+            return List.of();
+        }
+
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }
