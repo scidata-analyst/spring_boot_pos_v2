@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reconciliation — VANTA POS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../pos-styles.css" />
+</head>
+
+<body>
+  <nav id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">🛒</div>
+      <div class="logo-wordmark">Vanta<sub>POS System</sub></div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="location.href='../index.html'">
+          <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
+          <span>Dashboard</span>
+        </button>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="location.href='/pos-terminal'">
+          <span class="nav-icon"><i class="bi bi-display"></i></span>
+          <span>POS Terminal</span>
+        </button>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
+          <span>Users &amp; Roles</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/cashiers'" style="cursor:pointer">Cashier Accounts</a>
+          <a onclick="location.href='/roles'" style="cursor:pointer">Roles & Permissions</a>
+          <a onclick="location.href='/activity-log'" style="cursor:pointer">Activity Log</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span>
+          <span>Products</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/catalog'" style="cursor:pointer">Product Catalog</a>
+          <a onclick="location.href='/categories'" style="cursor:pointer">Categories</a>
+          <a onclick="location.href='/barcodes'" style="cursor:pointer">Barcode / SKU</a>
+          <a onclick="location.href='/batch-expiry'" style="cursor:pointer">Batch & Expiry</a>
+          <a onclick="location.href='/stock-movement'" style="cursor:pointer">Stock In / Out</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-receipt-cutoff"></i></span>
+          <span>Sales &amp; Billing</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/transactions'" style="cursor:pointer">Transactions</a>
+          <a onclick="location.href='/invoices'" style="cursor:pointer">Invoices / Receipts</a>
+          <a onclick="location.href='/held-orders'" style="cursor:pointer">Held Orders</a>
+          <a onclick="location.href='/returns'" style="cursor:pointer">Returns & Refunds</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-person-heart"></i></span>
+          <span>Customers (CRM)</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/customers'" style="cursor:pointer">Customer Directory</a>
+          <a onclick="location.href='/purchase-history'" style="cursor:pointer">Purchase History</a>
+          <a onclick="location.href='/loyalty-points'" style="cursor:pointer">Loyalty Points</a>
+          <a onclick="location.href='/memberships'" style="cursor:pointer">Memberships / VIP</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-truck"></i></span>
+          <span>Suppliers</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/suppliers'" style="cursor:pointer">Supplier Directory</a>
+          <a onclick="location.href='/purchase-orders'" style="cursor:pointer">Purchase Orders</a>
+          <a onclick="location.href='/restock-alerts'" style="cursor:pointer">Restock Alerts</a>
+          <a onclick="location.href='/supplier-payments'" style="cursor:pointer">Supplier Payments</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link open" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+          <span>Payment &amp; Accounting</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu open">
+          <a onclick="location.href='/cash-register'" style="cursor:pointer">Cash Register</a>
+          <a class="page-active" onclick="location.href='/reconciliation'"
+            style="cursor:pointer">Reconciliation</a>
+          <a onclick="location.href='/ap-ar'" style="cursor:pointer">AP / AR</a>
+          <a onclick="location.href='/tax-reports'" style="cursor:pointer">Tax Reports</a>
+        </div>
+      </div>
+      <div class="nav-section-label">Reports</div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-bar-chart-fill"></i></span>
+          <span>Reports &amp; Analytics</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/sales-report'" style="cursor:pointer">Sales Reports</a>
+          <a onclick="location.href='/stock-report'" style="cursor:pointer">Stock Reports</a>
+          <a onclick="location.href='/pl-report'" style="cursor:pointer">Profit & Loss</a>
+          <a onclick="location.href='/custom-report'" style="cursor:pointer">Custom Builder</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
+          <span>Promotions</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/offers'" style="cursor:pointer">Offers & Combos</a>
+          <a onclick="location.href='/coupons'" style="cursor:pointer">Coupon Codes</a>
+          <a onclick="location.href='/happy-hour'" style="cursor:pointer">Happy Hour</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-star-fill"></i></span>
+          <span>Loyalty &amp; Membership</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/points-config'" style="cursor:pointer">Points Config</a>
+          <a onclick="location.href='/tier-management'" style="cursor:pointer">Tier Management</a>
+          <a onclick="location.href='/retention'" style="cursor:pointer">Retention Tracking</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-link" onclick="toggleMenu(this)">
+          <span class="nav-icon"><i class="bi bi-cpu-fill"></i></span>
+          <span>Hardware</span>
+          <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+        </button>
+        <div class="nav-submenu">
+          <a onclick="location.href='/devices'" style="cursor:pointer">Devices & Printers</a>
+          <a onclick="location.href='/cash-drawer'" style="cursor:pointer">Cash Drawer</a>
+          <a onclick="location.href='/qr-mobile'" style="cursor:pointer">QR / Mobile Pay</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sf-avatar">AK</div>
+      <div class="sf-info">
+        <div class="sf-name">Adam Khan</div>
+        <div class="sf-role">Store Manager</div>
+      </div>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;"
+        title="Logout"><i class="bi bi-box-arrow-right"></i></button>
+    </div>
+  </nav>
+  <header id="header">
+    <button class="header-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    <div class="header-breadcrumb">
+      <i class="bi bi-shop" style="color:var(--amber)"></i>
+      <span class="hb-sep">/</span>
+      <span class="hb-current">Reconciliation</span>
+    </div>
+    <div class="header-search">
+      <span class="hs-icon"><i class="bi bi-search"></i></span>
+      <input type="text" placeholder="Search products, orders…" />
+    </div>
+    <div class="header-actions">
+      <div class="h-btn" title="Notifications"><i class="bi bi-bell"></i><span class="h-badge">3</span></div>
+      <div class="h-btn" title="Low Stock Alerts" onclick="location.href='/restock-alerts'"
+        style="cursor:pointer">
+        <i class="bi bi-exclamation-triangle"></i><span class="h-badge" style="background:var(--amber)">5</span>
+      </div>
+      <button class="h-pos-btn" onclick="location.href='/pos-terminal'">
+        <i class="bi bi-display"></i> Open POS
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-section active">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Reconciliation</div>
+          <div class="page-subtitle">End-of-day reconciliation and variance reports</div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> <button
+            class="btn-pos btn-amber" onclick="openModal('modal-recon')"><i class="bi bi-plus-lg"></i> Run
+            Reconciliation</button>
+
+        </div>
+      </div>
+      <div class="pos-card">
+        <div class="tbl-toolbar">
+          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
+              placeholder="Search reconciliation…" oninput="filterTable(this,'tbl-reconciliation')" /></div>
+
+        </div>
+        <div class="pos-table-wrap">
+          <table class="pos-table" id="tbl-reconciliation">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Cashier</th>
+                <th>Expected</th>
+                <th>Actual</th>
+                <th>Variance</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jan 12</td>
+                <td>Sara Rahman</td>
+                <td>$4,120</td>
+                <td>$4,120</td>
+                <td>$0</td>
+                <td><span class="pos-badge pb-green">Balanced</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-recon')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Run Reconciliation')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Jan 11</td>
+                <td>Rafi Islam</td>
+                <td>$3,840</td>
+                <td>$3,825</td>
+                <td>$-15</td>
+                <td><span class="pos-badge pb-gray">Minor Variance</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-recon')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Run Reconciliation')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Jan 10</td>
+                <td>Sara Rahman</td>
+                <td>$5,200</td>
+                <td>$5,200</td>
+                <td>$0</td>
+                <td><span class="pos-badge pb-green">Balanced</span></td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-recon')"><i class="bi bi-pencil"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Run Reconciliation')"><i
+                        class="bi bi-trash3"></i></button></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
+            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Delete Confirm -->
+  <div id="modal-delete" class="pos-modal-bg">
+    <div class="pos-modal" style="max-width:380px">
+      <div class="modal-hd">
+        <div class="modal-hd-title" style="color:var(--rose)"><i class="bi bi-trash3 me-2"></i>Confirm Delete</div>
+        <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+      </div>
+      <div class="modal-ft">
+        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
+        <button class="btn-pos btn-rose" onclick="deleteConfirmed()"><i class="bi bi-trash3"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast-wrap" id="toast-container"></div>
+
+  <div id="modal-recon" class="pos-modal-bg">
+    <div class="pos-modal modal-lg">
+      <div class="modal-hd">
+        <div class="modal-hd-title">Run Reconciliation — Reconciliation</div>
+        <div class="modal-x" onclick="closeModal('modal-recon')">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6"><label class="pos-label">Date</label><input class="pos-input" type="date"
+              placeholder=" /></div><div class=" col-md-6"><label class="pos-label">Cashier</label><select
+              class="pos-input">
+              <option>Sara Rahman</option>
+              <option>Rafi Islam</option>
+            </select></div>
+          <div class="col-md-6"><label class="pos-label">Actual Cash ($)</label><input class="pos-input" type="number"
+              placeholder=" /></div><div class=" col-md-6"><label class="pos-label">Notes</label><input
+              class="pos-input" type="text" placeholder=" /></div></div></div>
+      <div class=" modal-ft">
+            <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-recon')">Cancel</button>
+            <button class="btn-pos btn-amber" onclick="saveForm('modal-recon')"><i class="bi bi-check2"></i>
+              Save</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+        function toggleMenu(btn) {
+          const sub = btn.nextElementSibling;
+          const open = sub.classList.contains('open');
+          document.querySelectorAll('.nav-submenu.open').forEach(m => {
+            m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
+          });
+          if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
+        }
+        function openModal(id) { document.getElementById(id)?.classList.add('show'); }
+        function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
+        document.querySelectorAll('.pos-modal-bg').forEach(m =>
+          m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
+        );
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
+        });
+        let delTarget = '';
+        function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
+        function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
+        function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
+        function showToast(msg, type = 'info') {
+          const t = document.createElement('div');
+          t.className = 'pos-toast ' + type;
+          const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+          t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
+          document.getElementById('toast-container').appendChild(t);
+          setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
+          setTimeout(() => t.remove(), 2900);
+        }
+        function filterTable(input, tableId) {
+          const q = input.value.toLowerCase();
+          document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
+            r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+          });
+        }
+        document.querySelectorAll('.pos-pagination').forEach(pg => {
+          pg.addEventListener('click', e => {
+            const btn = e.target.closest('.pg-n');
+            if (btn && !btn.querySelector('.bi-chevron-right')) {
+              pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+            }
+          });
+        });
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
