@@ -11,39 +11,39 @@
 </head>
 
 <body>
-  <nav id="sidebar">
+  <nav id="sidebar" xmlns:th="http://www.thymeleaf.org">
     <div class="sidebar-logo">
       <div class="logo-mark">🛒</div>
       <div class="logo-wordmark">Vanta<sub>POS System</sub></div>
     </div>
+
     <div class="sidebar-nav">
       <div class="nav-section-label">Main</div>
 
       <div class="nav-item">
-        <button class="nav-link" onclick="location.href='../index.html'">
+        <button class="nav-link page-active" onclick="location.href='./index.html'">
           <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
           <span>Dashboard</span>
         </button>
       </div>
 
       <div class="nav-item">
-        <button class="nav-link" onclick="location.href='/pos-terminal'">
+        <button class="nav-link" onclick="location.href='./pages/pos-terminal.html'">
           <span class="nav-icon"><i class="bi bi-display"></i></span>
           <span>POS Terminal</span>
         </button>
       </div>
 
       <div class="nav-item">
-        <button class="nav-link open" onclick="toggleMenu(this)">
+        <button class="nav-link" onclick="toggleMenu(this)">
           <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
           <span>Users &amp; Roles</span>
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
-        <div class="nav-submenu open">
-          <a onclick="location.href='/cashiers'" style="cursor:pointer">Cashier Accounts</a>
-          <a class="page-active" onclick="location.href='/roles'" style="cursor:pointer">Roles &
-            Permissions</a>
-          <a onclick="location.href='/activity-log'" style="cursor:pointer">Activity Log</a>
+        <div class="nav-submenu">
+          <a th:href="@{/cashiers}" style="cursor:pointer">Cashier Accounts</a>
+          <a th:href="@{/roles}" style="cursor:pointer">Roles & Permissions</a>
+          <a th:href="@{/activity-log}" style="cursor:pointer">Activity Log</a>
         </div>
       </div>
 
@@ -54,11 +54,11 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/catalog'" style="cursor:pointer">Product Catalog</a>
-          <a onclick="location.href='/categories'" style="cursor:pointer">Categories</a>
-          <a onclick="location.href='/barcodes'" style="cursor:pointer">Barcode / SKU</a>
-          <a onclick="location.href='/batch-expiry'" style="cursor:pointer">Batch & Expiry</a>
-          <a onclick="location.href='/stock-movement'" style="cursor:pointer">Stock In / Out</a>
+          <a th:href="@{/catalog}" style="cursor:pointer">Product Catalog</a>
+          <a th:href="@{/categories}" style="cursor:pointer">Categories</a>
+          <a th:href="@{/barcodes}" style="cursor:pointer">Barcode / SKU</a>
+          <a th:href="@{/batch-expiry}" style="cursor:pointer">Batch & Expiry</a>
+          <a th:href="@{/stock-movement}" style="cursor:pointer">Stock In / Out</a>
         </div>
       </div>
 
@@ -69,10 +69,10 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/transactions'" style="cursor:pointer">Transactions</a>
-          <a onclick="location.href='/invoices'" style="cursor:pointer">Invoices / Receipts</a>
-          <a onclick="location.href='/held-orders'" style="cursor:pointer">Held Orders</a>
-          <a onclick="location.href='/returns'" style="cursor:pointer">Returns & Refunds</a>
+          <a th:href="@{/transactions}" style="cursor:pointer">Transactions</a>
+          <a th:href="@{/invoices}" style="cursor:pointer">Invoices / Receipts</a>
+          <a th:href="@{/held-orders}" style="cursor:pointer">Held Orders</a>
+          <a th:href="@{/returns}" style="cursor:pointer">Returns & Refunds</a>
         </div>
       </div>
 
@@ -83,10 +83,10 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/customers'" style="cursor:pointer">Customer Directory</a>
-          <a onclick="location.href='/purchase-history'" style="cursor:pointer">Purchase History</a>
-          <a onclick="location.href='/loyalty-points'" style="cursor:pointer">Loyalty Points</a>
-          <a onclick="location.href='/memberships'" style="cursor:pointer">Memberships / VIP</a>
+          <a th:href="@{/customers}" style="cursor:pointer">Customer Directory</a>
+          <a th:href="@{/purchase-history}" style="cursor:pointer">Purchase History</a>
+          <a th:href="@{/loyalty-points}" style="cursor:pointer">Loyalty Points</a>
+          <a th:href="@{/memberships}" style="cursor:pointer">Memberships / VIP</a>
         </div>
       </div>
 
@@ -97,10 +97,10 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/suppliers'" style="cursor:pointer">Supplier Directory</a>
-          <a onclick="location.href='/purchase-orders'" style="cursor:pointer">Purchase Orders</a>
-          <a onclick="location.href='/restock-alerts'" style="cursor:pointer">Restock Alerts</a>
-          <a onclick="location.href='/supplier-payments'" style="cursor:pointer">Supplier Payments</a>
+          <a th:href="@{/suppliers}" style="cursor:pointer">Supplier Directory</a>
+          <a th:href="@{/purchase-orders}" style="cursor:pointer">Purchase Orders</a>
+          <a th:href="@{/restock-alerts}" style="cursor:pointer">Restock Alerts</a>
+          <a th:href="@{/supplier-payments}" style="cursor:pointer">Supplier Payments</a>
         </div>
       </div>
 
@@ -111,12 +111,13 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/cash-register'" style="cursor:pointer">Cash Register</a>
-          <a onclick="location.href='/reconciliation'" style="cursor:pointer">Reconciliation</a>
-          <a onclick="location.href='/ap-ar'" style="cursor:pointer">AP / AR</a>
-          <a onclick="location.href='/tax-reports'" style="cursor:pointer">Tax Reports</a>
+          <a th:href="@{/cash-register}" style="cursor:pointer">Cash Register</a>
+          <a th:href="@{/reconciliation}" style="cursor:pointer">Reconciliation</a>
+          <a th:href="@{/ap-ar}" style="cursor:pointer">AP / AR</a>
+          <a th:href="@{/tax-reports}" style="cursor:pointer">Tax Reports</a>
         </div>
       </div>
+
       <div class="nav-section-label">Reports</div>
 
       <div class="nav-item">
@@ -126,10 +127,10 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/sales-report'" style="cursor:pointer">Sales Reports</a>
-          <a onclick="location.href='/stock-report'" style="cursor:pointer">Stock Reports</a>
-          <a onclick="location.href='/pl-report'" style="cursor:pointer">Profit & Loss</a>
-          <a onclick="location.href='/custom-report'" style="cursor:pointer">Custom Builder</a>
+          <a th:href="@{/sales-report}" style="cursor:pointer">Sales Reports</a>
+          <a th:href="@{/stock-report}" style="cursor:pointer">Stock Reports</a>
+          <a th:href="@{/pl-report}" style="cursor:pointer">Profit & Loss</a>
+          <a th:href="@{/custom-report}" style="cursor:pointer">Custom Builder</a>
         </div>
       </div>
 
@@ -140,9 +141,9 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/offers'" style="cursor:pointer">Offers & Combos</a>
-          <a onclick="location.href='/coupons'" style="cursor:pointer">Coupon Codes</a>
-          <a onclick="location.href='/happy-hour'" style="cursor:pointer">Happy Hour</a>
+          <a th:href="@{/offers}" style="cursor:pointer">Offers & Combos</a>
+          <a th:href="@{/coupons}" style="cursor:pointer">Coupon Codes</a>
+          <a th:href="@{/happy-hour}" style="cursor:pointer">Happy Hour</a>
         </div>
       </div>
 
@@ -153,9 +154,9 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/points-config'" style="cursor:pointer">Points Config</a>
-          <a onclick="location.href='/tier-management'" style="cursor:pointer">Tier Management</a>
-          <a onclick="location.href='/retention'" style="cursor:pointer">Retention Tracking</a>
+          <a th:href="@{/points-config}" style="cursor:pointer">Points Config</a>
+          <a th:href="@{/tier-management}" style="cursor:pointer">Tier Management</a>
+          <a th:href="@{/retention}" style="cursor:pointer">Retention Tracking</a>
         </div>
       </div>
 
@@ -166,22 +167,25 @@
           <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
         </button>
         <div class="nav-submenu">
-          <a onclick="location.href='/devices'" style="cursor:pointer">Devices & Printers</a>
-          <a onclick="location.href='/cash-drawer'" style="cursor:pointer">Cash Drawer</a>
-          <a onclick="location.href='/qr-mobile'" style="cursor:pointer">QR / Mobile Pay</a>
+          <a th:href="@{/devices}" style="cursor:pointer">Devices & Printers</a>
+          <a th:href="@{/cash-drawer}" style="cursor:pointer">Cash Drawer</a>
+          <a th:href="@{/qr-mobile}" style="cursor:pointer">QR / Mobile Pay</a>
         </div>
       </div>
+
     </div>
+
     <div class="sidebar-footer">
       <div class="sf-avatar">AK</div>
       <div class="sf-info">
         <div class="sf-name">Adam Khan</div>
         <div class="sf-role">Store Manager</div>
       </div>
-      <button style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;"
-        title="Logout"><i class="bi bi-box-arrow-right"></i></button>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;" title="Logout">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
     </div>
-  </nav>
+</nav>
   <header id="header">
     <button class="header-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
     <div class="header-breadcrumb">
