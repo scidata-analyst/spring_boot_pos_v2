@@ -308,7 +308,9 @@
       } catch (err) {
         showToast('Operation failed', 'error');
       }
-     async function confirmDelete(id) {
+    }
+
+    async function confirmDelete(id) {
        deleteId = id;
        openModal('modal-delete');
      }

@@ -7,18 +7,10 @@
   <title>Cashier Accounts — VANTA POS</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-   <link rel="stylesheet" href="/pos-styles.css" />
+  <link rel="stylesheet" href="/pos-styles.css" />
   <style>
-    .error-msg {
-      color: var(--rose);
-      font-size: 12px;
-      margin-top: 4px;
-      min-height: 16px;
-    }
-    .error-highlight {
-      border-color: var(--rose) !important;
-      box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2);
-    }
+    .error-msg { color: var(--rose); font-size: 12px; margin-top: 4px; min-height: 16px; }
+    .error-highlight { border-color: var(--rose) !important; box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2); }
   </style>
 </head>
 
@@ -36,14 +28,12 @@
         </div>
         <div class="d-flex gap-2">
           <button class="btn-pos btn-outline-dark" onclick="exportData()"><i class="bi bi-download"></i> Export</button>
-          <button class="btn-pos btn-amber" onclick="openModal('modal-cashier')"><i class="bi bi-plus-lg"></i> Add
-            User</button>
+          <button class="btn-pos btn-amber" onclick="openModal('modal-cashier')"><i class="bi bi-plus-lg"></i> Add User</button>
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              id="searchInput" placeholder="Search users…" oninput="handleSearch()" /></div>
+          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text" id="searchInput" placeholder="Search users…" oninput="handleSearch()" /></div>
           <select class="pos-input" id="roleFilter" style="width:130px" onchange="handleFilter()">
             <option value="">All Roles</option>
             <option value="Admin">Admin</option>
@@ -71,27 +61,24 @@
               </tr>
             </thead>
             <tbody id="cashiers-tbody">
-              <!-- Data will be loaded via API -->
             </tbody>
           </table>
         </div>
         <div class="pos-pagination" id="pagination">
-          <!-- Pagination will be loaded via API -->
         </div>
       </div>
     </section>
   </main>
 
-   <!-- Delete Confirm -->
-   <div id="modal-delete" class="pos-modal-bg" style="display:none;">
+  <!-- Delete Modal -->
+  <div id="modal-delete" class="pos-modal-bg" style="display:none;">
     <div class="pos-modal" style="max-width:380px">
       <div class="modal-hd">
         <div class="modal-hd-title" style="color:var(--rose)"><i class="bi bi-trash3 me-2"></i>Confirm Delete</div>
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
-            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
@@ -101,70 +88,70 @@
   </div>
   <div class="toast-wrap" id="toast-container"></div>
 
-   <!-- Add/Edit Cashier Modal -->
-   <div id="modal-cashier" class="pos-modal-bg" style="display:none;">
+  <!-- Add/Edit Cashier Modal -->
+  <div id="modal-cashier" class="pos-modal-bg" style="display:none;">
     <div class="pos-modal modal-lg">
       <div class="modal-hd">
         <div class="modal-hd-title" id="modal-cashier-title">Add User</div>
         <div class="modal-x" onclick="closeModal('modal-cashier')">×</div>
       </div>
-       <div class="modal-body">
-         <div class="row g-3">
-           <input type="hidden" id="cashier-id" />
-           <div class="col-md-6">
-             <label class="pos-label">Full Name</label>
-             <input class="pos-input" type="text" id="employeeName" placeholder="Enter full name" />
-             <div class="error-msg" id="error-employeeName"></div>
-           </div>
-           <div class="col-md-6">
-             <label class="pos-label">Role</label>
-             <select class="pos-input" id="roleId">
-               <option value="">Select Role</option>
-               <option value="1">Admin</option>
-               <option value="2">Manager</option>
-               <option value="3">Cashier</option>
-             </select>
-             <div class="error-msg" id="error-roleId"></div>
-           </div>
-           <div class="col-md-4">
-             <label class="pos-label">Username</label>
-             <input class="pos-input" type="text" id="username" placeholder="Enter username" />
-             <div class="error-msg" id="error-username"></div>
-           </div>
-           <div class="col-md-4">
-             <label class="pos-label">PIN / Password</label>
-             <input class="pos-input" type="password" id="password" placeholder="Enter PIN" />
-             <div class="error-msg" id="error-password"></div>
-           </div>
-           <div class="col-md-4">
-             <label class="pos-label">Phone Number</label>
-             <input class="pos-input" type="number" id="phoneNumber" placeholder="Enter phone" />
-             <div class="error-msg" id="error-phoneNumber"></div>
-           </div>
-           <div class="col-md-6">
-             <label class="pos-label">Email</label>
-             <input class="pos-input" type="email" id="email" placeholder="Enter email" />
-             <div class="error-msg" id="error-email"></div>
-           </div>
-           <div class="col-md-6">
-             <label class="pos-label">Assigned Terminal</label>
-             <select class="pos-input" id="terminal">
-               <option value="">Select Terminal</option>
-               <option value="All Terminals">All Terminals</option>
-               <option value="Counter 1">Counter 1</option>
-               <option value="Counter 2">Counter 2</option>
-             </select>
-           </div>
-           <div class="col-md-4">
-             <label class="pos-label">Status</label>
-             <select class="pos-input" id="status">
-               <option value="Active">Active</option>
-               <option value="Inactive">Inactive</option>
-             </select>
-             <div class="error-msg" id="error-status"></div>
-           </div>
-         </div>
-       </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <input type="hidden" id="cashier-id" />
+          <div class="col-md-6">
+            <label class="pos-label">Full Name</label>
+            <input class="pos-input" type="text" id="employeeName" placeholder="Enter full name" />
+            <div class="error-msg" id="error-employeeName"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="pos-label">Role</label>
+            <select class="pos-input" id="roleId">
+              <option value="">Select Role</option>
+              <option value="1">Admin</option>
+              <option value="2">Manager</option>
+              <option value="3">Cashier</option>
+            </select>
+            <div class="error-msg" id="error-roleId"></div>
+          </div>
+          <div class="col-md-4">
+            <label class="pos-label">Username</label>
+            <input class="pos-input" type="text" id="username" placeholder="Enter username" />
+            <div class="error-msg" id="error-username"></div>
+          </div>
+          <div class="col-md-4">
+            <label class="pos-label">PIN / Password</label>
+            <input class="pos-input" type="password" id="password" placeholder="Enter PIN" />
+            <div class="error-msg" id="error-password"></div>
+          </div>
+          <div class="col-md-4">
+            <label class="pos-label">Phone Number</label>
+            <input class="pos-input" type="number" id="phoneNumber" placeholder="Enter phone" />
+            <div class="error-msg" id="error-phoneNumber"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="pos-label">Email</label>
+            <input class="pos-input" type="email" id="email" placeholder="Enter email" />
+            <div class="error-msg" id="error-email"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="pos-label">Assigned Terminal</label>
+            <select class="pos-input" id="terminal">
+              <option value="">Select Terminal</option>
+              <option value="All Terminals">All Terminals</option>
+              <option value="Counter 1">Counter 1</option>
+              <option value="Counter 2">Counter 2</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="pos-label">Status</label>
+            <select class="pos-input" id="status">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            <div class="error-msg" id="error-status"></div>
+          </div>
+        </div>
+      </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-cashier')">Cancel</button>
         <button class="btn-pos btn-amber" onclick="saveCashier()"><i class="bi bi-check2"></i> Save</button>
@@ -174,52 +161,38 @@
 
   <div th:insert="~{fragments/scripts :: scripts}"></div>
   <script>
-    // State
     let currentPage = 0;
     let pageSize = 10;
-    let currentSort = { field: 'id', dir: 'desc' };
     let totalPages = 0;
-    let totalElements = 0;
     let deleteId = null;
     let editingId = null;
-    let allDataCache = []; // Full dataset for filtering
+    let allDataCache = [];
+    let currentSort = { field: 'id', dir: 'desc' };
 
-    // API Base URL
     const API_BASE = '/api/UsersRoles/CashierAccounts';
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      loadData();
-    });
+    document.addEventListener('DOMContentLoaded', loadData);
 
     async function loadData(page = 0) {
       currentPage = page;
-      showToast('Loading...', 'info');
       try {
         const params = new URLSearchParams({
           page: currentPage,
           size: pageSize,
-          sort: `${currentSort.field},${currentSort.dir}`
+          sort: currentSort.field + ',' + currentSort.dir
         });
 
-        const res = await fetch(`${API_BASE}/index?${params}`);
-        if (!res.ok) {
-          const errText = await res.text();
-          console.error('API Error:', res.status, errText);
-          throw new Error('API request failed: ' + res.status);
-        }
+        const res = await fetch(API_BASE + '/index?' + params);
+        if (!res.ok) throw new Error('Failed to fetch');
 
         const data = await res.json();
-        console.log('API Response:', data); // Debug log
-
         allDataCache = data.content || [];
+
         renderTable(allDataCache);
         renderPagination(data);
         totalPages = data.totalPages || 0;
-        totalElements = data.totalElements || 0;
       } catch (err) {
-        showToast('Failed to load data: ' + err.message, 'error');
-        console.error(err);
+        showToast('Failed to load data', 'error');
       }
     }
 
@@ -227,32 +200,20 @@
       const tbody = document.getElementById('cashiers-tbody');
       tbody.innerHTML = '';
 
-      // Guard: ensure users is an array
-      if (!Array.isArray(users)) {
-        console.warn('renderTable: expected array, got', users);
-        users = [];
-      }
+      if (!Array.isArray(users)) users = [];
 
       users.forEach(user => {
         const tr = document.createElement('tr');
-        tr.dataset.id = user.id;
-
-        // Initials
-        const initials = user.employeeName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-        const gradientClass = getGradientClass(user.id);
-
-        // Status badge
-        const statusBadge = user.status === 'Active' ?
-          '<span class="pos-badge pb-green">Active</span>' :
-          '<span class="pos-badge pb-gray">Inactive</span>';
-
-        // Get role name - if roleId provided, map it
+        const initials = (user.employeeName || '').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
         const roleName = mapRoleName(user.roleId);
+        const statusBadge = user.status === 'Active' ? 
+          '<span class="pos-badge pb-green">Active</span>' : 
+          '<span class="pos-badge pb-gray">Inactive</span>';
 
         tr.innerHTML = `
           <td>
             <div class="d-flex align-items-center gap-2">
-               <div style="background: ${gradientClass}; width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">${initials}</div>
+              <div style="background:${getGradientClass(user.id)};width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">${initials}</div>
               ${user.employeeName}
             </div>
           </td>
@@ -269,7 +230,6 @@
             </div>
           </td>
         `;
-
         tbody.appendChild(tr);
       });
 
@@ -281,33 +241,24 @@
     function renderPagination(pageData) {
       const container = document.getElementById('pagination');
       container.innerHTML = '';
+      if (!pageData || !totalPages) return;
 
-      if (!pageData || typeof pageData.totalPages === 'undefined') {
-        console.warn('renderPagination: invalid pageData', pageData);
-        return;
-      }
-
-      const totalPages = pageData.totalPages || 0;
-
-      const createButton = (label, page, active = false, disabled = false) => {
+      const createBtn = (label, page, active = false, disabled = false) => {
         const btn = document.createElement('button');
         btn.className = 'pg-n' + (active ? ' active' : '');
         btn.innerHTML = label;
         btn.disabled = disabled;
-        btn.onclick = () => { if (!disabled) loadData(page); };
+        btn.onclick = () => loadData(page);
         return btn;
       };
 
-      // Prev
-      container.appendChild(createButton('<i class="bi bi-chevron-left"></i>', currentPage - 1, false, currentPage === 0));
+      container.appendChild(createBtn('&lt;', currentPage - 1, false, currentPage === 0));
 
-      // Page numbers
       for (let i = 0; i < totalPages; i++) {
-        container.appendChild(createButton(i + 1, i, i === currentPage));
+        container.appendChild(createBtn(i + 1, i, i === currentPage));
       }
 
-      // Next
-      container.appendChild(createButton('<i class="bi bi-chevron-right"></i>', currentPage + 1, false, currentPage >= totalPages - 1));
+      container.appendChild(createBtn('&gt;', currentPage + 1, false, currentPage >= totalPages - 1));
     }
 
     async function saveCashier() {
@@ -315,26 +266,26 @@
       const id = document.getElementById('cashier-id').value;
       const payload = {
         id: id ? Number(id) : null,
-        username: document.getElementById('username').value?.trim(),
-        employeeName: document.getElementById('employeeName').value?.trim(),
+        username: document.getElementById('username').value.trim(),
+        employeeName: document.getElementById('employeeName').value.trim(),
         roleId: Number(document.getElementById('roleId').value),
-        password: document.getElementById('password').value?.trim() || 'default123',
+        password: document.getElementById('password').value.trim() || 'default123',
         phoneNumber: Number(document.getElementById('phoneNumber').value) || null,
-        email: document.getElementById('email').value?.trim() || null,
+        email: document.getElementById('email').value.trim() || null,
+        terminal: document.getElementById('terminal').value || null,
         status: document.getElementById('status').value,
         lastLogin: new Date().toISOString(),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
 
-      // Basic client validation
-      if (!payload.username || !payload.employeeName || !payload.roleId || !payload.password || !payload.status) {
+      if (!payload.username || !payload.employeeName || !payload.roleId) {
         showToast('Please fill all required fields', 'error');
         return;
       }
 
       try {
-        const url = id ? `${API_BASE}/update/${id}` : `${API_BASE}/create`;
+        const url = id ? API_BASE + '/update/' + id : API_BASE + '/create';
         const method = id ? 'PUT' : 'POST';
 
         const res = await fetch(url, {
@@ -345,9 +296,9 @@
 
         if (!res.ok) {
           if (res.status === 400) {
-            const errorData = await res.json();
-            if (errorData.errors) {
-              displayFieldErrors(errorData.errors);
+            const errData = await res.json();
+            if (errData.errors) {
+              displayFieldErrors(errData.errors);
               showToast('Please fix validation errors', 'error');
               return;
             }
@@ -361,26 +312,24 @@
         resetForm();
       } catch (err) {
         showToast('Operation failed', 'error');
-        console.error(err);
       }
     }
 
-     async function confirmDelete(id) {
-       deleteId = id;
-       openModal('modal-delete');
-     }
+    function confirmDelete(id) {
+      deleteId = id;
+      openModal('modal-delete');
+    }
 
     async function deleteConfirmed() {
       if (!deleteId) return;
       try {
-        await fetch(`${API_BASE}/delete/${deleteId}`, { method: 'DELETE' });
+        await fetch(API_BASE + '/delete/' + deleteId, { method: 'DELETE' });
         showToast('User deleted', 'success');
         closeModal('modal-delete');
         loadData(currentPage);
         deleteId = null;
       } catch (err) {
         showToast('Delete failed', 'error');
-        console.error(err);
       }
     }
 
@@ -390,23 +339,25 @@
 
       clearAllErrors();
       editingId = id;
-      document.getElementById('modal-cashier-title').textContent = 'Edit User';
       document.getElementById('cashier-id').value = user.id;
+      document.getElementById('modal-cashier-title').textContent = 'Edit User';
       document.getElementById('username').value = user.username || '';
       document.getElementById('employeeName').value = user.employeeName || '';
       document.getElementById('roleId').value = user.roleId || '';
       document.getElementById('password').value = '';
       document.getElementById('phoneNumber').value = user.phoneNumber || '';
       document.getElementById('email').value = user.email || '';
+      document.getElementById('terminal').value = user.terminal || '';
       document.getElementById('status').value = user.status || 'Active';
+
       openModal('modal-cashier');
     }
 
     function handleSearch() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
+      const q = document.getElementById('searchInput').value.toLowerCase();
       const filtered = allDataCache.filter(u =>
-        u.employeeName.toLowerCase().includes(query) ||
-        u.username.toLowerCase().includes(query)
+        (u.employeeName && u.employeeName.toLowerCase().includes(q)) ||
+        (u.username && u.username.toLowerCase().includes(q))
       );
       renderTable(filtered);
     }
@@ -414,15 +365,10 @@
     function handleFilter() {
       const role = document.getElementById('roleFilter').value;
       const status = document.getElementById('statusFilter').value;
-
       let filtered = allDataCache;
 
-      if (role) {
-        filtered = filtered.filter(u => mapRoleName(u.roleId) === role);
-      }
-      if (status) {
-        filtered = filtered.filter(u => u.status === status);
-      }
+      if (role) filtered = filtered.filter(u => mapRoleName(u.roleId) === role);
+      if (status) filtered = filtered.filter(u => u.status === status);
 
       renderTable(filtered);
     }
@@ -436,36 +382,40 @@
       document.getElementById('password').value = '';
       document.getElementById('phoneNumber').value = '';
       document.getElementById('email').value = '';
+      document.getElementById('terminal').value = '';
       document.getElementById('status').value = 'Active';
       editingId = null;
       document.getElementById('modal-cashier-title').textContent = 'Add User';
     }
 
-     function openModal(id) {
-       const el = document.getElementById(id);
-       if (el) {
-         el.style.display = 'flex';
-         el.classList.add('show');
-       }
-     }
-     function closeModal(id) {
-       const el = document.getElementById(id);
-       if (el) {
-         el.style.display = 'none';
-         el.classList.remove('show');
-       }
-     }
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'flex';
+        el.classList.add('show');
+      }
+    }
 
-     document.querySelectorAll('.pos-modal-bg').forEach(m =>
-       m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); })
-     );
-     document.addEventListener('keydown', e => {
-       if (e.key === 'Escape') {
-         document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
-       }
-     });
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'none';
+        el.classList.remove('show');
+      }
+    }
 
-    function showToast(msg, type = 'info') {
+    document.querySelectorAll('.pos-modal-bg').forEach(m =>
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); })
+    );
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
+      }
+    });
+
+    function showToast(msg, type) {
+      type = type || 'info';
       const t = document.createElement('div');
       t.className = 'pos-toast ' + type;
       const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
@@ -475,17 +425,16 @@
       setTimeout(() => t.remove(), 2900);
     }
 
-    // Helpers
     function mapRoleName(roleId) {
       const map = { 1: 'Admin', 2: 'Manager', 3: 'Cashier' };
       return map[roleId] || 'Unknown';
     }
 
     function getTerminalLabel(roleId) {
-      switch(roleId) {
+      switch (roleId) {
         case 1: return 'All Terminals';
         case 2: return 'All Counters';
-        case 3: return 'Counter ' + (Math.floor(Math.random() * 2) + 1); // random assignment, or would come from entity
+        case 3: return 'Counter 1';
         default: return '—';
       }
     }
@@ -500,13 +449,13 @@
     }
 
     function getGradientClass(id) {
-      const gradients = [
+      const grads = [
         'linear-gradient(135deg,var(--amber),var(--rose))',
         'linear-gradient(135deg,var(--teal),#0d9488)',
         'linear-gradient(135deg,var(--sky),#0284c7)',
         'linear-gradient(135deg,var(--rose),#e11d48)'
       ];
-      return gradients[id % 4];
+      return grads[id % 4];
     }
 
     function formatDate(isoStr) {
@@ -516,7 +465,7 @@
     }
 
     function clearAllErrors() {
-      ['employeeName','roleId','username','password','phoneNumber','email','status'].forEach(field => {
+      ['employeeName', 'roleId', 'username', 'password', 'phoneNumber', 'email', 'status'].forEach(field => {
         const msgEl = document.getElementById('error-' + field);
         const inputEl = document.getElementById(field);
         if (msgEl) msgEl.textContent = '';
@@ -536,7 +485,7 @@
     }
 
     function exportData() {
-      showToast('Exporting... (feature coming soon)', 'info');
+      showToast('Exporting...', 'info');
     }
   </script>
 </body>
