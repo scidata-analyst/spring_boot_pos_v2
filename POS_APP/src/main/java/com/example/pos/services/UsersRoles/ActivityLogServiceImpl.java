@@ -7,6 +7,8 @@ import com.example.pos.mappers.UsersRoles.ActivityLogMapper;
 import com.example.pos.repositories.UsersRoles.ActivityLogRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +35,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     @Override
-    public List<ActivityLogResponse> index() {
-        return repository.index()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<ActivityLogResponse> index(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toResponse);
     }
 
     @Override

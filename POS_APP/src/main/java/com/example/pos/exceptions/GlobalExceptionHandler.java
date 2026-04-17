@@ -2,9 +2,12 @@ package com.example.pos.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Global exception handler for all API controllers.
@@ -13,6 +16,25 @@ import java.time.LocalDateTime;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * Handles validation errors and returns 400 with field-specific messages.
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> fieldErrors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+            fieldErrors.put(error.getField(), error.getDefaultMessage())
+        );
+
+        ValidationErrorDetails errorDetails = new ValidationErrorDetails(
+                LocalDateTime.now(),
+                "Validation failed",
+                HttpStatus.BAD_REQUEST.value(),
+                fieldErrors
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 
     /**
      * Handles ResourceNotFoundException and returns 404 response.
@@ -75,6 +97,22 @@ public class GlobalExceptionHandler {
 
         public int getStatus() {
             return status;
+        }
+    }
+
+    /**
+     * Inner class for validation error details with field-level messages.
+     */
+    static class ValidationErrorDetails extends ErrorDetails {
+        private Map<String, String> errors;
+
+        public ValidationErrorDetails(LocalDateTime timestamp, String message, int status, Map<String, String> errors) {
+            super(timestamp, message, status);
+            this.errors = errors;
+        }
+
+        public Map<String, String> getErrors() {
+            return errors;
         }
     }
 }

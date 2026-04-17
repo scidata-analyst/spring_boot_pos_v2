@@ -2,6 +2,8 @@ package com.example.pos.services.UsersRoles;
 
 import com.example.pos.dtos.request.UsersRoles.CashierAccountsRequest;
 import com.example.pos.dtos.response.UsersRoles.CashierAccountsResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  *
  * Repository-style semantic methods:
  * - all() -> get all records
- * - index() -> UI listing (paginated later if needed)
+ * - index() -> UI listing (paginated)
  * - view() -> single record view
  * - create() -> create new record
  * - update() -> update existing record
@@ -24,7 +26,7 @@ public interface CashierAccountsService {
 
     List<CashierAccountsResponse> all();
 
-    List<CashierAccountsResponse> index();
+    Page<CashierAccountsResponse> index(Pageable pageable);
 
     CashierAccountsResponse view(Long id);
 

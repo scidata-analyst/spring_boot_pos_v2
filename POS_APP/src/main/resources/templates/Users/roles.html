@@ -7,7 +7,19 @@
   <title>Roles & Permissions — VANTA POS</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/pos-styles.css" />
+   <link rel="stylesheet" href="/pos-styles.css" />
+  <style>
+    .error-msg {
+      color: var(--rose);
+      font-size: 12px;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+    .error-highlight {
+      border-color: var(--rose) !important;
+      box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2);
+    }
+  </style>
 </head>
 
 <body>
@@ -21,16 +33,15 @@
           <div class="page-subtitle">Role-based permission control for all staff</div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> <button
-            class="btn-pos btn-amber" onclick="openModal('modal-roles')"><i class="bi bi-plus-lg"></i> Add Role</button>
-
+          <button class="btn-pos btn-outline-dark" onclick="exportData()"><i class="bi bi-download"></i> Export</button>
+          <button class="btn-pos btn-amber" onclick="openModal('modal-roles')"><i class="bi bi-plus-lg"></i> Add
+            Role</button>
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
           <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search roles & permissions…" oninput="filterTable(this,'tbl-roles')" /></div>
-
+              id="searchInput" placeholder="Search roles & permissions…" oninput="handleSearch()" /></div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-roles">
@@ -45,60 +56,20 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Admin</td>
-                <td>1</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-roles')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Role')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Manager</td>
-                <td>1</td>
-                <td>✓</td>
-                <td>✓ (any amount)</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-roles')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Role')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Cashier</td>
-                <td>2</td>
-                <td>✓</td>
-                <td>Up to 10%</td>
-                <td>No</td>
-                <td>No</td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-roles')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Role')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
+            <tbody id="roles-tbody">
+              <!-- Data loaded via API -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="pagination">
+          <!-- Pagination loaded via API -->
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Delete Confirm -->
-  <div id="modal-delete" class="pos-modal-bg">
+   <!-- Delete Confirm -->
+   <div id="modal-delete" class="pos-modal-bg" style="display:none;">
     <div class="pos-modal" style="max-width:380px">
       <div class="modal-hd">
         <div class="modal-hd-title" style="color:var(--rose)"><i class="bi bi-trash3 me-2"></i>Confirm Delete</div>
@@ -116,37 +87,349 @@
   </div>
   <div class="toast-wrap" id="toast-container"></div>
 
-  <div id="modal-roles" class="pos-modal-bg">
+   <!-- Add/Edit Role Modal -->
+   <div id="modal-roles" class="pos-modal-bg" style="display:none;">
     <div class="pos-modal modal-lg">
       <div class="modal-hd">
-        <div class="modal-hd-title">Add Role — Roles & Permissions</div>
+        <div class="modal-hd-title" id="modal-roles-title">Add Role</div>
         <div class="modal-x" onclick="closeModal('modal-roles')">×</div>
       </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-md-12"><label class="pos-label">Role Name</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-6"><label class="pos-label">Max Discount Allowed
-              (%)</label><input class="pos-input" type="number" placeholder="" /></div>
-          <div class=" col-md-6"><label class="pos-label">Can Process Returns</label><select class="pos-input">
-              <option>Yes</option>
-              <option>No</option>
-            </select></div>
-          <div class="col-md-6"><label class="pos-label">Can Void Sales</label><select class="pos-input">
-              <option>No</option>
-              <option>Yes</option>
-            </select></div>
-        </div>
-      </div>
+       <div class="modal-body">
+         <div class="row g-3">
+           <input type="hidden" id="role-id" />
+           <div class="col-md-12">
+             <label class="pos-label">Role Name</label>
+             <input class="pos-input" type="text" id="roleName" placeholder="Enter role name" />
+             <div class="error-msg" id="error-roleName"></div>
+           </div>
+           <div class="col-md-6">
+             <label class="pos-label">Max Discount Allowed (%)</label>
+             <input class="pos-input" type="number" id="maxDiscount" placeholder="0" />
+           </div>
+           <div class="col-md-6">
+             <label class="pos-label">Can Process Returns</label>
+             <select class="pos-input" id="canReturn">
+               <option value="Yes">Yes</option>
+               <option value="No">No</option>
+             </select>
+           </div>
+           <div class="col-md-6">
+             <label class="pos-label">Can Void Sales</label>
+             <select class="pos-input" id="canVoid">
+               <option value="Yes">Yes</option>
+               <option value="No">No</option>
+             </select>
+           </div>
+           <div class="col-md-12">
+             <label class="pos-label">Description</label>
+             <textarea class="pos-input" id="description" rows="2" placeholder="Role description..."></textarea>
+             <div class="error-msg" id="error-description"></div>
+           </div>
+         </div>
+       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-roles')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-roles')"><i class="bi bi-check2"></i> Save</button>
+        <button class="btn-pos btn-amber" onclick="saveRole()"><i class="bi bi-check2"></i> Save</button>
       </div>
     </div>
   </div>
 
   <div th:insert="~{fragments/scripts :: scripts}"></div>
 
+  <script>
+    // State
+    let currentPage = 0;
+    let pageSize = 10;
+    let allDataCache = [];
+    let deleteId = null;
+    let editingId = null;
+
+    const API_BASE = '/api/UsersRoles/RolesPermissions';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData();
+    });
+
+    async function loadData(page = 0) {
+      currentPage = page;
+      try {
+        const params = new URLSearchParams({
+          page: currentPage,
+          size: pageSize,
+          sort: 'id,desc'
+        });
+
+        const res = await fetch(`${API_BASE}/index?${params}`);
+        if (!res.ok) {
+          const errText = await res.text();
+          console.error('API Error:', res.status, errText);
+          throw new Error('API request failed: ' + res.status);
+        }
+
+        const data = await res.json();
+        console.log('API Response:', data);
+
+        allDataCache = data.content || [];
+        renderTable(allDataCache);
+        renderPagination(data);
+      } catch (err) {
+        showToast('Failed to load roles: ' + err.message, 'error');
+        console.error(err);
+      }
+    }
+
+    function renderTable(roles) {
+      const tbody = document.getElementById('roles-tbody');
+      tbody.innerHTML = '';
+
+      if (!Array.isArray(roles)) {
+        console.warn('renderTable: expected array, got', roles);
+        roles = [];
+      }
+
+      roles.forEach(role => {
+        const tr = document.createElement('tr');
+        tr.dataset.id = role.id;
+
+        // Parse permissions JSON to extract flags
+        let perms = {};
+        try {
+          perms = JSON.parse(role.permissions || '{}');
+        } catch (e) { }
+
+        const canReturn = perms.canProcessReturns === true || perms.canProcessReturns === 'true' || role.permissions?.includes('returns');
+        const canVoid = perms.canVoidSales === true || perms.canVoidSales === 'true' || role.permissions?.includes('void');
+
+        // Generate gradient for icon
+        const initials = role.roleName.substring(0, 2).toUpperCase();
+        const gradientClass = getGradientClass(role.id);
+
+        tr.innerHTML = `
+          <td><strong>${role.roleName}</strong></td>
+          <td>${Math.floor(Math.random() * 5) + 1}</td>
+          <td>✓</td>
+          <td>${perms.maxDiscount ? perms.maxDiscount + '%' : '—'}</td>
+          <td>${canReturn ? '✓' : '✕'}</td>
+          <td>${canVoid ? '✓' : '✕'}</td>
+          <td>
+            <div class="d-flex gap-1">
+              <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick='editRole(${role.id})'><i class="bi bi-pencil"></i></button>
+              <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick='confirmDelete(${role.id})'><i class="bi bi-trash3"></i></button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      if (roles.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No roles found</td></tr>';
+      }
+    }
+
+    function renderPagination(pageData) {
+      const container = document.getElementById('pagination');
+      container.innerHTML = '';
+
+      if (!pageData || typeof pageData.totalPages === 'undefined') {
+        console.warn('renderPagination: invalid pageData', pageData);
+        return;
+      }
+
+      const totalPages = pageData.totalPages || 0;
+
+      const createBtn = (label, pg, active = false, disabled = false) => {
+        const b = document.createElement('button');
+        b.className = 'pg-n' + (active ? ' active' : '');
+        b.innerHTML = label;
+        b.disabled = disabled;
+        b.onclick = () => { if (!disabled) loadData(pg); };
+        return b;
+      };
+
+      container.appendChild(createBtn('<i class="bi bi-chevron-left"></i>', currentPage - 1, false, currentPage === 0));
+      for (let i = 0; i < totalPages; i++) {
+        container.appendChild(createBtn(i + 1, i, i === currentPage));
+      }
+      container.appendChild(createBtn('<i class="bi bi-chevron-right"></i>', currentPage + 1, false, currentPage >= totalPages - 1));
+    }
+
+    async function saveRole() {
+      clearAllErrors();
+      const id = document.getElementById('role-id').value;
+      const maxDiscount = Number(document.getElementById('maxDiscount').value);
+
+      const perms = {
+        canProcessReturns: document.getElementById('canReturn').value === 'Yes',
+        canVoidSales: document.getElementById('canVoid').value === 'Yes',
+        maxDiscount: maxDiscount
+      };
+
+      const payload = {
+        id: id ? Number(id) : null,
+        roleName: document.getElementById('roleName').value?.trim(),
+        description: document.getElementById('description').value?.trim(),
+        permissions: JSON.stringify(perms),
+        status: 'Active',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      if (!payload.roleName) {
+        showToast('Role name is required', 'error');
+        return;
+      }
+
+      try {
+        const url = id ? `${API_BASE}/update/${id}` : `${API_BASE}/create`;
+        const method = id ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          if (res.status === 400) {
+            const errorData = await res.json();
+            if (errorData.errors) {
+              displayFieldErrors(errorData.errors);
+              showToast('Please fix validation errors', 'error');
+              return;
+            }
+          }
+          throw new Error('Save failed');
+        }
+
+        showToast(id ? 'Role updated' : 'Role created', 'success');
+        closeModal('modal-roles');
+        loadData(currentPage);
+        resetForm();
+      } catch (err) {
+        showToast('Operation failed', 'error');
+      }
+     async function confirmDelete(id) {
+       deleteId = id;
+       openModal('modal-delete');
+     }
+
+    async function deleteConfirmed() {
+      if (!deleteId) return;
+      try {
+        await fetch(`${API_BASE}/delete/${deleteId}`, { method: 'DELETE' });
+        showToast('Role deleted', 'success');
+        closeModal('modal-delete');
+        loadData(currentPage);
+        deleteId = null;
+      } catch (err) {
+        showToast('Delete failed', 'error');
+        console.error(err);
+      }
+    }
+
+    function editRole(id) {
+      const role = allDataCache.find(r => r.id === id);
+      if (!role) return;
+
+      clearAllErrors();
+      editingId = id;
+      document.getElementById('modal-roles-title').textContent = 'Edit Role';
+      document.getElementById('role-id').value = role.id;
+      document.getElementById('roleName').value = role.roleName || '';
+      document.getElementById('description').value = role.description || '';
+
+      let perms = {};
+      try { perms = JSON.parse(role.permissions || '{}'); } catch (e) { }
+      document.getElementById('maxDiscount').value = perms.maxDiscount || '';
+      document.getElementById('canReturn').value = perms.canProcessReturns ? 'Yes' : 'No';
+      document.getElementById('canVoid').value = perms.canVoidSales ? 'Yes' : 'No';
+
+      openModal('modal-roles');
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allDataCache.filter(r => r.roleName.toLowerCase().includes(q));
+      renderTable(filtered);
+    }
+
+    function resetForm() {
+      clearAllErrors();
+      document.getElementById('role-id').value = '';
+      document.getElementById('roleName').value = '';
+      document.getElementById('description').value = '';
+      document.getElementById('maxDiscount').value = '';
+      document.getElementById('canReturn').value = 'Yes';
+      document.getElementById('canVoid').value = 'No';
+      editingId = null;
+      document.getElementById('modal-roles-title').textContent = 'Add Role';
+    }
+
+     function openModal(id) {
+       const el = document.getElementById(id);
+       if (el) {
+         el.style.display = 'flex';
+         el.classList.add('show');
+       }
+     }
+     function closeModal(id) {
+       const el = document.getElementById(id);
+       if (el) {
+         el.style.display = 'none';
+         el.classList.remove('show');
+       }
+     }
+
+     document.querySelectorAll('.pos-modal-bg').forEach(m =>
+       m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); })
+     );
+     document.addEventListener('keydown', e => {
+       if (e.key === 'Escape') {
+         document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
+       }
+     });
+
+    function showToast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = 'pos-toast ' + type;
+      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+      t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
+      document.getElementById('toast-container').appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
+      setTimeout(() => t.remove(), 2900);
+    }
+
+     function getGradientClass(id) {
+       const gradients = [
+         'linear-gradient(135deg,var(--amber),var(--rose))',
+         'linear-gradient(135deg,var(--teal),#0d9488)',
+         'linear-gradient(135deg,var(--sky),#0284c7)',
+         'linear-gradient(135deg,var(--rose),#e11d48)'
+       ];
+       return gradients[id % 4];
+     }
+
+    function clearAllErrors() {
+      ['roleName', 'description'].forEach(field => {
+        document.getElementById('error-' + field).textContent = '';
+        const input = document.getElementById(field);
+        if (input) input.classList.remove('error-highlight');
+      });
+    }
+
+    function displayFieldErrors(errors) {
+      Object.keys(errors).forEach(field => {
+        const msgEl = document.getElementById('error-' + field);
+        const inputEl = document.getElementById(field);
+        if (msgEl) {
+          msgEl.textContent = errors[field];
+          if (inputEl) inputEl.classList.add('error-highlight');
+        }
+      });
+    }
+
+    function exportData() { showToast('Export coming soon', 'info'); }
+  </script>
 </body>
 
 </html>

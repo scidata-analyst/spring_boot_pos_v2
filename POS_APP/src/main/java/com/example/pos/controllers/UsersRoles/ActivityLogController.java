@@ -6,9 +6,9 @@ import com.example.pos.services.UsersRoles.ActivityLogService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * =====================================================
@@ -30,16 +30,17 @@ public class ActivityLogController {
      * Get all records.
      */
     @GetMapping("/all")
-    public List<ActivityLogResponse> all() {
+    public java.util.List<ActivityLogResponse> all() {
         return service.all();
     }
 
     /**
      * Get paginated/index data.
+     * Query params: page (0-based), size, sort (e.g., ?page=0&size=10&sort=timestamp,desc)
      */
     @GetMapping("/index")
-    public List<ActivityLogResponse> index() {
-        return service.index();
+    public Page<ActivityLogResponse> index(Pageable pageable) {
+        return service.index(pageable);
     }
 
     /**

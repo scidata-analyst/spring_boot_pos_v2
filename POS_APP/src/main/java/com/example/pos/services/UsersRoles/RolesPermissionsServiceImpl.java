@@ -7,6 +7,8 @@ import com.example.pos.mappers.UsersRoles.RolesPermissionsMapper;
 import com.example.pos.repositories.UsersRoles.RolesPermissionsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +35,9 @@ public class RolesPermissionsServiceImpl implements RolesPermissionsService {
     }
 
     @Override
-    public List<RolesPermissionsResponse> index() {
-        return repository.index()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<RolesPermissionsResponse> index(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toResponse);
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.example.pos.mappers.UsersRoles.CashierAccountsMapper;
 import com.example.pos.repositories.UsersRoles.CashierAccountsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +35,9 @@ public class CashierAccountsServiceImpl implements CashierAccountsService {
     }
 
     @Override
-    public List<CashierAccountsResponse> index() {
-        return repository.index()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<CashierAccountsResponse> index(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toResponse);
     }
 
     @Override
