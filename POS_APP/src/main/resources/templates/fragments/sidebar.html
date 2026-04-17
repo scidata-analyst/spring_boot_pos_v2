@@ -1,0 +1,176 @@
+<nav id="sidebar" th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org">
+  <div class="sidebar-logo">
+    <div class="logo-mark">🛒</div>
+    <div class="logo-wordmark">Vanta<sub>POS System</sub></div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+
+    <!-- Dashboard -->
+    <div class="nav-item">
+      <a class="nav-link page-active" th:href="@{/}">
+        <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
+        <span>Dashboard</span>
+      </a>
+    </div>
+
+    <!-- POS -->
+    <div class="nav-item">
+      <a class="nav-link" th:href="@{/pos-terminal}">
+        <span class="nav-icon"><i class="bi bi-display"></i></span>
+        <span>POS Terminal</span>
+      </a>
+    </div>
+
+    <!-- Users -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
+        <span>Users & Roles</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/cashiers}">Cashier Accounts</a>
+        <a th:href="@{/roles}">Roles & Permissions</a>
+        <a th:href="@{/activity-log}">Activity Log</a>
+      </div>
+    </div>
+
+    <!-- Products -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span>
+        <span>Products</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/catalog}">Product Catalog</a>
+        <a th:href="@{/categories}">Categories</a>
+        <a th:href="@{/barcodes}">Barcode / SKU</a>
+        <a th:href="@{/batch-expiry}">Batch & Expiry</a>
+        <a th:href="@{/stock-movement}">Stock In / Out</a>
+      </div>
+    </div>
+
+    <!-- Sales -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-receipt-cutoff"></i></span>
+        <span>Sales & Billing</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/transactions}">Transactions</a>
+        <a th:href="@{/invoices}">Invoices / Receipts</a>
+        <a th:href="@{/held-orders}">Held Orders</a>
+        <a th:href="@{/returns}">Returns & Refunds</a>
+      </div>
+    </div>
+
+    <!-- Customers -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-person-heart"></i></span>
+        <span>Customers (CRM)</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/customers}">Customer Directory</a>
+        <a th:href="@{/purchase-history}">Purchase History</a>
+        <a th:href="@{/loyalty-points}">Loyalty Points</a>
+        <a th:href="@{/memberships}">Memberships / VIP</a>
+      </div>
+    </div>
+
+    <!-- Suppliers -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-truck"></i></span>
+        <span>Suppliers</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/suppliers}">Supplier Directory</a>
+        <a th:href="@{/purchase-orders}">Purchase Orders</a>
+        <a th:href="@{/restock-alerts}">Restock Alerts</a>
+        <a th:href="@{/supplier-payments}">Supplier Payments</a>
+      </div>
+    </div>
+
+    <!-- Accounting -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+        <span>Payment & Accounting</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/cash-register}">Cash Register</a>
+        <a th:href="@{/reconciliation}">Reconciliation</a>
+        <a th:href="@{/ap-ar}">AP / AR</a>
+        <a th:href="@{/tax-reports}">Tax Reports</a>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Reports</div>
+
+    <!-- Reports -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-bar-chart-fill"></i></span>
+        <span>Reports & Analytics</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/sales-report}">Sales Reports</a>
+        <a th:href="@{/stock-report}">Stock Reports</a>
+        <a th:href="@{/pl-report}">Profit & Loss</a>
+        <a th:href="@{/custom-report}">Custom Builder</a>
+      </div>
+    </div>
+
+    <!-- Promotions -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
+        <span>Promotions</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/offers}">Offers & Combos</a>
+        <a th:href="@{/coupons}">Coupon Codes</a>
+        <a th:href="@{/happy-hour}">Happy Hour</a>
+      </div>
+    </div>
+
+    <!-- Loyalty -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-star-fill"></i></span>
+        <span>Loyalty & Membership</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/points-config}">Points Config</a>
+        <a th:href="@{/tier-management}">Tier Management</a>
+        <a th:href="@{/retention}">Retention Tracking</a>
+      </div>
+    </div>
+
+    <!-- Hardware -->
+    <div class="nav-item">
+      <button class="nav-link" onclick="toggleMenu(this)">
+        <span class="nav-icon"><i class="bi bi-cpu-fill"></i></span>
+        <span>Hardware</span>
+        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="nav-submenu">
+        <a th:href="@{/devices}">Devices & Printers</a>
+        <a th:href="@{/cash-drawer}">Cash Drawer</a>
+        <a th:href="@{/qr-mobile}">QR / Mobile Pay</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
