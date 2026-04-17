@@ -14,6 +14,7 @@
 <body>
   <nav th:replace="~{fragments/sidebar :: sidebar}"></nav>
   <header th:replace="~{fragments/header :: header(pageTitle='AP / AR')}"></header>
+  
   <main id="main">
     <section class="page-section active">
       <div class="page-header">
@@ -97,6 +98,7 @@
       </div>
     </section>
   </main>
+
   <!-- Delete Confirm -->
   <div id="modal-delete" class="pos-modal-bg">
     <div class="pos-modal" style="max-width:380px">
@@ -114,7 +116,9 @@
       </div>
     </div>
   </div>
+
   <div class="toast-wrap" id="toast-container"></div>
+  
   <div id="modal-apar" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
       <div class="modal-hd">

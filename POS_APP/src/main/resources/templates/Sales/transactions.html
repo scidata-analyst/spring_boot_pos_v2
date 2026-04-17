@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,237 +8,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/pos-styles.css" />
-  <script>
-let delTarget = '';
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
-function toggleMenu(btn) {
-  const sub = btn.nextElementSibling;
-  const open = sub.classList.contains('open');
-  document.querySelectorAll('.nav-submenu.open').forEach(m => {
-    m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
-  });
-  if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
-}
-function openModal(id) { document.getElementById(id)?.classList.add('show'); }
-function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
-function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
-function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
-function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
-function showToast(msg, type = 'info') {
-  const t = document.createElement('div');
-  t.className = 'pos-toast ' + type;
-  const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
-  t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
-  document.getElementById('toast-container').appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
-  setTimeout(() => t.remove(), 2900);
-}
-function filterTable(input, tableId) {
-  const q = input.value.toLowerCase();
-  document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
-    r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
-}
-</script>
+
 </head>
+
 <body>
-  <nav id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">🛒</div>
-    <div class="logo-wordmark">Vanta<sub>POS System</sub></div>
-  </div>
+  <nav th:replace="~{fragments/sidebar :: sidebar}"></nav>
+  <header th:replace="~{fragments/header :: header(pageTitle='AP / AR')}"></header>
 
-  <div class="sidebar-nav">
-    <div class="nav-section-label">Main</div>
-
-    <!-- Dashboard -->
-    <div class="nav-item">
-      <a class="nav-link page-active" th:href="@{/}">
-        <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
-        <span>Dashboard</span>
-      </a>
-    </div>
-
-    <!-- POS -->
-    <div class="nav-item">
-      <a class="nav-link" th:href="@{/pos-terminal}">
-        <span class="nav-icon"><i class="bi bi-display"></i></span>
-        <span>POS Terminal</span>
-      </a>
-    </div>
-
-    <!-- Users -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
-        <span>Users & Roles</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/cashiers}">Cashier Accounts</a>
-        <a th:href="@{/roles}">Roles & Permissions</a>
-        <a th:href="@{/activity-log}">Activity Log</a>
-      </div>
-    </div>
-
-    <!-- Products -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-box-seam-fill"></i></span>
-        <span>Products</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/catalog}">Product Catalog</a>
-        <a th:href="@{/categories}">Categories</a>
-        <a th:href="@{/barcodes}">Barcode / SKU</a>
-        <a th:href="@{/batch-expiry}">Batch & Expiry</a>
-        <a th:href="@{/stock-movement}">Stock In / Out</a>
-      </div>
-    </div>
-
-    <!-- Sales -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-receipt-cutoff"></i></span>
-        <span>Sales & Billing</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/transactions}">Transactions</a>
-        <a th:href="@{/invoices}">Invoices / Receipts</a>
-        <a th:href="@{/held-orders}">Held Orders</a>
-        <a th:href="@{/returns}">Returns & Refunds</a>
-      </div>
-    </div>
-
-    <!-- Customers -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-person-heart"></i></span>
-        <span>Customers (CRM)</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/customers}">Customer Directory</a>
-        <a th:href="@{/purchase-history}">Purchase History</a>
-        <a th:href="@{/loyalty-points}">Loyalty Points</a>
-        <a th:href="@{/memberships}">Memberships / VIP</a>
-      </div>
-    </div>
-
-    <!-- Suppliers -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-truck"></i></span>
-        <span>Suppliers</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/suppliers}">Supplier Directory</a>
-        <a th:href="@{/purchase-orders}">Purchase Orders</a>
-        <a th:href="@{/restock-alerts}">Restock Alerts</a>
-        <a th:href="@{/supplier-payments}">Supplier Payments</a>
-      </div>
-    </div>
-
-    <!-- Accounting -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
-        <span>Payment & Accounting</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/cash-register}">Cash Register</a>
-        <a th:href="@{/reconciliation}">Reconciliation</a>
-        <a th:href="@{/ap-ar}">AP / AR</a>
-        <a th:href="@{/tax-reports}">Tax Reports</a>
-      </div>
-    </div>
-
-    <div class="nav-section-label">Reports</div>
-
-    <!-- Reports -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-bar-chart-fill"></i></span>
-        <span>Reports & Analytics</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/sales-report}">Sales Reports</a>
-        <a th:href="@{/stock-report}">Stock Reports</a>
-        <a th:href="@{/pl-report}">Profit & Loss</a>
-        <a th:href="@{/custom-report}">Custom Builder</a>
-      </div>
-    </div>
-
-    <!-- Promotions -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
-        <span>Promotions</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/offers}">Offers & Combos</a>
-        <a th:href="@{/coupons}">Coupon Codes</a>
-        <a th:href="@{/happy-hour}">Happy Hour</a>
-      </div>
-    </div>
-
-    <!-- Loyalty -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-star-fill"></i></span>
-        <span>Loyalty & Membership</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/points-config}">Points Config</a>
-        <a th:href="@{/tier-management}">Tier Management</a>
-        <a th:href="@{/retention}">Retention Tracking</a>
-      </div>
-    </div>
-
-    <!-- Hardware -->
-    <div class="nav-item">
-      <button class="nav-link" onclick="toggleMenu(this)">
-        <span class="nav-icon"><i class="bi bi-cpu-fill"></i></span>
-        <span>Hardware</span>
-        <span class="nav-arrow"><i class="bi bi-chevron-right"></i></span>
-      </button>
-      <div class="nav-submenu">
-        <a th:href="@{/devices}">Devices & Printers</a>
-        <a th:href="@{/cash-drawer}">Cash Drawer</a>
-        <a th:href="@{/qr-mobile}">QR / Mobile Pay</a>
-      </div>
-    </div>
-
-  </div>
-</nav>
-  <header id="header">
-    <button class="header-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
-    <div class="header-breadcrumb">
-      <i class="bi bi-shop" style="color:var(--amber)"></i>
-      <span class="hb-sep">/</span>
-      <span class="hb-current">Transactions</span>
-    </div>
-    <div class="header-search">
-      <span class="hs-icon"><i class="bi bi-search"></i></span>
-      <input type="text" placeholder="Search products, orders…" />
-    </div>
-    <div class="header-actions">
-      <div class="h-btn" title="Notifications"><i class="bi bi-bell"></i><span class="h-badge">3</span></div>
-      <div class="h-btn" title="Low Stock Alerts" onclick="location.href='../pages/restock-alerts.html'" style="cursor:pointer">
-        <i class="bi bi-exclamation-triangle"></i><span class="h-badge" style="background:var(--amber)">5</span>
-      </div>
-      <button class="h-pos-btn" onclick="location.href='../pages/pos-terminal.html'">
-        <i class="bi bi-display"></i> Open POS
-      </button>
-    </div>
-  </header>
   <main id="main">
     <section class="page-section active">
       <div class="page-header">
@@ -246,20 +23,154 @@ function filterTable(input, tableId) {
           <div class="page-subtitle">All completed sales transactions</div>
         </div>
         <div class="d-flex gap-2">
-          <input type="date" class="pos-input" style="width:150px" value="2025-01-12" /><button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button>
-          
+          <input type="date" class="pos-input" style="width:150px" value="2025-01-12" /><button
+            class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button>
+
         </div>
-      </div><div class="row g-3 mb-3"><div class="col-md-3"><div class="kpi-card kc-amber"><div class="kc-icon"><i class="bi bi-cash"></i></div><div class="kc-value">$3,840</div><div class="kc-label">Cash Sales</div><div class="kc-stripe"></div></div></div><div class="col-md-3"><div class="kpi-card kc-sky"><div class="kc-icon"><i class="bi bi-credit-card"></i></div><div class="kc-value">$2,920</div><div class="kc-label">Card Sales</div><div class="kc-stripe"></div></div></div><div class="col-md-3"><div class="kpi-card kc-teal"><div class="kc-icon"><i class="bi bi-phone"></i></div><div class="kc-value">$1,340</div><div class="kc-label">Mobile Pay</div><div class="kc-stripe"></div></div></div><div class="col-md-3"><div class="kpi-card kc-rose"><div class="kc-icon"><i class="bi bi-arrow-return-left"></i></div><div class="kc-value">$320</div><div class="kc-label">Returns</div><div class="kc-stripe"></div></div></div></div>      <div class="pos-card">
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-3">
+          <div class="kpi-card kc-amber">
+            <div class="kc-icon"><i class="bi bi-cash"></i></div>
+            <div class="kc-value">$3,840</div>
+            <div class="kc-label">Cash Sales</div>
+            <div class="kc-stripe"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="kpi-card kc-sky">
+            <div class="kc-icon"><i class="bi bi-credit-card"></i></div>
+            <div class="kc-value">$2,920</div>
+            <div class="kc-label">Card Sales</div>
+            <div class="kc-stripe"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="kpi-card kc-teal">
+            <div class="kc-icon"><i class="bi bi-phone"></i></div>
+            <div class="kc-value">$1,340</div>
+            <div class="kc-label">Mobile Pay</div>
+            <div class="kc-stripe"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="kpi-card kc-rose">
+            <div class="kc-icon"><i class="bi bi-arrow-return-left"></i></div>
+            <div class="kc-value">$320</div>
+            <div class="kc-label">Returns</div>
+            <div class="kc-stripe"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text" placeholder="Search transaction ID, customer…" oninput="filterTable(this,'tbl-txn')" /></div>
-          <select class="pos-input" style="width:130px"><option>All Methods</option><option>Cash</option><option>Card</option><option>bKash</option><option>Nagad</option></select>
-        </div><div class="pos-table-wrap">
-      <table class="pos-table" id="tbl-txn">
-        <thead><tr><th>TXN #</th><th>Time</th><th>Customer</th><th>Items</th><th>Subtotal</th><th>Discount</th><th>Tax</th><th>Total</th><th>Method</th><th>Cashier</th><th>Actions</th></tr></thead>
-        <tbody><tr><td>#TXN-8841</td><td>14:32</td><td>Walk-in</td><td>3</td><td>$42.00</td><td>—</td><td>$6.30</td><td>$48.50</td><td><span class="pos-badge pb-teal">Cash</span></td><td>Sara</td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i class="bi bi-arrow-return-left"></i></button></div></td></tr><tr><td>#TXN-8840</td><td>14:24</td><td>Rina Ahmed</td><td>2</td><td>$107.83</td><td>$15.00</td><td>$13.90</td><td>$124.00</td><td><span class="pos-badge pb-sky">Card</span></td><td>Rafi</td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i class="bi bi-arrow-return-left"></i></button></div></td></tr><tr><td>#TXN-8839</td><td>14:17</td><td>Walk-in</td><td>1</td><td>$19.13</td><td>—</td><td>$2.87</td><td>$22.00</td><td><span class="pos-badge pb-amber">bKash</span></td><td>Sara</td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i class="bi bi-arrow-return-left"></i></button></div></td></tr><tr><td>#TXN-8838</td><td>14:02</td><td>Karim Hossain</td><td>4</td><td>$88.00</td><td>$10.00</td><td>$11.70</td><td>$95.20</td><td><span class="pos-badge pb-violet">Nagad</span></td><td>Rafi</td><td><div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i class="bi bi-arrow-return-left"></i></button></div></td></tr></tbody>
-      </table>
-    </div>
-    <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button class="pg-n"><i class="bi bi-chevron-right"></i></button></div></div></section>
+          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
+              placeholder="Search transaction ID, customer…" oninput="filterTable(this,'tbl-txn')" /></div>
+          <select class="pos-input" style="width:130px">
+            <option>All Methods</option>
+            <option>Cash</option>
+            <option>Card</option>
+            <option>bKash</option>
+            <option>Nagad</option>
+          </select>
+        </div>
+        <div class="pos-table-wrap">
+          <table class="pos-table" id="tbl-txn">
+            <thead>
+              <tr>
+                <th>TXN #</th>
+                <th>Time</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Subtotal</th>
+                <th>Discount</th>
+                <th>Tax</th>
+                <th>Total</th>
+                <th>Method</th>
+                <th>Cashier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#TXN-8841</td>
+                <td>14:32</td>
+                <td>Walk-in</td>
+                <td>3</td>
+                <td>$42.00</td>
+                <td>—</td>
+                <td>$6.30</td>
+                <td>$48.50</td>
+                <td><span class="pos-badge pb-teal">Cash</span></td>
+                <td>Sara</td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i
+                        class="bi bi-arrow-return-left"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>#TXN-8840</td>
+                <td>14:24</td>
+                <td>Rina Ahmed</td>
+                <td>2</td>
+                <td>$107.83</td>
+                <td>$15.00</td>
+                <td>$13.90</td>
+                <td>$124.00</td>
+                <td><span class="pos-badge pb-sky">Card</span></td>
+                <td>Rafi</td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i
+                        class="bi bi-arrow-return-left"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>#TXN-8839</td>
+                <td>14:17</td>
+                <td>Walk-in</td>
+                <td>1</td>
+                <td>$19.13</td>
+                <td>—</td>
+                <td>$2.87</td>
+                <td>$22.00</td>
+                <td><span class="pos-badge pb-amber">bKash</span></td>
+                <td>Sara</td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i
+                        class="bi bi-arrow-return-left"></i></button></div>
+                </td>
+              </tr>
+              <tr>
+                <td>#TXN-8838</td>
+                <td>14:02</td>
+                <td>Karim Hossain</td>
+                <td>4</td>
+                <td>$88.00</td>
+                <td>$10.00</td>
+                <td>$11.70</td>
+                <td>$95.20</td>
+                <td><span class="pos-badge pb-violet">Nagad</span></td>
+                <td>Rafi</td>
+                <td>
+                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
+                      onclick="openModal('modal-receipt')"><i class="bi bi-receipt"></i></button><button
+                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="openModal('modal-return')"><i
+                        class="bi bi-arrow-return-left"></i></button></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
+            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+      </div>
+    </section>
   </main>
 
   <!-- Delete Confirm -->
@@ -270,7 +181,8 @@ function filterTable(input, tableId) {
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
@@ -282,55 +194,67 @@ function filterTable(input, tableId) {
 
   <div id="modal-receipt" class="pos-modal-bg">
     <div class="pos-modal" style="max-width:360px">
-      <div class="modal-hd"><div class="modal-hd-title">🧾 Receipt Preview</div><div class="modal-x" onclick="closeModal('modal-receipt')">×</div></div>
+      <div class="modal-hd">
+        <div class="modal-hd-title">🧾 Receipt Preview</div>
+        <div class="modal-x" onclick="closeModal('modal-receipt')">×</div>
+      </div>
       <div class="modal-body">
         <div class="receipt-preview">
-          <div class="rp-header"><div class="rp-store">VANTA RETAIL</div><div style="font-size:10px">Main Branch · 123 Market Street</div></div>
-          <div class="rp-divider"></div><div style="font-size:10px;margin-bottom:6px">TXN: #TXN-8841 · Jan 12, 2025 14:32<br>Cashier: Sara · Counter 1</div><div class="rp-divider"></div>
+          <div class="rp-header">
+            <div class="rp-store">VANTA RETAIL</div>
+            <div style="font-size:10px">Main Branch · 123 Market Street</div>
+          </div>
+          <div class="rp-divider"></div>
+          <div style="font-size:10px;margin-bottom:6px">TXN: #TXN-8841 · Jan 12, 2025 14:32<br>Cashier: Sara · Counter 1
+          </div>
+          <div class="rp-divider"></div>
           <div class="rp-row"><span>Cold Brew Coffee x2</span><span>$8.00</span></div>
           <div class="rp-row"><span>Cadbury Chocolate x3</span><span>$4.50</span></div>
           <div class="rp-divider"></div>
-          <div class="rp-row"><span>Subtotal</span><span>$21.50</span></div><div class="rp-row"><span>Tax</span><span>$2.58</span></div>
-          <div class="rp-divider"></div><div class="rp-row rp-total"><span>TOTAL</span><span>$48.50</span></div>
+          <div class="rp-row"><span>Subtotal</span><span>$21.50</span></div>
+          <div class="rp-row"><span>Tax</span><span>$2.58</span></div>
+          <div class="rp-divider"></div>
+          <div class="rp-row rp-total"><span>TOTAL</span><span>$48.50</span></div>
           <div class="rp-footer">Thank you for shopping at Vanta!</div>
         </div>
       </div>
-      <div class="modal-ft"><button class="btn-pos btn-outline-dark" onclick="closeModal('modal-receipt')">Close</button><button class="btn-pos btn-amber" onclick="showToast('Printing…','info')"><i class="bi bi-printer"></i> Print</button></div>
+      <div class="modal-ft"><button class="btn-pos btn-outline-dark"
+          onclick="closeModal('modal-receipt')">Close</button><button class="btn-pos btn-amber"
+          onclick="showToast('Printing…','info')"><i class="bi bi-printer"></i> Print</button></div>
     </div>
   </div>
   <div id="modal-return" class="pos-modal-bg">
     <div class="pos-modal">
-      <div class="modal-hd"><div class="modal-hd-title">↩ Process Return / Refund</div><div class="modal-x" onclick="closeModal('modal-return')">×</div></div>
+      <div class="modal-hd">
+        <div class="modal-hd-title">↩ Process Return / Refund</div>
+        <div class="modal-x" onclick="closeModal('modal-return')">×</div>
+      </div>
       <div class="modal-body">
         <div class="row g-3">
-          <div class="col-md-6"><label class="pos-label">Transaction #</label><input class="pos-input" value="#TXN-8841" /></div>
-          <div class="col-md-6"><label class="pos-label">Return Reason</label><select class="pos-input"><option>Defective Product</option><option>Wrong Item</option><option>Customer Changed Mind</option></select></div>
-          <div class="col-md-6"><label class="pos-label">Refund Method</label><select class="pos-input"><option>Original Payment</option><option>Cash</option><option>Store Credit</option></select></div>
-          <div class="col-md-6"><label class="pos-label">Refund Amount ($)</label><input class="pos-input" type="number" /></div>
+          <div class="col-md-6"><label class="pos-label">Transaction #</label><input class="pos-input"
+              value="#TXN-8841" /></div>
+          <div class="col-md-6"><label class="pos-label">Return Reason</label><select class="pos-input">
+              <option>Defective Product</option>
+              <option>Wrong Item</option>
+              <option>Customer Changed Mind</option>
+            </select></div>
+          <div class="col-md-6"><label class="pos-label">Refund Method</label><select class="pos-input">
+              <option>Original Payment</option>
+              <option>Cash</option>
+              <option>Store Credit</option>
+            </select></div>
+          <div class="col-md-6"><label class="pos-label">Refund Amount ($)</label><input class="pos-input"
+              type="number" /></div>
         </div>
       </div>
-      <div class="modal-ft"><button class="btn-pos btn-outline-dark" onclick="closeModal('modal-return')">Cancel</button><button class="btn-pos btn-amber" onclick="saveForm('modal-return')"><i class="bi bi-check2"></i> Process Return</button></div>
+      <div class="modal-ft"><button class="btn-pos btn-outline-dark"
+          onclick="closeModal('modal-return')">Cancel</button><button class="btn-pos btn-amber"
+          onclick="saveForm('modal-return')"><i class="bi bi-check2"></i> Process Return</button></div>
     </div>
   </div>
 
-  <script>
-    document.querySelectorAll('.pos-modal-bg').forEach(m =>
-      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
-    );
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
-    });
-    document.querySelectorAll('.pos-pagination').forEach(pg => {
-      pg.addEventListener('click', e => {
-        const btn = e.target.closest('.pg-n');
-        if (btn && !btn.querySelector('.bi-chevron-right')) {
-          pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        }
-      });
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <div th:insert="~{fragments/scripts :: scripts}"></div>
 
 </body>
+
 </html>
