@@ -322,62 +322,64 @@
               <option>Nov 2024</option>
             </select></div>
           <div class="col-md-6"><label class="pos-label">Tax Authority</label><input class="pos-input" type="text"
-              placeholder=" /></div></div></div>
-      <div class=" modal-ft">
-            <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-tax')">Cancel</button>
-            <button class="btn-pos btn-amber" onclick="saveForm('modal-tax')"><i class="bi bi-check2"></i> Save</button>
-          </div>
+              placeholder="" /></div>
         </div>
       </div>
+      <div class=" modal-ft">
+        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-tax')">Cancel</button>
+        <button class="btn-pos btn-amber" onclick="saveForm('modal-tax')"><i class="bi bi-check2"></i> Save</button>
+      </div>
+    </div>
+  </div>
 
-      <script>
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
-        function toggleMenu(btn) {
-          const sub = btn.nextElementSibling;
-          const open = sub.classList.contains('open');
-          document.querySelectorAll('.nav-submenu.open').forEach(m => {
-            m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
-          });
-          if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+    function toggleMenu(btn) {
+      const sub = btn.nextElementSibling;
+      const open = sub.classList.contains('open');
+      document.querySelectorAll('.nav-submenu.open').forEach(m => {
+        m.classList.remove('open'); m.previousElementSibling.classList.remove('open');
+      });
+      if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
+    }
+    function openModal(id) { document.getElementById(id)?.classList.add('show'); }
+    function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
+    document.querySelectorAll('.pos-modal-bg').forEach(m =>
+      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
+    });
+    let delTarget = '';
+    function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
+    function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
+    function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
+    function showToast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = 'pos-toast ' + type;
+      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+      t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
+      document.getElementById('toast-container').appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
+      setTimeout(() => t.remove(), 2900);
+    }
+    function filterTable(input, tableId) {
+      const q = input.value.toLowerCase();
+      document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+    document.querySelectorAll('.pos-pagination').forEach(pg => {
+      pg.addEventListener('click', e => {
+        const btn = e.target.closest('.pg-n');
+        if (btn && !btn.querySelector('.bi-chevron-right')) {
+          pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
         }
-        function openModal(id) { document.getElementById(id)?.classList.add('show'); }
-        function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
-        document.querySelectorAll('.pos-modal-bg').forEach(m =>
-          m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
-        );
-        document.addEventListener('keydown', e => {
-          if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
-        });
-        let delTarget = '';
-        function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
-        function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
-        function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
-        function showToast(msg, type = 'info') {
-          const t = document.createElement('div');
-          t.className = 'pos-toast ' + type;
-          const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
-          t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
-          document.getElementById('toast-container').appendChild(t);
-          setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
-          setTimeout(() => t.remove(), 2900);
-        }
-        function filterTable(input, tableId) {
-          const q = input.value.toLowerCase();
-          document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
-            r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
-          });
-        }
-        document.querySelectorAll('.pos-pagination').forEach(pg => {
-          pg.addEventListener('click', e => {
-            const btn = e.target.closest('.pg-n');
-            if (btn && !btn.querySelector('.bi-chevron-right')) {
-              pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
-              btn.classList.add('active');
-            }
-          });
-        });
-      </script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
