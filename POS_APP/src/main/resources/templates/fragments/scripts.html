@@ -363,6 +363,39 @@
             }
         }
     }
+    // --- GLOBAL RELATION AUTO-POPULATOR --- //
+    document.addEventListener("DOMContentLoaded", async () => {
+        const relationMap = {
+            'categoryId': { api: '/api/Products/Categories/all', text: 'name', val: 'name' }, // Using 'name' since ProductCatalog DTO uses string for category
+            'productId': { api: '/api/Products/ProductCatalog/all', text: 'name', val: 'id' },
+            'roleId': { api: '/api/UsersRoles/RolesPermissions/all', text: 'roleName', val: 'id' },
+            'loyaltyTier': { api: '/api/LoyaltyMembership/TierManagement/all', text: 'tierName', val: 'tierName' }
+        };
+
+        for (const [selectName, config] of Object.entries(relationMap)) {
+            const selects = document.querySelectorAll(`select[name="${selectName}"]`);
+            if (selects.length > 0) {
+                try {
+                    const data = await posApiClient.get(config.api);
+                    selects.forEach(sel => {
+                        const hasPlaceholder = sel.options.length > 0 && String(sel.options[0].value).trim() === "";
+                        let placeholderTxt = hasPlaceholder ? sel.options[0].text : `Select...`;
+                        
+                        sel.innerHTML = `<option value="">${placeholderTxt}</option>`;
+                        data.forEach(item => {
+                            const opt = document.createElement('option');
+                            opt.value = item[config.val];
+                            opt.text = item[config.text];
+                            sel.appendChild(opt);
+                        });
+                    });
+                } catch(e) {
+                    console.error('Failed to load relations for ' + selectName, e);
+                }
+            }
+        }
+    });
+
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>
