@@ -396,6 +396,46 @@
         }
     });
 
+    /** --- ACTIVE SIDEBAR LINK HIGHLIGHTER --- */
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname;
+        const sidebar = document.getElementById('sidebar');
+        if(!sidebar) return;
+
+        /** Clear hardcoded active marks */
+        sidebar.querySelectorAll('.page-active').forEach(el => el.classList.remove('page-active'));
+
+        let matched = false;
+        const links = sidebar.querySelectorAll('a');
+        
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if(!href) return;
+            
+            /** Exact match for root, or startsWith for other paths */
+            if(currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
+                link.classList.add('page-active');
+                matched = true;
+
+                /** Expand parent submenu if exists */
+                const submenu = link.closest('.nav-submenu');
+                if(submenu) {
+                    submenu.classList.add('open');
+                    const parentBtn = submenu.previousElementSibling;
+                    if(parentBtn && parentBtn.classList.contains('nav-link')) {
+                        parentBtn.classList.add('open');
+                    }
+                }
+            }
+        });
+        
+        /** Fallback to dashboard */
+        if(!matched && currentPath === '/') {
+            const dash = sidebar.querySelector('a[href="/"]');
+            if(dash) dash.classList.add('page-active');
+        }
+    });
+
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>
