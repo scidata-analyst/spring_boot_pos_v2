@@ -44,7 +44,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-amber">
               <div class="kc-icon"><i class="bi bi-currency-dollar"></i></div>
-              <div class="kc-value">$8,420</div>
+              <div class="kc-value" id="kpi-revenue">$8,420</div>
               <div class="kc-label">Today's Revenue</div>
               <div class="kc-change up">
                 <i class="bi bi-arrow-up-right"></i> +14.2%
@@ -55,7 +55,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-teal">
               <div class="kc-icon"><i class="bi bi-bag-check-fill"></i></div>
-              <div class="kc-value">184</div>
+              <div class="kc-value" id="kpi-transactions">184</div>
               <div class="kc-label">Transactions</div>
               <div class="kc-change up">
                 <i class="bi bi-arrow-up-right"></i> +8.1%
@@ -66,7 +66,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-sky">
               <div class="kc-icon"><i class="bi bi-people-fill"></i></div>
-              <div class="kc-value">67</div>
+              <div class="kc-value" id="kpi-customers">67</div>
               <div class="kc-label">Customers Today</div>
               <div class="kc-change up">
                 <i class="bi bi-arrow-up-right"></i> +5.3%
@@ -77,7 +77,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-green">
               <div class="kc-icon"><i class="bi bi-graph-up-arrow"></i></div>
-              <div class="kc-value">$45.76</div>
+              <div class="kc-value" id="kpi-avg-basket">$45.76</div>
               <div class="kc-label">Avg. Basket Value</div>
               <div class="kc-change up">
                 <i class="bi bi-arrow-up-right"></i> +3.1%
@@ -88,7 +88,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-rose">
               <div class="kc-icon"><i class="bi bi-arrow-return-left"></i></div>
-              <div class="kc-value">6</div>
+              <div class="kc-value" id="kpi-returns">6</div>
               <div class="kc-label">Returns Today</div>
               <div class="kc-change down">
                 <i class="bi bi-arrow-up-right"></i> +2
@@ -99,7 +99,7 @@
           <div class="col-xl-2 col-md-4 col-6">
             <div class="kpi-card kc-violet">
               <div class="kc-icon"><i class="bi bi-star-fill"></i></div>
-              <div class="kc-value">342</div>
+              <div class="kc-value" id="kpi-loyalty">342</div>
               <div class="kc-label">Loyalty Members</div>
               <div class="kc-change up">
                 <i class="bi bi-arrow-up-right"></i> +12
@@ -447,5 +447,23 @@
     <div class="toast-wrap" id="toast-container"></div>
 
     <div th:insert="~{fragments/scripts :: scripts}"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        posApiClient.get('/api/Dashboard/index')
+          .then(resp => {
+            const data = Array.isArray(resp) ? resp[0] : resp;
+            if (!data) return;
+            // Populate KPI cards if the backend returns aggregated fields
+            const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+            if (data.todayRevenue   !== undefined) setEl('kpi-revenue',      '$' + Number(data.todayRevenue).toLocaleString());
+            if (data.transactions   !== undefined) setEl('kpi-transactions', data.transactions);
+            if (data.customersToday !== undefined) setEl('kpi-customers',    data.customersToday);
+            if (data.avgBasket      !== undefined) setEl('kpi-avg-basket',   '$' + Number(data.avgBasket).toFixed(2));
+            if (data.returnsToday   !== undefined) setEl('kpi-returns',      data.returnsToday);
+            if (data.loyaltyMembers !== undefined) setEl('kpi-loyalty',      data.loyaltyMembers);
+          })
+          .catch(() => {}); // silently ignore — static values remain as fallback
+      });
+    </script>
   </body>
 </html>

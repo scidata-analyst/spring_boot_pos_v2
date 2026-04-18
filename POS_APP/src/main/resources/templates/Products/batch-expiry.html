@@ -23,79 +23,39 @@
           <div class="page-subtitle">Track product batches, manufacturing and expiry dates</div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> <button
-            class="btn-pos btn-amber" onclick="openModal('modal-batch')"><i class="bi bi-plus-lg"></i> Add
+          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> 
+          <button class="btn-pos btn-amber" onclick="openModal('modal-batch')"><i class="bi bi-plus-lg"></i> Add
             Batch</button>
-
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search batch & expiry…" oninput="filterTable(this,'tbl-batch-expiry')" /></div>
-
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search batch & expiry…" oninput="window.tbl_batch_expiry_obj.handleSearch(this.value)" />
+          </div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-batch-expiry">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Batch #</th>
-                <th>Qty</th>
-                <th>Mfg Date</th>
-                <th>Expiry Date</th>
-                <th>Status</th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('productId')" style="cursor:pointer">Product <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('batchNumber')" style="cursor:pointer">Batch # <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('quantity')" style="cursor:pointer">Qty <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('manufacturingDate')" style="cursor:pointer">Mfg Date <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('expiryDate')" style="cursor:pointer">Expiry Date <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_batch_expiry_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Cold Brew Coffee</td>
-                <td>BATCH-2025-001</td>
-                <td>200</td>
-                <td>2025-01-01</td>
-                <td>2025-04-01</td>
-                <td><span class="pos-badge pb-teal">OK</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-batch')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Batch')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Dove Body Lotion</td>
-                <td>BATCH-2024-088</td>
-                <td>80</td>
-                <td>2024-12-01</td>
-                <td>2025-06-01</td>
-                <td><span class="pos-badge pb-teal">OK</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-batch')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Batch')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Cadbury Chocolate</td>
-                <td>BATCH-2024-072</td>
-                <td>500</td>
-                <td>2024-11-15</td>
-                <td>2025-02-15</td>
-                <td><span class="pos-badge pb-amber">Expiring Soon</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-batch')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Batch')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="tbl-batch-expiry-pagination">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </section>
   </main>
@@ -108,7 +68,7 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target"
             style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
@@ -121,33 +81,119 @@
 
   <div id="modal-batch" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
-      <div class="modal-hd">
-        <div class="modal-hd-title">Add Batch — Batch & Expiry</div>
-        <div class="modal-x" onclick="closeModal('modal-batch')">×</div>
-      </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-md-6"><label class="pos-label">Product</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-6"><label class="pos-label">Batch #</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Quantity</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Mfg Date</label><input class="pos-input" type="date"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Expiry
-              Date</label><input class="pos-input" type="date" placeholder="" /></div>
+      <form id="batchForm" onsubmit="submitPosForm(event, '/api/Products/BatchExpiry/create', () => window.tbl_batch_expiry_obj.load())">
+        <div class="modal-hd">
+          <div class="modal-hd-title">Add Batch — Batch & Expiry</div>
+          <div class="modal-x" onclick="closeModal('modal-batch')">×</div>
         </div>
-      </div>
-      <div class=" modal-ft">
-        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-batch')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-batch')"><i class="bi bi-check2"></i>
-          Save</button>
-      </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="pos-label">Product</label>
+              <select name="productId" class="pos-input">
+                <option value="1">Cold Brew Coffee</option>
+                <option value="2">Dove Body Lotion</option>
+                <option value="3">Cadbury Chocolate</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="pos-label">Batch #</label>
+              <input name="batchNumber" class="pos-input" type="text" placeholder="" />
+            </div>
+            <div class="col-md-3">
+              <label class="pos-label">Quantity</label>
+              <input name="quantity" class="pos-input" type="number" placeholder="" />
+            </div>
+            <div class="col-md-3">
+              <label class="pos-label">Mfg Date</label>
+              <input name="manufacturingDate" class="pos-input" type="date" placeholder="" />
+            </div>
+            <div class="col-md-3">
+              <label class="pos-label">Expiry Date</label>
+              <input name="expiryDate" class="pos-input" type="date" placeholder="" />
+            </div>
+            <div class="col-md-3">
+              <label class="pos-label">Status</label>
+              <select name="status" class="pos-input">
+                <option value="OK">OK</option>
+                <option value="EXPIRING_SOON">Expiring Soon</option>
+                <option value="EXPIRED">Expired</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button type="button" class="btn-pos btn-outline-dark" onclick="closeModal('modal-batch')">Cancel</button>
+          <button type="submit" class="btn-pos btn-amber"><i class="bi bi-check2"></i> Save</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <div th:insert="~{fragments/scripts :: scripts}"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_batch_expiry_obj = new PosTable({
+            tableId: 'tbl-batch-expiry',
+            apiEndpoint: '/api/Products/BatchExpiry/index',
+            columns: [
+                { key: 'productId', format: (val) => val === 1 ? 'Cold Brew Coffee' : val === 2 ? 'Dove Body Lotion' : val === 3 ? 'Cadbury Chocolate' : val },
+                { key: 'batchNumber' },
+                { key: 'quantity' },
+                { key: 'manufacturingDate' },
+                { key: 'expiryDate' },
+                { key: 'status', format: (val) => {
+                    if(val === 'OK') return '<span class="pos-badge pb-teal">OK</span>';
+                    if(val === 'EXPIRING_SOON') return '<span class="pos-badge pb-amber">Expiring Soon</span>';
+                    return '<span class="pos-badge pb-rose">Expired</span>';
+                }}
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="editBatch(${row.id})"><i class="bi bi-pencil"></i></button>
+                <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Batch ${row.batchNumber}', ${row.id}, (id) => posApiClient.delete('/api/Products/BatchExpiry/delete/' + id).then(() => window.tbl_batch_expiry_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_batch_expiry_obj.load();
+    });
+
+    async function editBatch(id) {
+        try {
+            const data = await posApiClient.get(`/api/Products/BatchExpiry/view/${id}`);
+            const form = document.getElementById('batchForm');
+            form.onsubmit = (e) => submitPosForm(e, '/api/Products/BatchExpiry/update', () => window.tbl_batch_expiry_obj.load(), true);
+            
+            let idParam = form.querySelector('[name="id"]');
+            if(!idParam) {
+               idParam = document.createElement('input');
+               idParam.type = 'hidden';
+               idParam.name = 'id';
+               form.appendChild(idParam);
+            }
+            idParam.value = data.id;
+
+            Object.keys(data).forEach(key => {
+               const el = form.querySelector(`[name="${key}"]`);
+               if(el) el.value = data[key];
+            });
+            openModal('modal-batch');
+        } catch(e) {
+            showToast('Failed to load batch details', 'error');
+        }
+    }
+    
+    const originalOpenModalBatch = window.openModal;
+    window.openModal = function(id) {
+        if(id === 'modal-batch') {
+            const form = document.getElementById('batchForm');
+            form.reset();
+            form.onsubmit = (e) => submitPosForm(e, '/api/Products/BatchExpiry/create', () => window.tbl_batch_expiry_obj.load(), false);
+            let idParam = form.querySelector('[name="id"]');
+            if(idParam) idParam.remove();
+        }
+        originalOpenModalBatch(id);
+    };
+  </script>
 </body>
 
 </html>

@@ -24,61 +24,33 @@
         </div>
         <div class="d-flex gap-2">
           <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button>
-
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search retention tracking…" oninput="filterTable(this,'tbl-retention')" /></div>
-
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search retention tracking…" oninput="window.tbl_ret_obj.handleSearch(this.value)" />
+          </div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-retention">
             <thead>
               <tr>
-                <th>Customer</th>
-                <th>Last Visit</th>
-                <th>Visit Frequency</th>
-                <th>Total Spent</th>
-                <th>Loyalty Tier</th>
-                <th>Risk Level</th>
+                <th onclick="window.tbl_ret_obj.setSort('customerId')" style="cursor:pointer">Customer ID <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_ret_obj.setSort('lastPurchaseDate')" style="cursor:pointer">Last Purchase <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_ret_obj.setSort('daysSinceLastPurchase')" style="cursor:pointer">Days Since <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_ret_obj.setSort('churnRisk')" style="cursor:pointer">Churn Risk <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_ret_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Rina Ahmed</td>
-                <td>Jan 12</td>
-                <td>2.3x/week</td>
-                <td>$1,840</td>
-                <td>Gold</td>
-                <td><span class="pos-badge pb-amber">Low</span></td>
-                <td><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"><i class="bi bi-eye"></i></button></td>
-              </tr>
-              <tr>
-                <td>Karim Hossain</td>
-                <td>Jan 10</td>
-                <td>1x/week</td>
-                <td>$620</td>
-                <td>Silver</td>
-                <td><span class="pos-badge pb-amber">Low</span></td>
-                <td><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"><i class="bi bi-eye"></i></button></td>
-              </tr>
-              <tr>
-                <td>Taufiq Hasan</td>
-                <td>Nov 20</td>
-                <td>—</td>
-                <td>$280</td>
-                <td>Bronze</td>
-                <td><span class="pos-badge pb-amber">At Risk</span></td>
-                <td><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"><i class="bi bi-eye"></i></button></td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="tbl-retention-pagination"></div>
       </div>
     </section>
   </main>
@@ -91,8 +63,7 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
-            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
@@ -102,9 +73,32 @@
   </div>
   <div class="toast-wrap" id="toast-container"></div>
 
-
   <div th:insert="~{fragments/scripts :: scripts}"></div>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_ret_obj = new PosTable({
+            tableId: 'tbl-retention',
+            apiEndpoint: '/api/LoyaltyMembership/RetentionTracking/index',
+            columns: [
+                { key: 'customerId', format: (val) => '#' + val },
+                { key: 'lastPurchaseDate', format: (val) => val ? new Date(val).toLocaleDateString() : '—' },
+                { key: 'daysSinceLastPurchase', format: (val) => val + ' days' },
+                { key: 'churnRisk', format: (val) => {
+                    const cls = val === 'Low' ? 'pb-green' : val === 'Medium' ? 'pb-amber' : 'pb-rose';
+                    return `<span class="pos-badge ${cls}">${val}</span>`;
+                }},
+                { key: 'status', format: (val) => {
+                    const cls = val === 'Active' ? 'pb-green' : 'pb-gray';
+                    return `<span class="pos-badge ${cls}">${val}</span>`;
+                }}
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="confirmDel('Record', ${row.id}, (id) => posApiClient.delete('/api/LoyaltyMembership/RetentionTracking/delete/' + id).then(() => window.tbl_ret_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_ret_obj.load();
+    });
+  </script>
 </body>
 
 </html>

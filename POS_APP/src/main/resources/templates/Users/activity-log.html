@@ -18,64 +18,53 @@
       <div class="page-header">
         <div>
           <div class="page-title">Activity Log</div>
-          <div class="page-subtitle">Track all user logins and cashier actions</div>
+          <div class="page-subtitle">Track all user logins and actions</div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-pos btn-outline-dark" onclick="exportData()"><i class="bi bi-download"></i> Export</button>
+          <button class="btn-pos btn-outline-dark" onclick="openModal('modal-actlog')"><i class="bi bi-download"></i> Export</button>
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              id="searchInput" placeholder="Search activity log…" oninput="handleSearch()" /></div>
-          <select class="pos-input" id="moduleFilter" style="width:150px" onchange="handleFilter()">
-            <option value="">All Modules</option>
-            <option value="Sales">Sales</option>
-            <option value="Users">Users</option>
-            <option value="Products">Products</option>
-            <option value="Suppliers">Suppliers</option>
-          </select>
-          <select class="pos-input" id="actionFilter" style="width:150px" onchange="handleFilter()">
-            <option value="">All Actions</option>
-            <option value="CREATE">Created</option>
-            <option value="UPDATE">Updated</option>
-            <option value="DELETE">Deleted</option>
-            <option value="LOGIN">Login</option>
-          </select>
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search activity log…" oninput="window.tbl_activity_obj.handleSearch(this.value)" />
+          </div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-activity-log">
             <thead>
               <tr>
-                <th>Timestamp</th>
-                <th>User</th>
-                <th>Action</th>
-                <th>Details</th>
-                <th>IP Address</th>
+                <th onclick="window.tbl_activity_obj.setSort('timestamp')" style="cursor:pointer">Timestamp <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_activity_obj.setSort('userId')" style="cursor:pointer">User <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_activity_obj.setSort('module')" style="cursor:pointer">Module <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_activity_obj.setSort('action')" style="cursor:pointer">Action <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_activity_obj.setSort('description')" style="cursor:pointer">Details <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_activity_obj.setSort('ipAddress')" style="cursor:pointer">IP Address <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="activity-tbody">
-              <!-- Data loaded via API -->
+            <tbody>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination" id="pagination">
-          <!-- Pagination loaded via API -->
+        <div class="pos-pagination" id="tbl-activity-log-pagination">
+          <!-- Dynamically populated -->
         </div>
       </div>
     </section>
   </main>
 
-   <!-- Delete Confirm -->
-   <div id="modal-delete" class="pos-modal-bg" style="display:none;">
+  <!-- Delete Confirm -->
+  <div id="modal-delete" class="pos-modal-bg">
     <div class="pos-modal" style="max-width:380px">
       <div class="modal-hd">
         <div class="modal-hd-title" style="color:var(--rose)"><i class="bi bi-trash3 me-2"></i>Confirm Delete</div>
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target"
             style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
@@ -86,8 +75,8 @@
   </div>
   <div class="toast-wrap" id="toast-container"></div>
 
-   <!-- Export Modal (Placeholder) -->
-   <div id="modal-actlog" class="pos-modal-bg" style="display:none;">
+  <!-- Export Modal -->
+  <div id="modal-actlog" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
       <div class="modal-hd">
         <div class="modal-hd-title">Export Activity Log</div>
@@ -124,227 +113,35 @@
   <div th:insert="~{fragments/scripts :: scripts}"></div>
 
   <script>
-    /**
-     * Activity Log Module
-     * Tracks and displays user activities including logins, CRUD operations.
-     * @module ActivityLog
-     */
-
-    // State
-    let currentPage = 0;
-    let pageSize = 10;
-    let allDataCache = [];
-    let deleteId = null;
-
-    const API_BASE = '/api/UsersRoles/ActivityLog';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadData();
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_activity_obj = new PosTable({
+            tableId: 'tbl-activity-log',
+            apiEndpoint: '/api/UsersRoles/ActivityLog/index',
+            columns: [
+                { key: 'timestamp', format: (val) => val ? val.replace('T', ' ').substring(0, 16) : '' },
+                { key: 'userId', format: (val) => 'User #' + val },
+                { key: 'module' },
+                { key: 'action', format: (val) => {
+                    if (val === 'CREATE') return '<span class="pos-badge pb-green">✓ CREATE</span>';
+                    if (val === 'UPDATE') return '<span class="pos-badge pb-amber">✎ UPDATE</span>';
+                    if (val === 'DELETE') return '<span class="pos-badge pb-rose">🗑 DELETE</span>';
+                    if (val === 'LOGIN') return '<span class="pos-badge pb-sky">🔓 LOGIN</span>';
+                    return '<span class="pos-badge pb-gray">' + val + '</span>';
+                }},
+                { key: 'description' },
+                { key: 'ipAddress', format: (val) => '<code>' + val + '</code>' }
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Log Record', ${row.id}, (id) => posApiClient.delete('/api/UsersRoles/ActivityLog/delete/' + id).then(() => window.tbl_activity_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_activity_obj.load();
     });
 
-    async function loadData(page = 0) {
-      currentPage = page;
-      try {
-        const params = new URLSearchParams({
-          page: currentPage,
-          size: pageSize,
-          sort: 'timestamp,desc'
-        });
-
-        const res = await fetch(`${API_BASE}/index?${params}`);
-        if (!res.ok) {
-          const errText = await res.text();
-          console.error('API Error:', res.status, errText);
-          throw new Error('API request failed: ' + res.status);
-        }
-
-        const data = await res.json();
-        console.log('API Response:', data);
-
-        allDataCache = data.content || [];
-        renderTable(allDataCache);
-        renderPagination(data);
-      } catch (err) {
-        showToast('Failed to load activity log: ' + err.message, 'error');
-        console.error(err);
-      }
+    function exportLogs() {
+        showToast('Export started', 'success');
+        closeModal('modal-actlog');
     }
-
-    function renderTable(logs) {
-      const tbody = document.getElementById('activity-tbody');
-      tbody.innerHTML = '';
-
-      if (!Array.isArray(logs)) {
-        console.warn('renderTable: expected array, got', logs);
-        logs = [];
-      }
-
-      logs.forEach(log => {
-        const tr = document.createElement('tr');
-        tr.dataset.id = log.id;
-
-        const actionIcon = getActionIcon(log.action);
-        const actionColor = getActionColor(log.action);
-        const initials = 'U' + (log.userId % 10);
-
-        tr.innerHTML = `
-          <td style="white-space:nowrap">${formatDate(log.timestamp)}</td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <div style="width:28px;height:28px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">${initials}</div>
-              User #${log.userId}
-            </div>
-          </td>
-          <td><span class="pos-badge ${actionColor}">${actionIcon} ${log.action}</span></td>
-          <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${log.description}">${log.description}</td>
-          <td><code>${log.ipAddress}</code></td>
-          <td>
-            <div class="d-flex gap-1">
-              <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" title="View" onclick='viewLog(${log.id})'><i class="bi bi-eye"></i></button>
-              <button class="btn-pos btn-rose btn-xs btn-icon-sq" title="Delete" onclick='confirmDelete(${log.id})'><i class="bi bi-trash3"></i></button>
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      if (logs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4">No activity records found</td></tr>';
-      }
-    }
-
-    function renderPagination(pageData) {
-      const container = document.getElementById('pagination');
-      container.innerHTML = '';
-
-      if (!pageData || typeof pageData.totalPages === 'undefined') {
-        console.warn('renderPagination: invalid pageData', pageData);
-        return;
-      }
-
-      const totalPages = pageData.totalPages || 0;
-
-      const createBtn = (label, pg, active = false, disabled = false) => {
-        const b = document.createElement('button');
-        b.className = 'pg-n' + (active ? ' active' : '');
-        b.innerHTML = label;
-        b.disabled = disabled;
-        b.onclick = () => { if (!disabled) loadData(pg); };
-        return b;
-      };
-
-      container.appendChild(createBtn('<i class="bi bi-chevron-left"></i>', currentPage - 1, false, currentPage === 0));
-      for (let i = 0; i < totalPages; i++) {
-        container.appendChild(createBtn(i + 1, i, i === currentPage));
-      }
-      container.appendChild(createBtn('<i class="bi bi-chevron-right"></i>', currentPage + 1, false, currentPage >= totalPages - 1));
-    }
-
-    function handleSearch() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = allDataCache.filter(log =>
-        (log.action && log.action.toLowerCase().includes(q)) ||
-        (log.module && log.module.toLowerCase().includes(q)) ||
-        (log.description && log.description.toLowerCase().includes(q))
-      );
-      renderTable(filtered);
-    }
-
-    function handleFilter() {
-      const module = document.getElementById('moduleFilter').value;
-      const action = document.getElementById('actionFilter').value;
-
-      let filtered = allDataCache;
-      if (module) filtered = filtered.filter(l => l.module === module);
-      if (action) filtered = filtered.filter(l => l.action === action);
-      renderTable(filtered);
-    }
-
-    async function viewLog(id) {
-      showToast('View details not implemented', 'info');
-    }
-
-    async function confirmDelete(id) {
-      deleteId = id;
-      openModal('modal-delete');
-    }
-
-    async function deleteConfirmed() {
-      if (!deleteId) return;
-      try {
-        await fetch(`${API_BASE}/delete/${deleteId}`, { method: 'DELETE' });
-        showToast('Activity record deleted', 'success');
-        closeModal('modal-delete');
-        loadData(currentPage);
-        deleteId = null;
-      } catch (err) {
-        showToast('Delete failed', 'error');
-        console.error(err);
-      }
-    }
-
-     function openModal(id) {
-       const el = document.getElementById(id);
-       if (el) {
-         el.style.display = 'flex';
-         el.classList.add('show');
-       }
-     }
-     function closeModal(id) {
-       const el = document.getElementById(id);
-       if (el) {
-         el.style.display = 'none';
-         el.classList.remove('show');
-       }
-     }
-
-     document.querySelectorAll('.pos-modal-bg').forEach(m =>
-       m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); })
-     );
-     document.addEventListener('keydown', e => {
-       if (e.key === 'Escape') {
-         document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
-       }
-     });
-
-    function showToast(msg, type = 'info') {
-      const t = document.createElement('div');
-      t.className = 'pos-toast ' + type;
-      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
-      t.innerHTML = '<span style="font-weight:700;font-size:15px">' + icon + '</span> ' + msg;
-      document.getElementById('toast-container').appendChild(t);
-      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
-      setTimeout(() => t.remove(), 2900);
-    }
-
-    function getActionIcon(action) {
-      switch (action) {
-        case 'CREATE': return '✓';
-        case 'UPDATE': return '✎';
-        case 'DELETE': return '🗑';
-        case 'LOGIN': return '🔓';
-        default: return '•';
-      }
-    }
-
-    function getActionColor(action) {
-      switch (action) {
-        case 'CREATE': return 'pb-green';
-        case 'UPDATE': return 'pb-amber';
-        case 'DELETE': return 'pb-rose';
-        case 'LOGIN': return 'pb-sky';
-        default: return 'pb-gray';
-      }
-    }
-
-    function formatDate(isoStr) {
-      if (!isoStr) return '—';
-      const d = new Date(isoStr);
-      return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-
-    function exportData() { openModal('modal-actlog'); }
-    function exportLogs() { showToast('Export started (demo)', 'success'); closeModal('modal-actlog'); }
   </script>
 </body>
 

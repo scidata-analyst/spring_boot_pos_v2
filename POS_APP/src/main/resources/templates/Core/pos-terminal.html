@@ -369,139 +369,74 @@
     <div th:insert="~{fragments/scripts :: scripts}"></div>
 
     <script>
-      const POS_PRODUCTS = [
-        {
-          id: 1,
-          name: "Cold Brew Coffee",
-          price: 4.0,
-          category: "food",
-          emoji: "☕",
-          stock: 12,
-        },
-        {
-          id: 2,
-          name: "Cadbury Chocolate 45g",
-          price: 1.5,
-          category: "food",
-          emoji: "🍫",
-          stock: 210,
-        },
-        {
-          id: 3,
-          name: "Orange Juice 330ml",
-          price: 2.5,
-          category: "food",
-          emoji: "🍊",
-          stock: 44,
-        },
-        {
-          id: 4,
-          name: "Energy Bar",
-          price: 3.0,
-          category: "food",
-          emoji: "🍫",
-          stock: 30,
-        },
-        {
-          id: 5,
-          name: "JBL Earbuds",
-          price: 49.0,
-          category: "electronics",
-          emoji: "🎧",
-          stock: 3,
-        },
-        {
-          id: 6,
-          name: "USB-C Cable 1m",
-          price: 8.0,
-          category: "electronics",
-          emoji: "🔌",
-          stock: 22,
-        },
-        {
-          id: 7,
-          name: "Phone Holder",
-          price: 12.0,
-          category: "electronics",
-          emoji: "📱",
-          stock: 15,
-        },
-        {
-          id: 8,
-          name: "Power Bank 10K",
-          price: 25.0,
-          category: "electronics",
-          emoji: "🔋",
-          stock: 8,
-        },
-        {
-          id: 9,
-          name: "Polo T-Shirt (M)",
-          price: 20.0,
-          category: "apparel",
-          emoji: "👕",
-          stock: 36,
-        },
-        {
-          id: 10,
-          name: "Polo T-Shirt (L)",
-          price: 20.0,
-          category: "apparel",
-          emoji: "👕",
-          stock: 28,
-        },
-        {
-          id: 11,
-          name: "Sports Socks Pack",
-          price: 6.0,
-          category: "apparel",
-          emoji: "🧦",
-          stock: 50,
-        },
-        {
-          id: 12,
-          name: "Dove Lotion 400ml",
-          price: 9.0,
-          category: "care",
-          emoji: "🧴",
-          stock: 8,
-        },
-        {
-          id: 13,
-          name: "Shampoo 250ml",
-          price: 5.5,
-          category: "care",
-          emoji: "🧴",
-          stock: 22,
-        },
-        {
-          id: 14,
-          name: "Toothpaste 100g",
-          price: 2.8,
-          category: "care",
-          emoji: "🦷",
-          stock: 60,
-        },
-        {
-          id: 15,
-          name: "Notebook A5",
-          price: 4.5,
-          category: "home",
-          emoji: "📓",
-          stock: 40,
-        },
-        {
-          id: 16,
-          name: "Ballpoint Pen Pack",
-          price: 2.0,
-          category: "home",
-          emoji: "✏️",
-          stock: 80,
-        },
-      ];
+      // Product data — loaded from API, falls back to local seed
+      let POS_PRODUCTS = [];
       let cart = {},
         cartDiscount = 0;
       const TAX_RATE = 0.15;
+
+      function loadProducts() {
+        posApiClient.get('/api/POSTerminal/index')
+          .then(resp => {
+            const rows = Array.isArray(resp) ? resp : (resp.content || []);
+            if (rows.length > 0) {
+              POS_PRODUCTS = rows.map(p => ({
+                id: p.id,
+                name: p.terminalName || p.name || 'Product',
+                price: p.price || 0,
+                category: (p.category || 'home').toLowerCase(),
+                emoji: p.emoji || '🛒',
+                stock: p.stock !== undefined ? p.stock : 99,
+                terminalCode: p.terminalCode,
+                storeId: p.storeId,
+                status: p.status
+              }));
+            } else {
+              // Seed fallback
+              POS_PRODUCTS = [
+                { id:1,  name:"Cold Brew Coffee",        price:4.0,  category:"food",        emoji:"☕", stock:12 },
+                { id:2,  name:"Cadbury Chocolate 45g",   price:1.5,  category:"food",        emoji:"🍫", stock:210 },
+                { id:3,  name:"Orange Juice 330ml",      price:2.5,  category:"food",        emoji:"🍊", stock:44 },
+                { id:4,  name:"Energy Bar",              price:3.0,  category:"food",        emoji:"🍫", stock:30 },
+                { id:5,  name:"JBL Earbuds",             price:49.0, category:"electronics", emoji:"🎧", stock:3 },
+                { id:6,  name:"USB-C Cable 1m",          price:8.0,  category:"electronics", emoji:"🔌", stock:22 },
+                { id:7,  name:"Phone Holder",            price:12.0, category:"electronics", emoji:"📱", stock:15 },
+                { id:8,  name:"Power Bank 10K",          price:25.0, category:"electronics", emoji:"🔋", stock:8 },
+                { id:9,  name:"Polo T-Shirt (M)",        price:20.0, category:"apparel",     emoji:"👕", stock:36 },
+                { id:10, name:"Polo T-Shirt (L)",        price:20.0, category:"apparel",     emoji:"👕", stock:28 },
+                { id:11, name:"Sports Socks Pack",       price:6.0,  category:"apparel",     emoji:"🧦", stock:50 },
+                { id:12, name:"Dove Lotion 400ml",       price:9.0,  category:"care",        emoji:"🧴", stock:8 },
+                { id:13, name:"Shampoo 250ml",           price:5.5,  category:"care",        emoji:"🧴", stock:22 },
+                { id:14, name:"Toothpaste 100g",         price:2.8,  category:"care",        emoji:"🦷", stock:60 },
+                { id:15, name:"Notebook A5",             price:4.5,  category:"home",        emoji:"📓", stock:40 },
+                { id:16, name:"Ballpoint Pen Pack",      price:2.0,  category:"home",        emoji:"✏️", stock:80 },
+              ];
+            }
+            renderProducts();
+          })
+          .catch(() => {
+            // Network error — use seed data
+            POS_PRODUCTS = [
+              { id:1,  name:"Cold Brew Coffee",        price:4.0,  category:"food",        emoji:"☕", stock:12 },
+              { id:2,  name:"Cadbury Chocolate 45g",   price:1.5,  category:"food",        emoji:"🍫", stock:210 },
+              { id:3,  name:"Orange Juice 330ml",      price:2.5,  category:"food",        emoji:"🍊", stock:44 },
+              { id:4,  name:"Energy Bar",              price:3.0,  category:"food",        emoji:"🍫", stock:30 },
+              { id:5,  name:"JBL Earbuds",             price:49.0, category:"electronics", emoji:"🎧", stock:3 },
+              { id:6,  name:"USB-C Cable 1m",          price:8.0,  category:"electronics", emoji:"🔌", stock:22 },
+              { id:7,  name:"Phone Holder",            price:12.0, category:"electronics", emoji:"📱", stock:15 },
+              { id:8,  name:"Power Bank 10K",          price:25.0, category:"electronics", emoji:"🔋", stock:8 },
+              { id:9,  name:"Polo T-Shirt (M)",        price:20.0, category:"apparel",     emoji:"👕", stock:36 },
+              { id:10, name:"Polo T-Shirt (L)",        price:20.0, category:"apparel",     emoji:"👕", stock:28 },
+              { id:11, name:"Sports Socks Pack",       price:6.0,  category:"apparel",     emoji:"🧦", stock:50 },
+              { id:12, name:"Dove Lotion 400ml",       price:9.0,  category:"care",        emoji:"🧴", stock:8 },
+              { id:13, name:"Shampoo 250ml",           price:5.5,  category:"care",        emoji:"🧴", stock:22 },
+              { id:14, name:"Toothpaste 100g",         price:2.8,  category:"care",        emoji:"🦷", stock:60 },
+              { id:15, name:"Notebook A5",             price:4.5,  category:"home",        emoji:"📓", stock:40 },
+              { id:16, name:"Ballpoint Pen Pack",      price:2.0,  category:"home",        emoji:"✏️", stock:80 },
+            ];
+            renderProducts();
+          });
+      }
       function renderProducts(filter = "all", search = "") {
         const grid = document.getElementById("product-grid");
         if (!grid) return;
@@ -627,7 +562,7 @@
         closeModal("modal-discount");
         showToast("Discount applied", "success");
       }
-      renderProducts();
+      loadProducts();
     </script>
   </body>
 </html>

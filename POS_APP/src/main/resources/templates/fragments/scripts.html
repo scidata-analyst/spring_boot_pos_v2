@@ -1,6 +1,9 @@
 <th:block th:fragment="scripts" xmlns:th="http://www.thymeleaf.org">
   <script>
     let delTarget = '';
+    let delId = null;
+    let delCallback = null;
+
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
     function toggleMenu(btn) {
       const sub = btn.nextElementSibling;
@@ -11,10 +14,32 @@
       if (!open) { sub.classList.add('open'); btn.classList.add('open'); }
     }
     function openModal(id) { document.getElementById(id)?.classList.add('show'); }
-    function closeModal(id) { document.getElementById(id)?.classList.remove('show'); }
-    function confirmDel(type) { delTarget = type; document.getElementById('del-target').textContent = type; openModal('modal-delete'); }
-    function deleteConfirmed() { closeModal('modal-delete'); showToast(delTarget + ' deleted', 'success'); }
+    function closeModal(id) { document.getElementById(id)?.classList.remove('show'); clearFormErrors(id); }
+    
+    function confirmDel(type, id, callback) { 
+      delTarget = type; 
+      delId = id;
+      delCallback = callback;
+      document.getElementById('del-target').textContent = type; 
+      openModal('modal-delete'); 
+    }
+    
+    function deleteConfirmed() { 
+        if(delCallback && delId) {
+            delCallback(delId).then(() => {
+                closeModal('modal-delete'); 
+                showToast(delTarget + ' deleted', 'success'); 
+            }).catch(err => {
+                showToast('Error deleting ' + delTarget, 'error');
+            });
+        } else {
+            closeModal('modal-delete'); 
+            showToast(delTarget + ' deleted', 'success'); 
+        }
+    }
+    
     function saveForm(id) { closeModal(id); showToast('Record saved successfully', 'success'); }
+    
     function showToast(msg, type = 'info') {
       const t = document.createElement('div');
       t.className = 'pos-toast ' + type;
@@ -24,27 +49,327 @@
       setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; t.style.transition = '0.3s'; }, 2500);
       setTimeout(() => t.remove(), 2900);
     }
+    
     function filterTable(input, tableId) {
       const q = input.value.toLowerCase();
       document.querySelectorAll('#' + tableId + ' tbody tr').forEach(r => {
         r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
       });
     }
+    
     document.querySelectorAll('.pos-modal-bg').forEach(m =>
-      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); })
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); })
     );
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => m.classList.remove('show'));
+      if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
     });
-    document.querySelectorAll('.pos-pagination').forEach(pg => {
-      pg.addEventListener('click', e => {
-        const btn = e.target.closest('.pg-n');
-        if (btn && !btn.querySelector('.bi-chevron-right')) {
-          pg.querySelectorAll('.pg-n').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
+    
+    // --- GENERIC REST API CLIENT --- //
+    const posApiClient = {
+      async request(endpoint, method = 'GET', body = null) {
+        const headers = { 'Content-Type': 'application/json' };
+        const config = { method, headers };
+        if (body) config.body = JSON.stringify(body);
+        
+        try {
+          const res = await fetch(endpoint, config);
+          if (!res.ok) {
+            if (res.status === 400) {
+               const errorData = await res.json();
+               throw { status: 400, errors: errorData };
+            }
+            throw new Error(`HTTP Error ${res.status}`);
+          }
+          const text = await res.text();
+          return text ? JSON.parse(text) : {};
+        } catch (error) {
+          throw error;
         }
+      },
+      get: (endpoint) => posApiClient.request(endpoint),
+      post: (endpoint, body) => posApiClient.request(endpoint, 'POST', body),
+      put: (endpoint, body) => posApiClient.request(endpoint, 'PUT', body),
+      delete: (endpoint) => posApiClient.request(endpoint, 'DELETE')
+    };
+
+    // --- GENERIC FORM HANDLER --- //
+    function clearFormErrors(modalId) {
+      const modal = document.getElementById(modalId);
+      if(!modal) return;
+      modal.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+      modal.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    }
+
+    function showFormErrors(formElement, errors) {
+      clearFormErrors(formElement.closest('.pos-modal-bg').id);
+
+      // Normalize Spring validation response formats into a flat {field: message} map
+      let fieldMap = {};
+
+      if (errors && typeof errors === 'object') {
+        if (Array.isArray(errors)) {
+          // Spring default: [{field, defaultMessage}, ...]
+          errors.forEach(e => { if (e.field) fieldMap[e.field] = e.defaultMessage || e.message || 'Invalid'; });
+        } else if (errors.errors && typeof errors.errors === 'object') {
+          // Wrapped: { errors: { field: message } }
+          fieldMap = errors.errors;
+        } else if (errors.fieldErrors && Array.isArray(errors.fieldErrors)) {
+          // Some custom wrappers: { fieldErrors: [{field, message}] }
+          errors.fieldErrors.forEach(e => { if (e.field) fieldMap[e.field] = e.message || 'Invalid'; });
+        } else {
+          // Flat map: { field: 'message' } — most common custom handler
+          fieldMap = errors;
+        }
+      }
+
+      let matched = 0;
+      Object.keys(fieldMap).forEach(field => {
+         const input = formElement.querySelector(`[name="${field}"]`);
+         if (input) {
+            matched++;
+            input.classList.add('is-invalid');
+            // Remove any existing error for this field
+            const existing = input.parentElement.querySelector('.invalid-feedback');
+            if (existing) existing.remove();
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback text-danger mt-1 fs-xs';
+            errorDiv.style.cssText = 'display:block;color:var(--rose);font-size:12px;margin-top:4px';
+            errorDiv.textContent = fieldMap[field];
+            input.parentElement.appendChild(errorDiv);
+         }
       });
-    });
+
+      showToast(matched > 0 ? 'Please correct the highlighted fields' : 'Validation failed', 'error');
+    }
+
+    async function submitPosForm(event, apiEndpoint, onSuccess, isUpdate = false) {
+       event.preventDefault();
+       const form = event.target;
+       const formData = new FormData(form);
+       const data = Object.fromEntries(formData.entries());
+       
+       if(!data.createdAt) data.createdAt = new Date().toISOString();
+       if(!data.updatedAt) data.updatedAt = new Date().toISOString();
+       
+       let finalEndpoint = apiEndpoint;
+       let method = isUpdate ? 'PUT' : 'POST';
+       if(isUpdate && data.id) {
+           finalEndpoint += `/${data.id}`;
+       }
+       
+       try {
+          const btn = form.querySelector('button[type="submit"]');
+          const origText = btn ? btn.innerHTML : '';
+          if(btn) { btn.dataset.origText = origText; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...'; btn.disabled = true; }
+
+          const response = await (isUpdate ? posApiClient.put(finalEndpoint, data) : posApiClient.post(finalEndpoint, data));
+          
+          if(btn) { btn.innerHTML = btn.dataset.origText || origText; btn.disabled = false; }
+          
+          showToast('Record saved successfully', 'success');
+          closeModal(form.closest('.pos-modal-bg').id);
+          form.reset();
+          if(onSuccess) onSuccess(response);
+       } catch (err) {
+          const btn = form.querySelector('button[type="submit"]');
+          if(btn) { btn.innerHTML = btn.dataset.origText || '<i class="bi bi-check2"></i> Save'; btn.disabled = false; }
+
+          if (err.status === 400 && err.errors) {
+              showFormErrors(form, err.errors);
+          } else {
+              showToast('An unexpected error occurred', 'error');
+              console.error(err);
+          }
+       }
+    }  // end submitPosForm
+
+    // --- GENERIC EDIT HELPER --- //
+    // Called by all migrated pages: editUser(id, viewUrl, formId, modalId, updateUrl, onSuccess)
+    async function editUser(id, viewEndpoint, formId, modalId, updateEndpoint, onSuccess) {
+        try {
+            const data = await posApiClient.get(`${viewEndpoint}/${id}`);
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            // Open modal FIRST — any page override calls form.reset() here.
+            // We populate fields AFTER so the reset doesn't wipe our values.
+            openModal(modalId);
+
+            // Inject or update hidden id field
+            let idInput = form.querySelector('[name="id"]');
+            if (!idInput) {
+                idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'id';
+                form.appendChild(idInput);
+            }
+            idInput.value = data.id;
+
+            // Populate each form field from response data
+            Object.keys(data).forEach(key => {
+                const el = form.querySelector(`[name="${key}"]`);
+                if (!el) return;
+                if (el.type === 'datetime-local' && data[key]) {
+                    el.value = String(data[key]).substring(0, 16);
+                } else if (el.tagName === 'SELECT') {
+                    const opt = [...el.options].find(o => o.value == data[key] || o.text == data[key]);
+                    if (opt) el.value = opt.value;
+                } else {
+                    el.value = data[key] !== null && data[key] !== undefined ? data[key] : '';
+                }
+            });
+
+            // Swap form action to update AFTER openModal (which may reset it to create)
+            form.onsubmit = (e) => submitPosForm(e, updateEndpoint, onSuccess, true);
+
+        } catch (e) {
+            console.error('editUser failed', e);
+            showToast('Failed to load record for editing', 'error');
+        }
+    }
+
+    // --- GENERIC TABLE RENDERER --- //
+    class PosTable {
+        constructor(config) {
+            this.tableId = config.tableId;
+            this.apiEndpoint = config.apiEndpoint;
+            this.columns = config.columns;
+            this.actions = config.actions;
+            this.data = [];
+            this.filteredData = [];
+            this.currentPage = 1;
+            this.pageSize = config.pageSize || 10;
+            this.sortCol = config.defaultSort || 'id';
+            this.sortAsc = true;
+            this.tbody = document.querySelector(`#${this.tableId} tbody`);
+            // Look for id-based pagination first (e.g. tbl-cashiers-pagination), then fall back to class
+            this.pagination = document.getElementById(`${this.tableId}-pagination`)
+                           || document.querySelector('.pos-pagination');
+            // Register self on window with a hyphen-safe key so pagination onclick works
+            this._winKey = this.tableId.replace(/-/g, '_') + '_obj';
+            window[this._winKey] = this;
+        }
+
+        async load() {
+            try {
+                const resp = await posApiClient.get(this.apiEndpoint);
+                // Handle Spring Page<T> (has .content array) OR plain array
+                if (Array.isArray(resp)) {
+                    this.data = resp;
+                } else if (resp && Array.isArray(resp.content)) {
+                    this.data = resp.content;
+                } else {
+                    this.data = [];
+                }
+                this.filteredData = [...this.data];
+                this.sortData();
+                this.render();
+            } catch (err) {
+                console.error("Failed to load table data", err);
+                showToast('Failed to load data', 'error');
+            }
+        }
+
+        handleSearch(query) {
+            if(!query) {
+                this.filteredData = [...this.data];
+            } else {
+                const q = query.toLowerCase();
+                this.filteredData = this.data.filter(row => {
+                    return this.columns.some(col => {
+                        const val = String(row[col.key] || '');
+                        return val.toLowerCase().includes(q);
+                    });
+                });
+            }
+            this.currentPage = 1;
+            this.render();
+        }
+
+        sortData() {
+            this.filteredData.sort((a, b) => {
+                let valA = a[this.sortCol] || '';
+                let valB = b[this.sortCol] || '';
+                if(typeof valA === 'string') valA = valA.toLowerCase();
+                if(typeof valB === 'string') valB = valB.toLowerCase();
+                if (valA < valB) return this.sortAsc ? -1 : 1;
+                if (valA > valB) return this.sortAsc ? 1 : -1;
+                return 0;
+            });
+        }
+
+        setSort(colKey) {
+            if (this.sortCol === colKey) {
+                this.sortAsc = !this.sortAsc;
+            } else {
+                this.sortCol = colKey;
+                this.sortAsc = true;
+            }
+            this.sortData();
+            this.render();
+        }
+
+        render() {
+            if(!this.tbody) return;
+            this.tbody.innerHTML = '';
+            
+            const start = (this.currentPage - 1) * this.pageSize;
+            const end = start + this.pageSize;
+            const pageData = this.filteredData.slice(start, end);
+
+            if(pageData.length === 0) {
+                this.tbody.innerHTML = `<tr><td colspan="${this.columns.length + (this.actions?1:0)}" class="text-center py-4">No records found.</td></tr>`;
+                this.renderPagination();
+                return;
+            }
+
+            pageData.forEach(row => {
+                const tr = document.createElement('tr');
+                let html = '';
+                this.columns.forEach(col => {
+                    let val = row[col.key] || '';
+                    if(col.format) val = col.format(val, row);
+                    html += `<td>${val}</td>`;
+                });
+                
+                if (this.actions) {
+                    html += `<td><div class="d-flex gap-1">${this.actions(row)}</div></td>`;
+                }
+                tr.innerHTML = html;
+                this.tbody.appendChild(tr);
+            });
+            this.renderPagination();
+        }
+
+        renderPagination() {
+            if(!this.pagination) return;
+            const totalPages = Math.ceil(this.filteredData.length / this.pageSize) || 1;
+            const key = this._winKey; // hyphen-safe window key
+            let html = '';
+
+            html += `<button class="pg-n ${this.currentPage === 1 ? 'disabled' : ''}" onclick="window['${key}'].goToPage(${this.currentPage - 1})"><i class="bi bi-chevron-left"></i></button>`;
+
+            for(let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= this.currentPage - 1 && i <= this.currentPage + 1)) {
+                    html += `<button class="pg-n ${i === this.currentPage ? 'active' : ''}" onclick="window['${key}'].goToPage(${i})">${i}</button>`;
+                } else if (i === this.currentPage - 2 || i === this.currentPage + 2) {
+                    html += `<button class="pg-n disabled">...</button>`;
+                }
+            }
+
+            html += `<button class="pg-n ${this.currentPage === totalPages ? 'disabled' : ''}" onclick="window['${key}'].goToPage(${this.currentPage + 1})"><i class="bi bi-chevron-right"></i></button>`;
+
+            this.pagination.innerHTML = html;
+        }
+
+        goToPage(page) {
+            const totalPages = Math.ceil(this.filteredData.length / this.pageSize);
+            if(page >= 1 && page <= totalPages) {
+                this.currentPage = page;
+                this.render();
+            }
+        }
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>

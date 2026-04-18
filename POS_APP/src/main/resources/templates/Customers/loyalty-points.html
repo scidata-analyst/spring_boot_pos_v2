@@ -38,84 +38,32 @@
         </div>
         <div class="pos-card">
           <div class="tbl-toolbar">
-            <div class="tbl-search"><span class="si"><i
-                  class="bi bi-search"></i></span><input type="text"
-                placeholder="Search loyalty points…"
-                oninput="filterTable(this,'tbl-loyalty-points')" /></div>
-
+            <div class="tbl-search">
+              <span class="si"><i class="bi bi-search"></i></span>
+              <input type="text" placeholder="Search loyalty points…" oninput="window.tbl_loyalty_pts_obj.handleSearch(this.value)" />
+            </div>
           </div>
           <div class="pos-table-wrap">
             <table class="pos-table" id="tbl-loyalty-points">
               <thead>
                 <tr>
-                  <th>Customer</th>
-                  <th>Current Points</th>
-                  <th>Tier</th>
-                  <th>Points Expiry</th>
-                  <th>Earned This Month</th>
-                  <th>Redeemed</th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('customerId')" style="cursor:pointer">Customer <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('points')" style="cursor:pointer">Points <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('transactionId')" style="cursor:pointer">TXN # <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('type')" style="cursor:pointer">Type <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('expiryDate')" style="cursor:pointer">Expiry <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                  <th onclick="window.tbl_loyalty_pts_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Rina Ahmed</td>
-                  <td>4,820 pts</td>
-                  <td>Gold</td>
-                  <td>Dec 2025</td>
-                  <td>320 pts</td>
-                  <td>200 pts</td>
-                  <td>
-                    <div class="d-flex gap-1"><button
-                        class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                        onclick="openModal('modal-pts')"><i
-                          class="bi bi-pencil"></i></button><button
-                        class="btn-pos btn-rose btn-xs btn-icon-sq"
-                        onclick="confirmDel('Points')"><i
-                          class="bi bi-trash3"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Farida Begum</td>
-                  <td>12,400 pts</td>
-                  <td>VIP</td>
-                  <td>Dec 2025</td>
-                  <td>680 pts</td>
-                  <td>0 pts</td>
-                  <td>
-                    <div class="d-flex gap-1"><button
-                        class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                        onclick="openModal('modal-pts')"><i
-                          class="bi bi-pencil"></i></button><button
-                        class="btn-pos btn-rose btn-xs btn-icon-sq"
-                        onclick="confirmDel('Points')"><i
-                          class="bi bi-trash3"></i></button></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Karim Hossain</td>
-                  <td>1,200 pts</td>
-                  <td>Silver</td>
-                  <td>Jun 2025</td>
-                  <td>120 pts</td>
-                  <td>0 pts</td>
-                  <td>
-                    <div class="d-flex gap-1"><button
-                        class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                        onclick="openModal('modal-pts')"><i
-                          class="bi bi-pencil"></i></button><button
-                        class="btn-pos btn-rose btn-xs btn-icon-sq"
-                        onclick="confirmDel('Points')"><i
-                          class="bi bi-trash3"></i></button></div>
-                  </td>
-                </tr>
+                <!-- Dynamically populated -->
               </tbody>
             </table>
           </div>
-          <div class="pos-pagination"><button
-              class="pg-n active">1</button><button
-              class="pg-n">2</button><button
-              class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+          <div class="pos-pagination" id="tbl-loyalty-points-pagination">
+            <!-- Dynamically populated -->
+          </div>
         </div>
       </section>
     </main>
@@ -146,35 +94,118 @@
 
     <div id="modal-pts" class="pos-modal-bg">
       <div class="pos-modal modal-lg">
-        <div class="modal-hd">
-          <div class="modal-hd-title">Add Points — Loyalty Points</div>
-          <div class="modal-x" onclick="closeModal('modal-pts')">×</div>
-        </div>
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-md-6"><label
-                class="pos-label">Customer</label><input class="pos-input"
-                type="text"
-                placeholder /></div>
-            <div class=" col-md-6"><label class="pos-label">Points to
-                Add/Deduct</label><input class="pos-input"
-                type="number" placeholder /></div>
-            <div class=" col-md-12"><label
-                class="pos-label">Reason</label><input class="pos-input"
-                type="text"
-                placeholder /></div>
+        <form id="loyaltyPtsForm" onsubmit="submitPosForm(event, '/api/CustomersCRM/LoyaltyPoints/create', () => window.tbl_loyalty_pts_obj.load())">
+          <div class="modal-hd">
+            <div class="modal-hd-title">Add / Update Points — Loyalty Points</div>
+            <div class="modal-x" onclick="closeModal('modal-pts')">×</div>
           </div>
-        </div>
-        <div class=" modal-ft">
-          <button class="btn-pos btn-outline-dark"
-            onclick="closeModal('modal-pts')">Cancel</button>
-          <button class="btn-pos btn-amber" onclick="saveForm('modal-pts')"><i
-              class="bi bi-check2"></i> Save</button>
-        </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="pos-label">Customer ID</label>
+                <input name="customerId" class="pos-input" type="number" placeholder="" />
+              </div>
+              <div class="col-md-6">
+                <label class="pos-label">Points to Add/Deduct</label>
+                <input name="points" class="pos-input" type="number" placeholder="" />
+              </div>
+              <div class="col-md-6">
+                <label class="pos-label">Transaction ID</label>
+                <input name="transactionId" class="pos-input" type="number" placeholder="" />
+              </div>
+              <div class="col-md-6">
+                <label class="pos-label">Type</label>
+                <select name="type" class="pos-input">
+                  <option value="EARNED">Earned</option>
+                  <option value="REDEEMED">Redeemed</option>
+                  <option value="ADJUSTMENT">Adjustment</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="pos-label">Expiry Date</label>
+                <input name="expiryDate" class="pos-input" type="date" placeholder="" />
+              </div>
+              <div class="col-md-6">
+                <label class="pos-label">Status</label>
+                <select name="status" class="pos-input">
+                  <option value="ACTIVE">Active</option>
+                  <option value="EXPIRED">Expired</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-ft">
+            <button type="button" class="btn-pos btn-outline-dark" onclick="closeModal('modal-pts')">Cancel</button>
+            <button type="submit" class="btn-pos btn-amber"><i class="bi bi-check2"></i> Save</button>
+          </div>
+        </form>
       </div>
     </div>
 
     <div th:insert="~{fragments/scripts :: scripts}"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          window.tbl_loyalty_pts_obj = new PosTable({
+              tableId: 'tbl-loyalty-points',
+              apiEndpoint: '/api/CustomersCRM/LoyaltyPoints/index',
+              columns: [
+                  { key: 'customerId', format: (val) => val === 1 ? 'Rina Ahmed' : val === 2 ? 'Karim Hossain' : val === 3 ? 'Farida Begum' : 'Customer #' + val },
+                  { key: 'points', format: (val, row) => row.type === 'REDEEMED' ? `<span style="color:var(--rose)">-${val} pts</span>` : `<span style="color:var(--green)">+${val} pts</span>` },
+                  { key: 'transactionId', format: (val) => '#TXN-' + val },
+                  { key: 'type', format: (val) => {
+                      if(val === 'EARNED') return '<span class="pos-badge pb-teal">Earned</span>';
+                      if(val === 'REDEEMED') return '<span class="pos-badge pb-rose">Redeemed</span>';
+                      return '<span class="pos-badge pb-amber">Adjustment</span>';
+                  }},
+                  { key: 'expiryDate' },
+                  { key: 'status', format: (val) => val === 'ACTIVE' ? '<span class="pos-badge pb-green">Active</span>' : '<span class="pos-badge pb-rose">Expired</span>' }
+              ],
+              actions: (row) => `
+                  <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="editLoyaltyPts(${row.id})"><i class="bi bi-pencil"></i></button>
+                  <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Loyalty Points', ${row.id}, (id) => posApiClient.delete('/api/CustomersCRM/LoyaltyPoints/delete/' + id).then(() => window.tbl_loyalty_pts_obj.load()))"><i class="bi bi-trash3"></i></button>
+              `
+          });
+          window.tbl_loyalty_pts_obj.load();
+      });
+
+      async function editLoyaltyPts(id) {
+          try {
+              const data = await posApiClient.get(`/api/CustomersCRM/LoyaltyPoints/view/${id}`);
+              const form = document.getElementById('loyaltyPtsForm');
+              form.onsubmit = (e) => submitPosForm(e, '/api/CustomersCRM/LoyaltyPoints/update', () => window.tbl_loyalty_pts_obj.load(), true);
+              
+              let idParam = form.querySelector('[name="id"]');
+              if(!idParam) {
+                 idParam = document.createElement('input');
+                 idParam.type = 'hidden';
+                 idParam.name = 'id';
+                 form.appendChild(idParam);
+              }
+              idParam.value = data.id;
+
+              Object.keys(data).forEach(key => {
+                 const el = form.querySelector(`[name="${key}"]`);
+                 if(el) el.value = data[key];
+              });
+              openModal('modal-pts');
+          } catch(e) {
+              showToast('Failed to load loyalty points details', 'error');
+          }
+      }
+      
+      const originalOpenModalPts = window.openModal;
+      window.openModal = function(id) {
+          if(id === 'modal-pts') {
+              const form = document.getElementById('loyaltyPtsForm');
+              form.reset();
+              form.onsubmit = (e) => submitPosForm(e, '/api/CustomersCRM/LoyaltyPoints/create', () => window.tbl_loyalty_pts_obj.load(), false);
+              let idParam = form.querySelector('[name="id"]');
+              if(idParam) idParam.remove();
+          }
+          originalOpenModalPts(id);
+      };
+    </script>
   </body>
 
 </html>

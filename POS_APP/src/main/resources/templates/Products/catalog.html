@@ -31,9 +31,11 @@
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search products, SKU…" oninput="filterTable(this,'tbl-catalog')" /></div>
-          <select class="pos-input" style="width:140px">
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search products, SKU…" oninput="window.tbl_catalog_obj.handleSearch(this.value)" />
+          </div>
+          <select class="pos-input" style="width:140px" onchange="window.tbl_catalog_obj.handleSearch(this.value === 'All Categories' ? '' : this.value)">
             <option>All Categories</option>
             <option>Food & Bev</option>
             <option>Electronics</option>
@@ -45,103 +47,25 @@
           <table class="pos-table" id="tbl-catalog">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>SKU</th>
-                <th>Barcode</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Cost</th>
-                <th>Stock</th>
-                <th>Status</th>
+                <th onclick="window.tbl_catalog_obj.setSort('name')" style="cursor:pointer">Product <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('sku')" style="cursor:pointer">SKU <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('barcodeId')" style="cursor:pointer">Barcode ID <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('categoryId')" style="cursor:pointer">Category <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('salePrice')" style="cursor:pointer">Price <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('costPrice')" style="cursor:pointer">Cost <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('stockQty')" style="cursor:pointer">Stock <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_catalog_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Cold Brew Coffee 250ml</td>
-                <td>SKU-FB-001</td>
-                <td>8901234567890</td>
-                <td>Food & Bev</td>
-                <td>$4.00</td>
-                <td>$1.80</td>
-                <td>12</td>
-                <td><span class="pos-badge pb-amber">Low Stock</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-product')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>JBL Tune 230NC Earbuds</td>
-                <td>SKU-EL-014</td>
-                <td>5099900256650</td>
-                <td>Electronics</td>
-                <td>$49.00</td>
-                <td>$28.00</td>
-                <td>3</td>
-                <td><span class="pos-badge pb-rose">Critical</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-product')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Polo T-Shirt (M)</td>
-                <td>SKU-AP-022</td>
-                <td>4006381333931</td>
-                <td>Apparel</td>
-                <td>$20.00</td>
-                <td>$9.00</td>
-                <td>36</td>
-                <td><span class="pos-badge pb-green">In Stock</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-product')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Dove Body Lotion 400ml</td>
-                <td>SKU-PC-008</td>
-                <td>8710447208137</td>
-                <td>Personal Care</td>
-                <td>$9.00</td>
-                <td>$4.20</td>
-                <td>8</td>
-                <td><span class="pos-badge pb-amber">Low Stock</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-product')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Cadbury Dairy Milk 45g</td>
-                <td>SKU-FB-009</td>
-                <td>7622210949615</td>
-                <td>Food & Bev</td>
-                <td>$1.50</td>
-                <td>$0.70</td>
-                <td>210</td>
-                <td><span class="pos-badge pb-green">In Stock</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-product')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="tbl-catalog-pagination">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </section>
   </main>
@@ -154,7 +78,7 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target"
             style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
@@ -167,55 +91,159 @@
 
   <div id="modal-product" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
-      <div class="modal-hd">
-        <div class="modal-hd-title">Add / Edit Product</div>
-        <div class="modal-x" onclick="closeModal('modal-product')">×</div>
-      </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-md-8"><label class="pos-label">Product Name</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Category</label><select class="pos-input">
-              <option>Food & Bev</option>
-              <option>Electronics</option>
-              <option>Apparel</option>
-              <option>Personal Care</option>
-              <option>Home</option>
-            </select></div>
-          <div class="col-md-4"><label class="pos-label">SKU</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Barcode</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Unit</label><select class="pos-input">
-              <option>Each</option>
-              <option>Pack</option>
-              <option>Kg</option>
-              <option>Litre</option>
-            </select></div>
-          <div class="col-md-4"><label class="pos-label">Sale Price</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Cost Price</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Stock Qty</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Reorder Level</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Tax
-              Rate (%)</label><input class="pos-input" type="number" placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Status</label><select class="pos-input">
-              <option>Active</option>
-              <option>Inactive</option>
-            </select></div>
+      <form id="productForm" onsubmit="submitPosForm(event, '/api/Products/ProductCatalog/create', () => window.tbl_catalog_obj.load())">
+        <div class="modal-hd">
+          <div class="modal-hd-title">Add / Edit Product</div>
+          <div class="modal-x" onclick="closeModal('modal-product')">×</div>
         </div>
-      </div>
-      <div class="modal-ft">
-        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-product')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-product')"><i class="bi bi-check2"></i> Save</button>
-      </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="pos-label">Product Name</label>
+              <input name="name" class="pos-input" type="text" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Category</label>
+              <select name="categoryId" class="pos-input">
+                <option value="Food & Bev">Food & Bev</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Personal Care">Personal Care</option>
+                <option value="Home">Home</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">SKU</label>
+              <input name="sku" class="pos-input" type="text" placeholder="" />
+            </div>
+            <!-- DTO has both barcodeId, price/salePrice, cost/costPrice, stock/stockQty so we use the more specific ones -->
+            <div class="col-md-4">
+              <label class="pos-label">Barcode ID</label>
+              <input name="barcodeId" class="pos-input" type="number" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Unit</label>
+              <select name="unit" class="pos-input">
+                <option value="Each">Each</option>
+                <option value="Pack">Pack</option>
+                <option value="Kg">Kg</option>
+                <option value="Litre">Litre</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Sale Price</label>
+              <input name="salePrice" class="pos-input" type="number" step="0.01" placeholder="" />
+            </div>
+            <!-- Hack to fulfill DTO -->
+            <input type="hidden" name="price" value="0.0">
+            <input type="hidden" name="cost" value="0.0">
+            <input type="hidden" name="stock" value="0">
+            
+            <div class="col-md-4">
+              <label class="pos-label">Cost Price</label>
+              <input name="costPrice" class="pos-input" type="number" step="0.01" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Stock Qty</label>
+              <input name="stockQty" class="pos-input" type="number" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Reorder Level</label>
+              <input name="reorderLevel" class="pos-input" type="number" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Tax Rate (%)</label>
+              <input name="taxRate" class="pos-input" type="text" placeholder="" />
+            </div>
+            <div class="col-md-4">
+              <label class="pos-label">Status</label>
+              <select name="status" class="pos-input">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button type="button" class="btn-pos btn-outline-dark" onclick="closeModal('modal-product')">Cancel</button>
+          <button type="submit" class="btn-pos btn-amber"><i class="bi bi-check2"></i> Save</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <div th:insert="~{fragments/scripts :: scripts}"></div>
+
+  <script>
+    // Copy salePrice/costPrice to price/cost before submit hack
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+        this.querySelector('[name="price"]').value = this.querySelector('[name="salePrice"]').value || "0.0";
+        this.querySelector('[name="cost"]').value = this.querySelector('[name="costPrice"]').value || "0.0";
+        this.querySelector('[name="stock"]').value = this.querySelector('[name="stockQty"]').value || "0";
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_catalog_obj = new PosTable({
+            tableId: 'tbl-catalog',
+            apiEndpoint: '/api/Products/ProductCatalog/index',
+            columns: [
+                { key: 'name' },
+                { key: 'sku' },
+                { key: 'barcodeId' },
+                { key: 'categoryId' },
+                { key: 'salePrice', format: (val) => '$' + Number(val).toFixed(2) },
+                { key: 'costPrice', format: (val) => '$' + Number(val).toFixed(2) },
+                { key: 'stockQty' },
+                { key: 'status', format: (val) => {
+                    if(val === 'ACTIVE') return '<span class="pos-badge pb-green">Active</span>';
+                    return '<span class="pos-badge pb-rose">Inactive</span>';
+                }}
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="editProduct(${row.id})"><i class="bi bi-pencil"></i></button>
+                <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Product ${row.name}', ${row.id}, (id) => posApiClient.delete('/api/Products/ProductCatalog/delete/' + id).then(() => window.tbl_catalog_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_catalog_obj.load();
+    });
+
+    async function editProduct(id) {
+        try {
+            const data = await posApiClient.get(`/api/Products/ProductCatalog/view/${id}`);
+            const form = document.getElementById('productForm');
+            form.onsubmit = (e) => submitPosForm(e, '/api/Products/ProductCatalog/update', () => window.tbl_catalog_obj.load(), true);
+            
+            let idParam = form.querySelector('[name="id"]');
+            if(!idParam) {
+               idParam = document.createElement('input');
+               idParam.type = 'hidden';
+               idParam.name = 'id';
+               form.appendChild(idParam);
+            }
+            idParam.value = data.id;
+
+            Object.keys(data).forEach(key => {
+               const el = form.querySelector(`[name="${key}"]`);
+               if(el) el.value = data[key];
+            });
+            openModal('modal-product');
+        } catch(e) {
+            showToast('Failed to load product details', 'error');
+        }
+    }
+    
+    const originalOpenModalProduct = window.openModal;
+    window.openModal = function(id) {
+        if(id === 'modal-product') {
+            const form = document.getElementById('productForm');
+            form.reset();
+            form.onsubmit = (e) => submitPosForm(e, '/api/Products/ProductCatalog/create', () => window.tbl_catalog_obj.load(), false);
+            let idParam = form.querySelector('[name="id"]');
+            if(idParam) idParam.remove();
+        }
+        originalOpenModalProduct(id);
+    };
+  </script>
 
 </body>
 

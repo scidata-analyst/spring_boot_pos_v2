@@ -22,68 +22,39 @@
           <div class="page-subtitle">Time-based discount configurations</div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> <button
-            class="btn-pos btn-amber" onclick="openModal('modal-hh')"><i class="bi bi-plus-lg"></i> New Happy
-            Hour</button>
-
+          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> 
+          <button class="btn-pos btn-amber" onclick="openModal('modal-hh')"><i class="bi bi-plus-lg"></i> New Happy Hour</button>
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search happy hour…" oninput="filterTable(this,'tbl-happy-hour')" /></div>
-
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search happy hour…" oninput="window.tbl_hh_obj.handleSearch(this.value)" />
+          </div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-happy-hour">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Days</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Discount</th>
-                <th>Products</th>
-                <th>Status</th>
+                <th onclick="window.tbl_hh_obj.setSort('name')" style="cursor:pointer">Name <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('daysOfWeek')" style="cursor:pointer">Days <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('startTime')" style="cursor:pointer">Start Time <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('endTime')" style="cursor:pointer">End Time <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('discountPercentage')" style="cursor:pointer">Discount <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('applicableProducts')" style="cursor:pointer">Products <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_hh_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Afternoon Delight</td>
-                <td>Mon-Fri</td>
-                <td>12:00</td>
-                <td>14:00</td>
-                <td>10%</td>
-                <td>Food & Bev</td>
-                <td><span class="pos-badge pb-green">Active</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-hh')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Happy Hour')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Evening Rush</td>
-                <td>Fri-Sat</td>
-                <td>17:00</td>
-                <td>19:00</td>
-                <td>15%</td>
-                <td>All Products</td>
-                <td><span class="pos-badge pb-amber">Scheduled</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-hh')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Happy Hour')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="tbl-happy-hour-pagination">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </section>
   </main>
@@ -96,8 +67,7 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
-            style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target" style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
         <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-delete')">Cancel</button>
@@ -107,37 +77,104 @@
   </div>
   <div class="toast-wrap" id="toast-container"></div>
 
+  <!-- Add/Edit Happy Hour Modal -->
   <div id="modal-hh" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
-      <div class="modal-hd">
-        <div class="modal-hd-title">New Happy Hour — Happy Hour</div>
-        <div class="modal-x" onclick="closeModal('modal-hh')">×</div>
-      </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-md-8"><label class="pos-label">Name</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Discount %</label><input class="pos-input" type="number"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Days</label><select class="pos-input">
-              <option>Mon-Fri</option>
-              <option>Sat-Sun</option>
-              <option>Daily</option>
-            </select></div>
-          <div class="col-md-4"><label class="pos-label">Start Time</label><input class="pos-input" type="time"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">End Time</label><input class="pos-input" type="time"
-              placeholder="" /></div>
+      <form id="hhForm" onsubmit="submitPosForm(event, '/api/Promotions/HappyHour/create', () => window.tbl_hh_obj.load())">
+        <div class="modal-hd">
+          <div class="modal-hd-title">New / Edit Happy Hour</div>
+          <div class="modal-x" onclick="closeModal('modal-hh')">×</div>
         </div>
-      </div>
-      <div class=" modal-ft">
-        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-hh')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-hh')"><i class="bi bi-check2"></i> Save</button>
-      </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+                <label class="pos-label">Name</label>
+                <input name="name" class="pos-input" type="text" placeholder="" />
+            </div>
+            <div class="col-md-4">
+                <label class="pos-label">Discount %</label>
+                <input name="discountPercentage" class="pos-input" type="number" step="0.01" placeholder="" />
+            </div>
+            <div class="col-md-4">
+                <label class="pos-label">Days</label>
+                <select name="daysOfWeek" class="pos-input">
+                    <option value="Mon-Fri">Mon-Fri</option>
+                    <option value="Sat-Sun">Sat-Sun</option>
+                    <option value="Daily">Daily</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="pos-label">Start Time</label>
+                <input name="startTime" class="pos-input" type="time" placeholder="" />
+            </div>
+            <div class="col-md-4">
+                <label class="pos-label">End Time</label>
+                <input name="endTime" class="pos-input" type="time" placeholder="" />
+            </div>
+            <div class="col-md-8">
+                <label class="pos-label">Applicable Products</label>
+                <input name="applicableProducts" class="pos-input" type="text" placeholder="e.g. Food & Bev" />
+            </div>
+            <div class="col-md-4">
+                <label class="pos-label">Status</label>
+                <select name="status" class="pos-input">
+                    <option value="Active">Active</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button type="button" class="btn-pos btn-outline-dark" onclick="closeModal('modal-hh')">Cancel</button>
+          <button type="submit" class="btn-pos btn-amber"><i class="bi bi-check2"></i> Save</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <div th:insert="~{fragments/scripts :: scripts}"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_hh_obj = new PosTable({
+            tableId: 'tbl-happy-hour',
+            apiEndpoint: '/api/Promotions/HappyHour/index',
+            columns: [
+                { key: 'name' },
+                { key: 'daysOfWeek' },
+                { key: 'startTime' },
+                { key: 'endTime' },
+                { key: 'discountPercentage', format: (val) => val + '%' },
+                { key: 'applicableProducts' },
+                { key: 'status', format: (val) => {
+                    const statusClass = val === 'Active' ? 'pb-green' : (val === 'Scheduled' ? 'pb-amber' : 'pb-gray');
+                    return `<span class="pos-badge ${statusClass}">${val}</span>`;
+                }}
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="editHappyHour(${row.id})"><i class="bi bi-pencil"></i></button>
+                <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Happy Hour', ${row.id}, (id) => posApiClient.delete('/api/Promotions/HappyHour/delete/' + id).then(() => window.tbl_hh_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_hh_obj.load();
+    });
+
+    function editHappyHour(id) {
+        editUser(id, '/api/Promotions/HappyHour/view', 'hhForm', 'modal-hh', '/api/Promotions/HappyHour/update', () => window.tbl_hh_obj.load());
+    }
+
+    const origOpenModalHh = window.openModal;
+    window.openModal = function(id) {
+        if(id === 'modal-hh') {
+            const form = document.getElementById('hhForm');
+            form.reset();
+            form.onsubmit = (e) => submitPosForm(e, '/api/Promotions/HappyHour/create', () => window.tbl_hh_obj.load(), false);
+            let idParam = form.querySelector('[name="id"]');
+            if(idParam) idParam.remove();
+        }
+        origOpenModalHh(id);
+    };
+  </script>
 </body>
 
 </html>

@@ -23,86 +23,38 @@
           <div class="page-subtitle">Manage supplier contacts and details</div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button> <button
-            class="btn-pos btn-amber" onclick="openModal('modal-sup')"><i class="bi bi-plus-lg"></i> Add
-            Supplier</button>
-
+          <button class="btn-pos btn-outline-dark"><i class="bi bi-download"></i> Export</button>
+          <button class="btn-pos btn-amber" onclick="openModal('modal-sup')"><i class="bi bi-plus-lg"></i> Add Supplier</button>
         </div>
       </div>
       <div class="pos-card">
         <div class="tbl-toolbar">
-          <div class="tbl-search"><span class="si"><i class="bi bi-search"></i></span><input type="text"
-              placeholder="Search supplier directory…" oninput="filterTable(this,'tbl-suppliers')" /></div>
-
+          <div class="tbl-search">
+            <span class="si"><i class="bi bi-search"></i></span>
+            <input type="text" placeholder="Search supplier directory…" oninput="window.tbl_sup_obj.handleSearch(this.value)" />
+          </div>
         </div>
         <div class="pos-table-wrap">
           <table class="pos-table" id="tbl-suppliers">
             <thead>
               <tr>
-                <th>Supplier Name</th>
-                <th>Contact</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Lead Time</th>
-                <th>Payment Terms</th>
-                <th>Status</th>
+                <th onclick="window.tbl_sup_obj.setSort('name')" style="cursor:pointer">Supplier Name <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_sup_obj.setSort('contactPerson')" style="cursor:pointer">Contact <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_sup_obj.setSort('phone')" style="cursor:pointer">Phone <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_sup_obj.setSort('email')" style="cursor:pointer">Email <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_sup_obj.setSort('address')" style="cursor:pointer">Address <i class="bi bi-arrow-down-up fs-xs"></i></th>
+                <th onclick="window.tbl_sup_obj.setSort('status')" style="cursor:pointer">Status <i class="bi bi-arrow-down-up fs-xs"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Fresh Brew Co.</td>
-                <td>Mr. Rahman</td>
-                <td>017XX-111222</td>
-                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                    data-cfemail="44223621372c04263621336a272b29">[email&#160;protected]</a></td>
-                <td>3 days</td>
-                <td>Net 30</td>
-                <td><span class="pos-badge pb-green">Active</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-sup')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Supplier')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>TechGadget BD</td>
-                <td>Ms. Nadia</td>
-                <td>018XX-333444</td>
-                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                    data-cfemail="3f565159507f4b585d5b115c5052">[email&#160;protected]</a></td>
-                <td>7 days</td>
-                <td>Advance</td>
-                <td><span class="pos-badge pb-green">Active</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-sup')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Supplier')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Fashion House Ltd</td>
-                <td>Mr. Karim</td>
-                <td>019XX-555666</td>
-                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                    data-cfemail="3f504d5b5a4d7f595753115c5052">[email&#160;protected]</a></td>
-                <td>5 days</td>
-                <td>Net 15</td>
-                <td><span class="pos-badge pb-green">Active</span></td>
-                <td>
-                  <div class="d-flex gap-1"><button class="btn-pos btn-outline-dark btn-xs btn-icon-sq"
-                      onclick="openModal('modal-sup')"><i class="bi bi-pencil"></i></button><button
-                      class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Supplier')"><i
-                        class="bi bi-trash3"></i></button></div>
-                </td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
-        <div class="pos-pagination"><button class="pg-n active">1</button><button class="pg-n">2</button><button
-            class="pg-n"><i class="bi bi-chevron-right"></i></button></div>
+        <div class="pos-pagination" id="tbl-suppliers-pagination">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </section>
   </main>
@@ -115,7 +67,7 @@
         <div class="modal-x" onclick="closeModal('modal-delete')">×</div>
       </div>
       <div class="modal-body">
-        <p style="color:var(--text-secondary)">Are you sure you want to delete this <strong id="del-target"
+        <p style="color:var(--text-secondary)">Are you sure you want to delete <strong id="del-target"
             style="color:var(--text-primary)">record</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-ft">
@@ -128,37 +80,118 @@
 
   <div id="modal-sup" class="pos-modal-bg">
     <div class="pos-modal modal-lg">
-      <div class="modal-hd">
-        <div class="modal-hd-title">Add Supplier — Supplier Directory</div>
-        <div class="modal-x" onclick="closeModal('modal-sup')">×</div>
-      </div>
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-md-6"><label class="pos-label">Supplier Name</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-6"><label class="pos-label">Contact Person</label><input class="pos-input" type="text"
-              placeholder="" /></div>
-          <div class=" col-md-4"><label class="pos-label">Phone</label><input class="pos-input" type="tel"
-              placeholder="" /></div>
-          <div class="
-              col-md-4"><label class="pos-label">Email</label><input class="pos-input" type="email" placeholder="" />
-          </div>
-          <div class=" col-md-4"><label class="pos-label">Payment Terms</label><select class="pos-input">
-              <option>Net 30</option>
-              <option>Net 15</option>
-              <option>Advance</option>
-              <option>COD</option>
-            </select></div>
+      <form id="supForm" onsubmit="submitPosForm(event, '/api/Suppliers/SupplierDirectory/create', () => window.tbl_sup_obj.load())">
+        <div class="modal-hd">
+          <div class="modal-hd-title">Add / Edit Supplier — Supplier Directory</div>
+          <div class="modal-x" onclick="closeModal('modal-sup')">×</div>
         </div>
-      </div>
-      <div class="modal-ft">
-        <button class="btn-pos btn-outline-dark" onclick="closeModal('modal-sup')">Cancel</button>
-        <button class="btn-pos btn-amber" onclick="saveForm('modal-sup')"><i class="bi bi-check2"></i> Save</button>
-      </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="pos-label">Supplier Name</label>
+              <input name="name" class="pos-input" type="text" placeholder="Company Name" />
+            </div>
+            <div class="col-md-6">
+              <label class="pos-label">Contact Person</label>
+              <input name="contactPerson" class="pos-input" type="text" placeholder="Full Name" />
+            </div>
+            <div class="col-md-6">
+              <label class="pos-label">Phone</label>
+              <input name="phone" class="pos-input" type="tel" placeholder="+1..." />
+            </div>
+            <div class="col-md-6">
+              <label class="pos-label">Email</label>
+              <input name="email" class="pos-input" type="email" placeholder="example@domain.com" />
+            </div>
+            <div class="col-md-12">
+              <label class="pos-label">Address</label>
+              <input name="address" class="pos-input" type="text" placeholder="123 Supplier St" />
+            </div>
+            <div class="col-md-12">
+              <label class="pos-label">Status</label>
+              <select name="status" class="pos-input">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button type="button" class="btn-pos btn-outline-dark" onclick="closeModal('modal-sup')">Cancel</button>
+          <button type="submit" class="btn-pos btn-amber"><i class="bi bi-check2"></i> Save</button>
+        </div>
+      </form>
     </div>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        window.tbl_sup_obj = new PosTable({
+            tableId: 'tbl-suppliers',
+            apiEndpoint: '/api/Suppliers/SupplierDirectory/index',
+            columns: [
+                { key: 'name' },
+                { key: 'contactPerson' },
+                { key: 'phone' },
+                { key: 'email', format: (val) => val ? '<a href="mailto:' + val + '">' + val + '</a>' : '' },
+                { key: 'address' },
+                { key: 'status', format: (val) => {
+                    if(val === 'ACTIVE' || val === 'Active') return '<span class="pos-badge pb-green">Active</span>';
+                    return '<span class="pos-badge pb-gray">Inactive</span>';
+                }}
+            ],
+            actions: (row) => `
+                <button class="btn-pos btn-outline-dark btn-xs btn-icon-sq" onclick="editSup(${row.id})"><i class="bi bi-pencil"></i></button>
+                <button class="btn-pos btn-rose btn-xs btn-icon-sq" onclick="confirmDel('Supplier', ${row.id}, (id) => posApiClient.delete('/api/Suppliers/SupplierDirectory/delete/' + id).then(() => window.tbl_sup_obj.load()))"><i class="bi bi-trash3"></i></button>
+            `
+        });
+        window.tbl_sup_obj.load();
+    });
+
+    async function editSup(id) {
+        try {
+            const data = await posApiClient.get(`/api/Suppliers/SupplierDirectory/view/${id}`);
+            const form = document.getElementById('supForm');
+            form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/SupplierDirectory/update', () => window.tbl_sup_obj.load(), true);
+            
+            let idParam = form.querySelector('[name="id"]');
+            if(!idParam) {
+               idParam = document.createElement('input');
+               idParam.type = 'hidden';
+               idParam.name = 'id';
+               form.appendChild(idParam);
+            }
+            idParam.value = data.id;
+
+            Object.keys(data).forEach(key => {
+               const el = form.querySelector(`[name="${key}"]`);
+               if(el) {
+                  if (el.type === 'datetime-local' && data[key]) {
+                      el.value = data[key].length > 16 ? data[key].substring(0, 16) : data[key];
+                  } else {
+                      el.value = data[key];
+                  }
+               }
+            });
+            openModal('modal-sup');
+        } catch(e) {
+            showToast('Failed to load supplier details', 'error');
+        }
+    }
+    
+    const originalOpenModalSup = window.openModal;
+    window.openModal = function(id) {
+        if(id === 'modal-sup') {
+            const form = document.getElementById('supForm');
+            form.reset();
+            form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/SupplierDirectory/create', () => window.tbl_sup_obj.load(), false);
+            let idParam = form.querySelector('[name="id"]');
+            if(idParam) idParam.remove();
+        }
+        originalOpenModalSup(id);
+    };
+  </script>
+
   <div th:insert="~{fragments/scripts :: scripts}"></div>
-</body>
 
 </html>
