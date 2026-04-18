@@ -369,7 +369,7 @@
     <div th:insert="~{fragments/scripts :: scripts}"></div>
 
     <script>
-      // Product data — loaded from API, falls back to local seed
+      /** Product data — loaded from API, falls back to local seed */
       let POS_PRODUCTS = [];
       let cart = {},
         cartDiscount = 0;
@@ -392,7 +392,7 @@
                 status: p.status
               }));
             } else {
-              // Seed fallback
+              /** Seed fallback */
               POS_PRODUCTS = [
                 { id:1,  name:"Cold Brew Coffee",        price:4.0,  category:"food",        emoji:"☕", stock:12 },
                 { id:2,  name:"Cadbury Chocolate 45g",   price:1.5,  category:"food",        emoji:"🍫", stock:210 },
@@ -415,7 +415,7 @@
             renderProducts();
           })
           .catch(() => {
-            // Network error — use seed data
+            /** Network error — use seed data */
             POS_PRODUCTS = [
               { id:1,  name:"Cold Brew Coffee",        price:4.0,  category:"food",        emoji:"☕", stock:12 },
               { id:2,  name:"Cadbury Chocolate 45g",   price:1.5,  category:"food",        emoji:"🍫", stock:210 },

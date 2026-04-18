@@ -64,7 +64,7 @@
       if (e.key === 'Escape') document.querySelectorAll('.pos-modal-bg.show').forEach(m => closeModal(m.id));
     });
     
-    // --- GENERIC REST API CLIENT --- //
+    /** --- GENERIC REST API CLIENT --- */
     const posApiClient = {
       async request(endpoint, method = 'GET', body = null) {
         const headers = { 'Content-Type': 'application/json' };
@@ -92,7 +92,7 @@
       delete: (endpoint) => posApiClient.request(endpoint, 'DELETE')
     };
 
-    // --- GENERIC FORM HANDLER --- //
+    /** --- GENERIC FORM HANDLER --- */
     function clearFormErrors(modalId) {
       const modal = document.getElementById(modalId);
       if(!modal) return;
@@ -103,21 +103,21 @@
     function showFormErrors(formElement, errors) {
       clearFormErrors(formElement.closest('.pos-modal-bg').id);
 
-      // Normalize Spring validation response formats into a flat {field: message} map
+      /** Normalize Spring validation response formats into a flat {field: message} map */
       let fieldMap = {};
 
       if (errors && typeof errors === 'object') {
         if (Array.isArray(errors)) {
-          // Spring default: [{field, defaultMessage}, ...]
+          /** Spring default: [{field, defaultMessage}, ...] */
           errors.forEach(e => { if (e.field) fieldMap[e.field] = e.defaultMessage || e.message || 'Invalid'; });
         } else if (errors.errors && typeof errors.errors === 'object') {
-          // Wrapped: { errors: { field: message } }
+          /** Wrapped: { errors: { field: message } } */
           fieldMap = errors.errors;
         } else if (errors.fieldErrors && Array.isArray(errors.fieldErrors)) {
-          // Some custom wrappers: { fieldErrors: [{field, message}] }
+          /** Some custom wrappers: { fieldErrors: [{field, message}] } */
           errors.fieldErrors.forEach(e => { if (e.field) fieldMap[e.field] = e.message || 'Invalid'; });
         } else {
-          // Flat map: { field: 'message' } — most common custom handler
+          /** Flat map: { field: 'message' } — most common custom handler */
           fieldMap = errors;
         }
       }
@@ -128,7 +128,7 @@
          if (input) {
             matched++;
             input.classList.add('is-invalid');
-            // Remove any existing error for this field
+            /** Remove any existing error for this field */
             const existing = input.parentElement.querySelector('.invalid-feedback');
             if (existing) existing.remove();
             const errorDiv = document.createElement('div');
@@ -181,21 +181,21 @@
               console.error(err);
           }
        }
-    }  // end submitPosForm
+    }  /** end submitPosForm */
 
-    // --- GENERIC EDIT HELPER --- //
-    // Called by all migrated pages: editUser(id, viewUrl, formId, modalId, updateUrl, onSuccess)
+    /** --- GENERIC EDIT HELPER --- */
+    /** Called by all migrated pages: editUser(id, viewUrl, formId, modalId, updateUrl, onSuccess) */
     async function editUser(id, viewEndpoint, formId, modalId, updateEndpoint, onSuccess) {
         try {
             const data = await posApiClient.get(`${viewEndpoint}/${id}`);
             const form = document.getElementById(formId);
             if (!form) return;
 
-            // Open modal FIRST — any page override calls form.reset() here.
-            // We populate fields AFTER so the reset doesn't wipe our values.
+            /** Open modal FIRST — any page override calls form.reset() here. */
+            /** We populate fields AFTER so the reset doesn't wipe our values. */
             openModal(modalId);
 
-            // Inject or update hidden id field
+            /** Inject or update hidden id field */
             let idInput = form.querySelector('[name="id"]');
             if (!idInput) {
                 idInput = document.createElement('input');
@@ -205,7 +205,7 @@
             }
             idInput.value = data.id;
 
-            // Populate each form field from response data
+            /** Populate each form field from response data */
             Object.keys(data).forEach(key => {
                 const el = form.querySelector(`[name="${key}"]`);
                 if (!el) return;
@@ -219,7 +219,7 @@
                 }
             });
 
-            // Swap form action to update AFTER openModal (which may reset it to create)
+            /** Swap form action to update AFTER openModal (which may reset it to create) */
             form.onsubmit = (e) => submitPosForm(e, updateEndpoint, onSuccess, true);
 
         } catch (e) {
@@ -228,7 +228,7 @@
         }
     }
 
-    // --- GENERIC TABLE RENDERER --- //
+    /** --- GENERIC TABLE RENDERER --- */
     class PosTable {
         constructor(config) {
             this.tableId = config.tableId;
@@ -242,19 +242,19 @@
             this.sortCol = config.defaultSort || 'id';
             this.sortAsc = true;
             this.tbody = document.querySelector(`#${this.tableId} tbody`);
-            // Look for id-based pagination first (e.g. tbl-cashiers-pagination), then fall back to class
+            /** Look for id-based pagination first (e.g. tbl-cashiers-pagination), then fall back to class */
             this.pagination = document.getElementById(`${this.tableId}-pagination`)
                            || document.querySelector('.pos-pagination');
-            // Register self on window with a hyphen-safe key so pagination onclick works
+            /** Register self on window with a hyphen-safe key so pagination onclick works */
             this._winKey = this.tableId.replace(/-/g, '_') + '_obj';
             window[this._winKey] = this;
         }
 
         async load() {
             try {
-                // Construct URL with server-side params
+                /** Construct URL with server-side params */
                 const url = new URL(this.apiEndpoint, window.location.origin);
-                url.searchParams.set('page', this.currentPage - 1); // Spring Pageable is 0-indexed
+                url.searchParams.set('page', this.currentPage - 1); /** Spring Pageable is 0-indexed */
                 url.searchParams.set('size', this.pageSize);
                 url.searchParams.set('sort', `${this.sortCol},${this.sortAsc ? 'asc' : 'desc'}`);
                 if (this.currentSearch) {
@@ -263,7 +263,7 @@
 
                 const resp = await posApiClient.get(url.toString());
                 
-                // Handle Spring Page<T> (has .content array) OR plain array
+                /** Handle Spring Page<T> (has .content array) OR plain array */
                 if (Array.isArray(resp)) {
                     this.data = resp;
                     this.totalPages = 1;
@@ -278,7 +278,7 @@
                     this.totalElements = 0;
                 }
                 
-                // Fully server-side driven, so our data IS the filtered page data
+                /** Fully server-side driven, so our data IS the filtered page data */
                 this.filteredData = [...this.data];
                 this.render();
             } catch (err) {
@@ -307,7 +307,7 @@
             if(!this.tbody) return;
             this.tbody.innerHTML = '';
             
-            // Server-side returns the EXACT page data, no need to slice
+            /** Server-side returns the EXACT page data, no need to slice */
             const pageData = this.filteredData;
 
             if(pageData.length === 0) {
@@ -337,7 +337,7 @@
         renderPagination() {
             if(!this.pagination) return;
             const totalPages = this.totalPages || 1;
-            const key = this._winKey; // hyphen-safe window key
+            const key = this._winKey; /** hyphen-safe window key */
             let html = '';
 
             html += `<button class="pg-n ${this.currentPage === 1 ? 'disabled' : ''}" onclick="window['${key}'].goToPage(${this.currentPage - 1})"><i class="bi bi-chevron-left"></i></button>`;
@@ -363,10 +363,10 @@
             }
         }
     }
-    // --- GLOBAL RELATION AUTO-POPULATOR --- //
+    /** --- GLOBAL RELATION AUTO-POPULATOR --- */
     document.addEventListener("DOMContentLoaded", async () => {
         const relationMap = {
-            'categoryId': { api: '/api/Products/Categories/all', text: 'name', val: 'name' }, // Using 'name' since ProductCatalog DTO uses string for category
+            'categoryId': { api: '/api/Products/Categories/all', text: 'name', val: 'name' }, /** Using 'name' since ProductCatalog DTO uses string for category */
             'productId': { api: '/api/Products/ProductCatalog/all', text: 'name', val: 'id' },
             'roleId': { api: '/api/UsersRoles/RolesPermissions/all', text: 'roleName', val: 'id' },
             'loyaltyTier': { api: '/api/LoyaltyMembership/TierManagement/all', text: 'tierName', val: 'tierName' }

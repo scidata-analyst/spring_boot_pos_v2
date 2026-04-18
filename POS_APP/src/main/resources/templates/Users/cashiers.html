@@ -195,16 +195,16 @@
         try {
             const data = await posApiClient.get(`/api/UsersRoles/CashierAccounts/view/${id}`);
 
-            // Open the modal first — this triggers the override which calls form.reset().
-            // We then populate AFTER so the reset doesn't wipe our values.
+            /** Open the modal first — this triggers the override which calls form.reset(). */
+            /** We then populate AFTER so the reset doesn't wipe our values. */
             openModal('modal-cashier');
 
             const form = document.getElementById('cashierForm');
 
-            // Switch submit handler to update mode
+            /** Switch submit handler to update mode */
             form.onsubmit = (e) => submitPosForm(e, '/api/UsersRoles/CashierAccounts/update', () => window.tbl_cashiers_obj.load(), true);
 
-            // Inject hidden id field
+            /** Inject hidden id field */
             let idParam = form.querySelector('[name="id"]');
             if (!idParam) {
                 idParam = document.createElement('input');
@@ -214,7 +214,7 @@
             }
             idParam.value = data.id;
 
-            // Populate all form fields
+            /** Populate all form fields */
             Object.keys(data).forEach(key => {
                 const el = form.querySelector(`[name="${key}"]`);
                 if (!el) return;

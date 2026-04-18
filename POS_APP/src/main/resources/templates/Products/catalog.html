@@ -175,7 +175,7 @@
   <div th:insert="~{fragments/scripts :: scripts}"></div>
 
   <script>
-    // Copy salePrice/costPrice to price/cost before submit hack
+    /** Copy salePrice/costPrice to price/cost before submit hack */
     document.getElementById('productForm').addEventListener('submit', function(e) {
         this.querySelector('[name="price"]').value = this.querySelector('[name="salePrice"]').value || "0.0";
         this.querySelector('[name="cost"]').value = this.querySelector('[name="costPrice"]').value || "0.0";

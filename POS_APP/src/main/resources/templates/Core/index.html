@@ -453,7 +453,7 @@
           .then(resp => {
             const data = Array.isArray(resp) ? resp[0] : resp;
             if (!data) return;
-            // Populate KPI cards if the backend returns aggregated fields
+            /** Populate KPI cards if the backend returns aggregated fields */
             const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
             if (data.todayRevenue   !== undefined) setEl('kpi-revenue',      '$' + Number(data.todayRevenue).toLocaleString());
             if (data.transactions   !== undefined) setEl('kpi-transactions', data.transactions);
@@ -462,7 +462,7 @@
             if (data.returnsToday   !== undefined) setEl('kpi-returns',      data.returnsToday);
             if (data.loyaltyMembers !== undefined) setEl('kpi-loyalty',      data.loyaltyMembers);
           })
-          .catch(() => {}); // silently ignore — static values remain as fallback
+          .catch(() => {}); /** silently ignore — static values remain as fallback */
       });
     </script>
   </body>

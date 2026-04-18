@@ -145,8 +145,8 @@
             apiEndpoint: '/api/UsersRoles/RolesPermissions/index',
             columns: [
                 { key: 'roleName', format: (val) => `<strong>${val}</strong>` },
-                { key: 'id', format: (val) => Math.floor(Math.random() * 5) + 1 }, // users count mockup
-                { key: 'id', format: () => '✓' }, // open register mockup
+                { key: 'id', format: (val) => Math.floor(Math.random() * 5) + 1 }, /** users count mockup */
+                { key: 'id', format: () => '✓' }, /** open register mockup */
                 { key: 'permissions', format: (val) => {
                     let perms = {};
                     try { perms = JSON.parse(val || '{}'); } catch (e) {}

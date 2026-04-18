@@ -154,10 +154,10 @@
         try {
             const data = await posApiClient.get(`/api/Products/BarcodeSKU/view/${id}`);
             const form = document.getElementById('barcodeForm');
-            // update form to use PUT
+            /** update form to use PUT */
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/BarcodeSKU/update', () => window.tbl_barcodes_obj.load(), true);
             
-            // set hidden id
+            /** set hidden id */
             let idParam = form.querySelector('[name="id"]');
             if(!idParam) {
                idParam = document.createElement('input');
@@ -167,7 +167,7 @@
             }
             idParam.value = data.id;
 
-            // populate fields
+            /** populate fields */
             Object.keys(data).forEach(key => {
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
@@ -178,7 +178,7 @@
         }
     }
     
-    // Reset form to create mode when opening manually
+    /** Reset form to create mode when opening manually */
     const originalOpenModal = window.openModal;
     window.openModal = function(id) {
         if(id === 'modal-bc') {
