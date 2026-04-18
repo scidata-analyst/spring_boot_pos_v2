@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Products.ProductCatalogResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: ProductCatalog
@@ -24,7 +27,7 @@ public interface ProductCatalogService {
 
     List<ProductCatalogResponse> all();
 
-    List<ProductCatalogResponse> index();
+    Page<ProductCatalogResponse> index(String search, Pageable pageable);
 
     ProductCatalogResponse view(Long id);
 

@@ -35,8 +35,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     @Override
-    public Page<ActivityLogResponse> index(Pageable pageable) {
-        return repository.findAll(pageable)
+    public Page<ActivityLogResponse> index(String search, Pageable pageable) {
+        return repository.index(search, pageable)
                 .map(mapper::toResponse);
     }
 

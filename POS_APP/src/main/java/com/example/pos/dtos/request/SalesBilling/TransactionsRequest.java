@@ -16,7 +16,6 @@ public class TransactionsRequest {
     /**
      * id
      */
-    @NotNull(message = "id is required")
     private Long id;
 
     /**
@@ -82,7 +81,6 @@ public class TransactionsRequest {
     /**
      * createdAt
      */
-    @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
 
     public Long getId() {

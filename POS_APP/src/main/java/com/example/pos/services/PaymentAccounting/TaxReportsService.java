@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.PaymentAccounting.TaxReportsResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: TaxReports
@@ -24,7 +27,7 @@ public interface TaxReportsService {
 
     List<TaxReportsResponse> all();
 
-    List<TaxReportsResponse> index();
+    Page<TaxReportsResponse> index(String search, Pageable pageable);
 
     TaxReportsResponse view(Long id);
 

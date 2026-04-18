@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Promotions.HappyHourResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: HappyHour
@@ -24,7 +27,7 @@ public interface HappyHourService {
 
     List<HappyHourResponse> all();
 
-    List<HappyHourResponse> index();
+    Page<HappyHourResponse> index(String search, Pageable pageable);
 
     HappyHourResponse view(Long id);
 

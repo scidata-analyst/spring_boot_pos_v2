@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.ReportsAnalytics.StockReportsResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: StockReports
@@ -24,7 +27,7 @@ public interface StockReportsService {
 
     List<StockReportsResponse> all();
 
-    List<StockReportsResponse> index();
+    Page<StockReportsResponse> index(String search, Pageable pageable);
 
     StockReportsResponse view(Long id);
 

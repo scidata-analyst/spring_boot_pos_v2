@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * Service implementation for SupplierPayments.
  * Uses repository semantic methods (no JPA direct calls).
@@ -33,11 +36,9 @@ public class SupplierPaymentsServiceImpl implements SupplierPaymentsService {
     }
 
     @Override
-    public List<SupplierPaymentsResponse> index() {
-        return repository.index()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<SupplierPaymentsResponse> index(String search, Pageable pageable) {
+        return repository.index(search, pageable)
+                .map(mapper::toResponse);
     }
 
     @Override

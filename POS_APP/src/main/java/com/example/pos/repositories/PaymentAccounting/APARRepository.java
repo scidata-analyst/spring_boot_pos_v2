@@ -1,5 +1,10 @@
 package com.example.pos.repositories.PaymentAccounting;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.PaymentAccounting.APAR;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface APARRepository extends JpaRepository<APAR, Long> {
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<APAR> index() {
-        return findAll();
+    default Page<APAR> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM APAR e WHERE "
+           + "LOWER(e.type) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.status) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<APAR> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

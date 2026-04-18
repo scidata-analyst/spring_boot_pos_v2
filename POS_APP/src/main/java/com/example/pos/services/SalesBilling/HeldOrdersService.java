@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.SalesBilling.HeldOrdersResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: HeldOrders
@@ -24,7 +27,7 @@ public interface HeldOrdersService {
 
     List<HeldOrdersResponse> all();
 
-    List<HeldOrdersResponse> index();
+    Page<HeldOrdersResponse> index(String search, Pageable pageable);
 
     HeldOrdersResponse view(Long id);
 

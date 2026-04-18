@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.CustomersCRM.MembershipsVIPResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: MembershipsVIP
@@ -24,7 +27,7 @@ public interface MembershipsVIPService {
 
     List<MembershipsVIPResponse> all();
 
-    List<MembershipsVIPResponse> index();
+    Page<MembershipsVIPResponse> index(String search, Pageable pageable);
 
     MembershipsVIPResponse view(Long id);
 

@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.LoyaltyMembership.RetentionTrackingResponse
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: RetentionTracking
@@ -24,7 +27,7 @@ public interface RetentionTrackingService {
 
     List<RetentionTrackingResponse> all();
 
-    List<RetentionTrackingResponse> index();
+    Page<RetentionTrackingResponse> index(String search, Pageable pageable);
 
     RetentionTrackingResponse view(Long id);
 

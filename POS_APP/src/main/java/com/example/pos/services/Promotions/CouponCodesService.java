@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Promotions.CouponCodesResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: CouponCodes
@@ -24,7 +27,7 @@ public interface CouponCodesService {
 
     List<CouponCodesResponse> all();
 
-    List<CouponCodesResponse> index();
+    Page<CouponCodesResponse> index(String search, Pageable pageable);
 
     CouponCodesResponse view(Long id);
 

@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.PaymentAccounting.APARResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: APAR
@@ -24,7 +27,7 @@ public interface APARService {
 
     List<APARResponse> all();
 
-    List<APARResponse> index();
+    Page<APARResponse> index(String search, Pageable pageable);
 
     APARResponse view(Long id);
 

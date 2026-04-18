@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Hardware.CashDrawerResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: CashDrawer
@@ -24,7 +27,7 @@ public interface CashDrawerService {
 
     List<CashDrawerResponse> all();
 
-    List<CashDrawerResponse> index();
+    Page<CashDrawerResponse> index(String search, Pageable pageable);
 
     CashDrawerResponse view(Long id);
 

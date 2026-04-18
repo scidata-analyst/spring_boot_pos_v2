@@ -39,8 +39,8 @@ public class RolesPermissionsController {
      * Query params: page (0-based), size, sort (e.g., ?page=0&size=10&sort=roleName,asc)
      */
     @GetMapping("/index")
-    public Page<RolesPermissionsResponse> index(Pageable pageable) {
-        return service.index(pageable);
+    public Page<RolesPermissionsResponse> index(@RequestParam(required = false) String search, Pageable pageable) {
+        return service.index(search, pageable);
     }
 
     /**

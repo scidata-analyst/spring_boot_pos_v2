@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Hardware.DevicesPrintersResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: DevicesPrinters
@@ -24,7 +27,7 @@ public interface DevicesPrintersService {
 
     List<DevicesPrintersResponse> all();
 
-    List<DevicesPrintersResponse> index();
+    Page<DevicesPrintersResponse> index(String search, Pageable pageable);
 
     DevicesPrintersResponse view(Long id);
 

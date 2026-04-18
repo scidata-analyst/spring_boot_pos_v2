@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Products.CategoriesResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: Categories
@@ -24,7 +27,7 @@ public interface CategoriesService {
 
     List<CategoriesResponse> all();
 
-    List<CategoriesResponse> index();
+    Page<CategoriesResponse> index(String search, Pageable pageable);
 
     CategoriesResponse view(Long id);
 

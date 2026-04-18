@@ -1,5 +1,10 @@
 package com.example.pos.repositories.UsersRoles;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.UsersRoles.ActivityLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> 
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<ActivityLog> index() {
-        return findAll();
+    default Page<ActivityLog> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM ActivityLog e WHERE "
+           + "LOWER(e.action) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.module) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.description) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.ipAddress) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<ActivityLog> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

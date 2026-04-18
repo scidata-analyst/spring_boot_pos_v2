@@ -1,5 +1,10 @@
 package com.example.pos.repositories.CustomersCRM;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.CustomersCRM.CustomerDirectory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface CustomerDirectoryRepository extends JpaRepository<CustomerDirec
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<CustomerDirectory> index() {
-        return findAll();
+    default Page<CustomerDirectory> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM CustomerDirectory e WHERE "
+           + "LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.email) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.loyaltyTier) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.visits) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.lastVisitDate) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.status) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<CustomerDirectory> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

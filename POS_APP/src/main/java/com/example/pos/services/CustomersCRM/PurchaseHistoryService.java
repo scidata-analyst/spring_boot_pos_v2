@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.CustomersCRM.PurchaseHistoryResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: PurchaseHistory
@@ -24,7 +27,7 @@ public interface PurchaseHistoryService {
 
     List<PurchaseHistoryResponse> all();
 
-    List<PurchaseHistoryResponse> index();
+    Page<PurchaseHistoryResponse> index(String search, Pageable pageable);
 
     PurchaseHistoryResponse view(Long id);
 

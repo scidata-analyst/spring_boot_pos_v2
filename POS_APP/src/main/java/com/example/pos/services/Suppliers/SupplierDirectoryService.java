@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Suppliers.SupplierDirectoryResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: SupplierDirectory
@@ -24,7 +27,7 @@ public interface SupplierDirectoryService {
 
     List<SupplierDirectoryResponse> all();
 
-    List<SupplierDirectoryResponse> index();
+    Page<SupplierDirectoryResponse> index(String search, Pageable pageable);
 
     SupplierDirectoryResponse view(Long id);
 

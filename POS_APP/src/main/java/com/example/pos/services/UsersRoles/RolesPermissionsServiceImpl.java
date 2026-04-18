@@ -35,8 +35,8 @@ public class RolesPermissionsServiceImpl implements RolesPermissionsService {
     }
 
     @Override
-    public Page<RolesPermissionsResponse> index(Pageable pageable) {
-        return repository.findAll(pageable)
+    public Page<RolesPermissionsResponse> index(String search, Pageable pageable) {
+        return repository.index(search, pageable)
                 .map(mapper::toResponse);
     }
 

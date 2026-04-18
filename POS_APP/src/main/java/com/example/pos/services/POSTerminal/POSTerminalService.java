@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.POSTerminal.POSTerminalResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: POSTerminal
@@ -24,7 +27,7 @@ public interface POSTerminalService {
 
     List<POSTerminalResponse> all();
 
-    List<POSTerminalResponse> index();
+    Page<POSTerminalResponse> index(String search, Pageable pageable);
 
     POSTerminalResponse view(Long id);
 

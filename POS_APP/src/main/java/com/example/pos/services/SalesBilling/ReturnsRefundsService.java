@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.SalesBilling.ReturnsRefundsResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: ReturnsRefunds
@@ -24,7 +27,7 @@ public interface ReturnsRefundsService {
 
     List<ReturnsRefundsResponse> all();
 
-    List<ReturnsRefundsResponse> index();
+    Page<ReturnsRefundsResponse> index(String search, Pageable pageable);
 
     ReturnsRefundsResponse view(Long id);
 

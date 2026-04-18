@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Products.StockMovementResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: StockMovement
@@ -24,7 +27,7 @@ public interface StockMovementService {
 
     List<StockMovementResponse> all();
 
-    List<StockMovementResponse> index();
+    Page<StockMovementResponse> index(String search, Pageable pageable);
 
     StockMovementResponse view(Long id);
 

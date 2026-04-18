@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Promotions.OffersCombosResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: OffersCombos
@@ -24,7 +27,7 @@ public interface OffersCombosService {
 
     List<OffersCombosResponse> all();
 
-    List<OffersCombosResponse> index();
+    Page<OffersCombosResponse> index(String search, Pageable pageable);
 
     OffersCombosResponse view(Long id);
 

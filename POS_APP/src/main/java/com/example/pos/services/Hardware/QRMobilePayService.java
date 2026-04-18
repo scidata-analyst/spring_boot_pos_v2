@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Hardware.QRMobilePayResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: QRMobilePay
@@ -24,7 +27,7 @@ public interface QRMobilePayService {
 
     List<QRMobilePayResponse> all();
 
-    List<QRMobilePayResponse> index();
+    Page<QRMobilePayResponse> index(String search, Pageable pageable);
 
     QRMobilePayResponse view(Long id);
 

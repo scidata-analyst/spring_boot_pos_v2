@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.PaymentAccounting.ReconciliationResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: Reconciliation
@@ -24,7 +27,7 @@ public interface ReconciliationService {
 
     List<ReconciliationResponse> all();
 
-    List<ReconciliationResponse> index();
+    Page<ReconciliationResponse> index(String search, Pageable pageable);
 
     ReconciliationResponse view(Long id);
 

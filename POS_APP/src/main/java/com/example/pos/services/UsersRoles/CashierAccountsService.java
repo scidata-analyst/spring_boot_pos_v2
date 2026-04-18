@@ -26,7 +26,7 @@ public interface CashierAccountsService {
 
     List<CashierAccountsResponse> all();
 
-    Page<CashierAccountsResponse> index(Pageable pageable);
+    Page<CashierAccountsResponse> index(String search, Pageable pageable);
 
     CashierAccountsResponse view(Long id);
 

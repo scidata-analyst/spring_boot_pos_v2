@@ -1,5 +1,10 @@
 package com.example.pos.repositories.Suppliers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.Suppliers.SupplierPayments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface SupplierPaymentsRepository extends JpaRepository<SupplierPaymen
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<SupplierPayments> index() {
-        return findAll();
+    default Page<SupplierPayments> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM SupplierPayments e WHERE "
+           + "LOWER(e.paymentMethod) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.referenceNumber) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.status) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<SupplierPayments> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

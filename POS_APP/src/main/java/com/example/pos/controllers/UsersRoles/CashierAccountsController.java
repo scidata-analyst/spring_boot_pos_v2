@@ -36,11 +36,11 @@ public class CashierAccountsController {
 
     /**
      * Get paginated/index data.
-     * Query params: page (0-based), size, sort (e.g., ?page=0&size=10&sort=username,asc)
+     * Query params: page, size, sort, search
      */
     @GetMapping("/index")
-    public Page<CashierAccountsResponse> index(Pageable pageable) {
-        return service.index(pageable);
+    public Page<CashierAccountsResponse> index(@RequestParam(required = false) String search, Pageable pageable) {
+        return service.index(search, pageable);
     }
 
     /**

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 /**
  * =====================================================
  * REST Controller: SupplierDirectory
@@ -38,8 +42,8 @@ public class SupplierDirectoryController {
      * Get paginated/index data.
      */
     @GetMapping("/index")
-    public List<SupplierDirectoryResponse> index() {
-        return service.index();
+    public Page<SupplierDirectoryResponse> index(@RequestParam(required = false) String search, Pageable pageable) {
+        return service.index(search, pageable);
     }
 
     /**

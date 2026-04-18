@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Suppliers.RestockAlertsResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: RestockAlerts
@@ -24,7 +27,7 @@ public interface RestockAlertsService {
 
     List<RestockAlertsResponse> all();
 
-    List<RestockAlertsResponse> index();
+    Page<RestockAlertsResponse> index(String search, Pageable pageable);
 
     RestockAlertsResponse view(Long id);
 

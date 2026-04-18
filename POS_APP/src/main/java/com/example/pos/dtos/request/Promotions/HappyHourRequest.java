@@ -16,7 +16,6 @@ public class HappyHourRequest {
     /**
      * id
      */
-    @NotNull(message = "id is required")
     private Long id;
 
     /**
@@ -64,13 +63,11 @@ public class HappyHourRequest {
     /**
      * createdAt
      */
-    @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
 
     /**
      * updatedAt
      */
-    @NotNull(message = "updatedAt is required")
     private LocalDateTime updatedAt;
 
     public Long getId() {

@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.LoyaltyMembership.PointsConfigResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: PointsConfig
@@ -24,7 +27,7 @@ public interface PointsConfigService {
 
     List<PointsConfigResponse> all();
 
-    List<PointsConfigResponse> index();
+    Page<PointsConfigResponse> index(String search, Pageable pageable);
 
     PointsConfigResponse view(Long id);
 

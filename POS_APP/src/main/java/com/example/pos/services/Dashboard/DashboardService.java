@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Dashboard.DashboardResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: Dashboard
@@ -24,7 +27,7 @@ public interface DashboardService {
 
     List<DashboardResponse> all();
 
-    List<DashboardResponse> index();
+    Page<DashboardResponse> index(String search, Pageable pageable);
 
     DashboardResponse view(Long id);
 

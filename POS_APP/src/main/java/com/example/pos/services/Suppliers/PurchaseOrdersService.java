@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Suppliers.PurchaseOrdersResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: PurchaseOrders
@@ -24,7 +27,7 @@ public interface PurchaseOrdersService {
 
     List<PurchaseOrdersResponse> all();
 
-    List<PurchaseOrdersResponse> index();
+    Page<PurchaseOrdersResponse> index(String search, Pageable pageable);
 
     PurchaseOrdersResponse view(Long id);
 

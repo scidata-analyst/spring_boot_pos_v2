@@ -26,7 +26,7 @@ public interface RolesPermissionsService {
 
     List<RolesPermissionsResponse> all();
 
-    Page<RolesPermissionsResponse> index(Pageable pageable);
+    Page<RolesPermissionsResponse> index(String search, Pageable pageable);
 
     RolesPermissionsResponse view(Long id);
 

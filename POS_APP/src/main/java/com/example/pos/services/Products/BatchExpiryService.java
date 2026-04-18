@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Products.BatchExpiryResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: BatchExpiry
@@ -24,7 +27,7 @@ public interface BatchExpiryService {
 
     List<BatchExpiryResponse> all();
 
-    List<BatchExpiryResponse> index();
+    Page<BatchExpiryResponse> index(String search, Pageable pageable);
 
     BatchExpiryResponse view(Long id);
 

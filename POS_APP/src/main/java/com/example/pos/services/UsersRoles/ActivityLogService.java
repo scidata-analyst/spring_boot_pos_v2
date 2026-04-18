@@ -26,7 +26,7 @@ public interface ActivityLogService {
 
     List<ActivityLogResponse> all();
 
-    Page<ActivityLogResponse> index(Pageable pageable);
+    Page<ActivityLogResponse> index(String search, Pageable pageable);
 
     ActivityLogResponse view(Long id);
 

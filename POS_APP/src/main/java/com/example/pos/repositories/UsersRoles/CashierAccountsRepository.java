@@ -1,7 +1,11 @@
 package com.example.pos.repositories.UsersRoles;
 
 import com.example.pos.entities.UsersRoles.CashierAccounts;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,9 +29,16 @@ public interface CashierAccountsRepository extends JpaRepository<CashierAccounts
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<CashierAccounts> index() {
-        return findAll();
+    default Page<CashierAccounts> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM CashierAccounts e WHERE "
+           + "LOWER(e.username) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.password) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.employeeName) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.email) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.status) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<CashierAccounts> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

@@ -35,8 +35,8 @@ public class CashierAccountsServiceImpl implements CashierAccountsService {
     }
 
     @Override
-    public Page<CashierAccountsResponse> index(Pageable pageable) {
-        return repository.findAll(pageable)
+    public Page<CashierAccountsResponse> index(String search, Pageable pageable) {
+        return repository.index(search, pageable)
                 .map(mapper::toResponse);
     }
 

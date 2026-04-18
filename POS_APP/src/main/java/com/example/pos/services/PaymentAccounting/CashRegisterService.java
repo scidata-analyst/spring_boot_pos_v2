@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.PaymentAccounting.CashRegisterResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: CashRegister
@@ -24,7 +27,7 @@ public interface CashRegisterService {
 
     List<CashRegisterResponse> all();
 
-    List<CashRegisterResponse> index();
+    Page<CashRegisterResponse> index(String search, Pageable pageable);
 
     CashRegisterResponse view(Long id);
 

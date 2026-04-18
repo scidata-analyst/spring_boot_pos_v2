@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.ReportsAnalytics.CustomBuilderResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: CustomBuilder
@@ -24,7 +27,7 @@ public interface CustomBuilderService {
 
     List<CustomBuilderResponse> all();
 
-    List<CustomBuilderResponse> index();
+    Page<CustomBuilderResponse> index(String search, Pageable pageable);
 
     CustomBuilderResponse view(Long id);
 

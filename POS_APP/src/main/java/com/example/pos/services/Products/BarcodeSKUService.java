@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.Products.BarcodeSKUResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: BarcodeSKU
@@ -24,7 +27,7 @@ public interface BarcodeSKUService {
 
     List<BarcodeSKUResponse> all();
 
-    List<BarcodeSKUResponse> index();
+    Page<BarcodeSKUResponse> index(String search, Pageable pageable);
 
     BarcodeSKUResponse view(Long id);
 

@@ -16,7 +16,6 @@ public class RestockAlertsRequest {
     /**
      * id
      */
-    @NotNull(message = "id is required")
     private Long id;
 
     /**
@@ -52,7 +51,6 @@ public class RestockAlertsRequest {
     /**
      * createdAt
      */
-    @NotNull(message = "createdAt is required")
     private LocalDateTime createdAt;
 
     public Long getId() {

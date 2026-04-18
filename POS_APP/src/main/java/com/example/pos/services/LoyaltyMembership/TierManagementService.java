@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.LoyaltyMembership.TierManagementResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: TierManagement
@@ -24,7 +27,7 @@ public interface TierManagementService {
 
     List<TierManagementResponse> all();
 
-    List<TierManagementResponse> index();
+    Page<TierManagementResponse> index(String search, Pageable pageable);
 
     TierManagementResponse view(Long id);
 

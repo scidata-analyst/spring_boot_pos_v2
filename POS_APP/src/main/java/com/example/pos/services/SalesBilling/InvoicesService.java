@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.SalesBilling.InvoicesResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: Invoices
@@ -24,7 +27,7 @@ public interface InvoicesService {
 
     List<InvoicesResponse> all();
 
-    List<InvoicesResponse> index();
+    Page<InvoicesResponse> index(String search, Pageable pageable);
 
     InvoicesResponse view(Long id);
 

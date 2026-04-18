@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.CustomersCRM.LoyaltyPointsResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: LoyaltyPoints
@@ -24,7 +27,7 @@ public interface LoyaltyPointsService {
 
     List<LoyaltyPointsResponse> all();
 
-    List<LoyaltyPointsResponse> index();
+    Page<LoyaltyPointsResponse> index(String search, Pageable pageable);
 
     LoyaltyPointsResponse view(Long id);
 

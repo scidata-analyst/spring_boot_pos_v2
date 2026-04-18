@@ -5,6 +5,9 @@ import com.example.pos.dtos.response.CustomersCRM.CustomerDirectoryResponse;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * =====================================================
  * Service Contract: CustomerDirectory
@@ -24,7 +27,7 @@ public interface CustomerDirectoryService {
 
     List<CustomerDirectoryResponse> all();
 
-    List<CustomerDirectoryResponse> index();
+    Page<CustomerDirectoryResponse> index(String search, Pageable pageable);
 
     CustomerDirectoryResponse view(Long id);
 

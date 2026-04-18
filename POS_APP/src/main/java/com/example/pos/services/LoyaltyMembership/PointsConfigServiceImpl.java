@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * Service implementation for PointsConfig.
  * Uses repository semantic methods (no JPA direct calls).
@@ -33,11 +36,9 @@ public class PointsConfigServiceImpl implements PointsConfigService {
     }
 
     @Override
-    public List<PointsConfigResponse> index() {
-        return repository.index()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<PointsConfigResponse> index(String search, Pageable pageable) {
+        return repository.index(search, pageable)
+                .map(mapper::toResponse);
     }
 
     @Override

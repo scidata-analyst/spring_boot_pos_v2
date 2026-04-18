@@ -1,5 +1,10 @@
 package com.example.pos.repositories.Products;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.Products.ProductCatalog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface ProductCatalogRepository extends JpaRepository<ProductCatalog, 
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<ProductCatalog> index() {
-        return findAll();
+    default Page<ProductCatalog> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM ProductCatalog e WHERE "
+           + "LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.sku) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.categoryId) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.status) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.unit) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.taxRate) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<ProductCatalog> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).

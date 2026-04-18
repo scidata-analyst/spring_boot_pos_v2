@@ -1,5 +1,10 @@
 package com.example.pos.repositories.ReportsAnalytics;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.example.pos.entities.ReportsAnalytics.SalesReports;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,9 +30,16 @@ public interface SalesReportsRepository extends JpaRepository<SalesReports, Long
      * Get list for index page (UI summary data).
      * Same as all() but kept for UI semantic separation.
      */
-    default List<SalesReports> index() {
-        return findAll();
+    default Page<SalesReports> index(String search, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return searchAll(search, pageable);
+        }
+        return findAll(pageable);
     }
+
+    @Query("SELECT e FROM SalesReports e WHERE "
+           + "LOWER(e.reportType) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.period) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<SalesReports> searchAll(@Param("search") String search, Pageable pageable);
 
     /**
      * View single record by ID (UI detail page).
