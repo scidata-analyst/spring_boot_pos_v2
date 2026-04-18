@@ -211,6 +211,7 @@
         try {
             const data = await posApiClient.get(`/api/Products/ProductCatalog/view/${id}`);
             const form = document.getElementById('productForm');
+            openModal('modal-product');
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/ProductCatalog/update', () => window.tbl_catalog_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -226,7 +227,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-product');
         } catch(e) {
             showToast('Failed to load product details', 'error');
         }

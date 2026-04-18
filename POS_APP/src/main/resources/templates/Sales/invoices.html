@@ -166,6 +166,7 @@
         try {
             const data = await posApiClient.get(`/api/SalesBilling/Invoices/view/${id}`);
             const form = document.getElementById('invoiceForm');
+            openModal('modal-inv');
             form.onsubmit = (e) => submitPosForm(e, '/api/SalesBilling/Invoices/update', () => window.tbl_invoices_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -181,7 +182,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-inv');
         } catch(e) {
             showToast('Failed to load invoice details', 'error');
         }

@@ -147,6 +147,7 @@
         try {
             const data = await posApiClient.get(`/api/Suppliers/RestockAlerts/view/${id}`);
             const form = document.getElementById('alertForm');
+            openModal('modal-alert');
             form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/RestockAlerts/update', () => window.tbl_alerts_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -168,7 +169,6 @@
                   }
                }
             });
-            openModal('modal-alert');
         } catch(e) {
             showToast('Failed to load alert details', 'error');
         }

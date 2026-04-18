@@ -162,6 +162,7 @@
         try {
             const data = await posApiClient.get(`/api/SalesBilling/ReturnsRefunds/view/${id}`);
             const form = document.getElementById('returnForm');
+            openModal('modal-ret');
             form.onsubmit = (e) => submitPosForm(e, '/api/SalesBilling/ReturnsRefunds/update', () => window.tbl_returns_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -183,7 +184,6 @@
                    }
                }
             });
-            openModal('modal-ret');
         } catch(e) {
             showToast('Failed to load return details', 'error');
         }

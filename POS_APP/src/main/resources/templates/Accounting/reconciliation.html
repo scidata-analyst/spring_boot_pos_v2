@@ -159,6 +159,7 @@
         try {
             const data = await posApiClient.get(`/api/PaymentAccounting/Reconciliation/view/${id}`);
             const form = document.getElementById('reconForm');
+            openModal('modal-recon');
             form.onsubmit = (e) => submitPosForm(e, '/api/PaymentAccounting/Reconciliation/update', () => window.tbl_recon_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -180,7 +181,6 @@
                   }
                }
             });
-            openModal('modal-recon');
         } catch(e) {
             showToast('Failed to load details', 'error');
         }

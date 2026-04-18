@@ -159,6 +159,7 @@
         try {
             const data = await posApiClient.get(`/api/Suppliers/SupplierPayments/view/${id}`);
             const form = document.getElementById('suppayForm');
+            openModal('modal-suppay');
             form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/SupplierPayments/update', () => window.tbl_sup_pay_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -180,7 +181,6 @@
                   }
                }
             });
-            openModal('modal-suppay');
         } catch(e) {
             showToast('Failed to load payment details', 'error');
         }

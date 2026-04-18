@@ -189,11 +189,11 @@
         try {
             const data = await posApiClient.get(`${viewEndpoint}/${id}`);
             const form = document.getElementById(formId);
+            openModal(modalId);
             if (!form) return;
 
             /** Open modal FIRST — any page override calls form.reset() here. */
             /** We populate fields AFTER so the reset doesn't wipe our values. */
-            openModal(modalId);
 
             /** Inject or update hidden id field */
             let idInput = form.querySelector('[name="id"]');

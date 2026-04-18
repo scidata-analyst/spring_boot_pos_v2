@@ -163,6 +163,7 @@
           try {
               const data = await posApiClient.get(`/api/PaymentAccounting/TaxReports/view/${id}`);
               const form = document.getElementById('taxForm');
+              openModal('modal-tax');
               form.onsubmit = (e) => submitPosForm(e, '/api/PaymentAccounting/TaxReports/update', () => window.tbl_tax_obj.load(), true);
               
               let idParam = form.querySelector('[name="id"]');
@@ -178,7 +179,6 @@
                  const el = form.querySelector(`[name="${key}"]`);
                  if(el) el.value = data[key];
               });
-              openModal('modal-tax');
           } catch(e) {
               showToast('Failed to load report details', 'error');
           }

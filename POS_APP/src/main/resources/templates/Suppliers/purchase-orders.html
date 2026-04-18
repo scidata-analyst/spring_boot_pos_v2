@@ -155,6 +155,7 @@
         try {
             const data = await posApiClient.get(`/api/Suppliers/PurchaseOrders/view/${id}`);
             const form = document.getElementById('poForm');
+            openModal('modal-po');
             form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/PurchaseOrders/update', () => window.tbl_po_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -176,7 +177,6 @@
                   }
                }
             });
-            openModal('modal-po');
         } catch(e) {
             showToast('Failed to load PO details', 'error');
         }

@@ -183,6 +183,7 @@
           try {
               const data = await posApiClient.get(`/api/CustomersCRM/CustomerDirectory/view/${id}`);
               const form = document.getElementById('customerForm');
+              openModal('modal-customer');
               form.onsubmit = (e) => submitPosForm(e, '/api/CustomersCRM/CustomerDirectory/update', () => window.tbl_cust_obj.load(), true);
               
               let idParam = form.querySelector('[name="id"]');
@@ -198,7 +199,6 @@
                  const el = form.querySelector(`[name="${key}"]`);
                  if(el) el.value = data[key];
               });
-              openModal('modal-customer');
           } catch(e) {
               showToast('Failed to load customer details', 'error');
           }

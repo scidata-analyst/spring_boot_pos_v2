@@ -161,6 +161,7 @@
         try {
             const data = await posApiClient.get(`/api/CustomersCRM/MembershipsVIP/view/${id}`);
             const form = document.getElementById('membershipForm');
+            openModal('modal-mem');
             form.onsubmit = (e) => submitPosForm(e, '/api/CustomersCRM/MembershipsVIP/update', () => window.tbl_memberships_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -176,7 +177,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-mem');
         } catch(e) {
             showToast('Failed to load membership details', 'error');
         }

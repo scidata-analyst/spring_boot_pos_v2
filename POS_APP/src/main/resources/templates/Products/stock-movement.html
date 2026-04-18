@@ -154,6 +154,7 @@
         try {
             const data = await posApiClient.get(`/api/Products/StockMovement/view/${id}`);
             const form = document.getElementById('stockMvtForm');
+            openModal('modal-stock');
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/StockMovement/update', () => window.tbl_stock_mvt_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -169,7 +170,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-stock');
         } catch(e) {
             showToast('Failed to load stock movement details', 'error');
         }

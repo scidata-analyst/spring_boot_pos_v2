@@ -157,6 +157,7 @@
         try {
             const data = await posApiClient.get(`/api/SalesBilling/HeldOrders/view/${id}`);
             const form = document.getElementById('heldOrderForm');
+            openModal('modal-hold');
             form.onsubmit = (e) => submitPosForm(e, '/api/SalesBilling/HeldOrders/update', () => window.tbl_held_orders_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -178,7 +179,6 @@
                    }
                }
             });
-            openModal('modal-hold');
         } catch(e) {
             showToast('Failed to load held order details', 'error');
         }

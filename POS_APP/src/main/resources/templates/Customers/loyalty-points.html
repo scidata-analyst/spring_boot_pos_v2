@@ -173,6 +173,7 @@
           try {
               const data = await posApiClient.get(`/api/CustomersCRM/LoyaltyPoints/view/${id}`);
               const form = document.getElementById('loyaltyPtsForm');
+              openModal('modal-pts');
               form.onsubmit = (e) => submitPosForm(e, '/api/CustomersCRM/LoyaltyPoints/update', () => window.tbl_loyalty_pts_obj.load(), true);
               
               let idParam = form.querySelector('[name="id"]');
@@ -188,7 +189,6 @@
                  const el = form.querySelector(`[name="${key}"]`);
                  if(el) el.value = data[key];
               });
-              openModal('modal-pts');
           } catch(e) {
               showToast('Failed to load loyalty points details', 'error');
           }

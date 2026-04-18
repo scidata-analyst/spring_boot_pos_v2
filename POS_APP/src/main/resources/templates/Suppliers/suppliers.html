@@ -152,6 +152,7 @@
         try {
             const data = await posApiClient.get(`/api/Suppliers/SupplierDirectory/view/${id}`);
             const form = document.getElementById('supForm');
+            openModal('modal-sup');
             form.onsubmit = (e) => submitPosForm(e, '/api/Suppliers/SupplierDirectory/update', () => window.tbl_sup_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -173,7 +174,6 @@
                   }
                }
             });
-            openModal('modal-sup');
         } catch(e) {
             showToast('Failed to load supplier details', 'error');
         }

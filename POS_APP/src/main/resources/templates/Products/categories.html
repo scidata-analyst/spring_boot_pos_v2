@@ -140,6 +140,7 @@
         try {
             const data = await posApiClient.get(`/api/Products/Categories/view/${id}`);
             const form = document.getElementById('categoryForm');
+            openModal('modal-cat');
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/Categories/update', () => window.tbl_categories_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -155,7 +156,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-cat');
         } catch(e) {
             showToast('Failed to load category details', 'error');
         }

@@ -161,6 +161,7 @@
         try {
             const data = await posApiClient.get(`/api/Products/BatchExpiry/view/${id}`);
             const form = document.getElementById('batchForm');
+            openModal('modal-batch');
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/BatchExpiry/update', () => window.tbl_batch_expiry_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -176,7 +177,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-batch');
         } catch(e) {
             showToast('Failed to load batch details', 'error');
         }

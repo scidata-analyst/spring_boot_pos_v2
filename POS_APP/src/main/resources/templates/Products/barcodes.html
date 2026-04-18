@@ -154,6 +154,7 @@
         try {
             const data = await posApiClient.get(`/api/Products/BarcodeSKU/view/${id}`);
             const form = document.getElementById('barcodeForm');
+            openModal('modal-bc');
             /** update form to use PUT */
             form.onsubmit = (e) => submitPosForm(e, '/api/Products/BarcodeSKU/update', () => window.tbl_barcodes_obj.load(), true);
             
@@ -172,7 +173,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-bc');
         } catch(e) {
             showToast('Failed to load record details', 'error');
         }

@@ -164,6 +164,7 @@
         try {
             const data = await posApiClient.get(`/api/PaymentAccounting/APAR/view/${id}`);
             const form = document.getElementById('aparForm');
+            openModal('modal-apar');
             form.onsubmit = (e) => submitPosForm(e, '/api/PaymentAccounting/APAR/update', () => window.tbl_apar_obj.load(), true);
             
             let idParam = form.querySelector('[name="id"]');
@@ -179,7 +180,6 @@
                const el = form.querySelector(`[name="${key}"]`);
                if(el) el.value = data[key];
             });
-            openModal('modal-apar');
         } catch(e) {
             showToast('Failed to load entry details', 'error');
         }
